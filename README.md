@@ -112,6 +112,18 @@ The application uses the [ip-api.com](https://ip-api.com/) free API to fetch:
 - **AS Number** - Autonomous System information
 - **Coordinates** - Latitude and longitude for map integration
 
+### Smart IP Detection
+
+The server API includes intelligent IP detection with:
+
+- **Header Analysis** - Checks `x-forwarded-for`, `x-real-ip`, `cf-connecting-ip`, `x-client-ip`
+- **Private IP Filtering** - Automatically filters out private/local IP ranges:
+  - IPv4: `192.168.x.x`, `10.x.x.x`, `172.16-31.x.x`, `127.0.0.1`
+  - IPv6: `::1`, `::ffff:127.0.0.1`
+  - Special: `169.254.x.x` (link-local), `224.x.x.x` (multicast)
+- **Fallback Logic** - Uses server's public IP when client has private IP
+- **Production Ready** - Works with proxies, CDNs, and load balancers
+
 ## 🎨 UI Components
 
 - **Loading States** - Elegant spinner during data fetching
