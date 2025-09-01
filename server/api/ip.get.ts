@@ -32,8 +32,10 @@ export default defineEventHandler(async (event) => {
                    event.node.req.socket?.remoteAddress ||
                    event.node.req.connection?.remoteAddress
 
-    // For development, always let ip-api auto-detect since we're behind localhost
-    const apiUrl = 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query'
+    // Use the detected client IP if available, otherwise let ip-api auto-detect
+    const apiUrl = clientIP && clientIP !== '::1' && clientIP !== '127.0.0.1'
+      ? `http://ip-api.com/json/${clientIP}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`
+      : 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query'
 
     // Fetch IP information from ip-api.com
     const response = await $fetch<IPApiResponse>(apiUrl)
