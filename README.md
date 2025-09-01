@@ -1,75 +1,115 @@
-# Nuxt Minimal Starter
+# What is my IP? 🌐
 
-Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+A modern, responsive web application built with **Nuxt 4** and **TailwindCSS** that displays your public IP address and detailed location information using the ip-api.com service.
 
-## Setup
+## ✨ Features
 
-Make sure to install dependencies:
+- **🔍 IP Address Detection** - Automatically detects and displays your public IP address
+- **📍 Location Information** - Shows country, region, city, and timezone
+- **🔧 Technical Details** - Displays ISP, AS number, latitude, and longitude coordinates
+- **🗺️ Interactive Map Link** - Direct link to view your location on Google Maps
+- **📱 Responsive Design** - Works perfectly on desktop, tablet, and mobile devices
+- **⚡ Fast Loading** - Server-side API with optimized data fetching
+- **🔄 Refresh Functionality** - Easy refresh button to get updated information
 
-```bash
-# npm
-npm install
+## 🛠️ Tech Stack
 
-# pnpm
-pnpm install
+- **[Nuxt 4](https://nuxt.com/)** - Vue.js framework with SSR support
+- **[TailwindCSS](https://tailwindcss.com/)** - Utility-first CSS framework
+- **[ip-api.com](https://ip-api.com/)** - Free IP geolocation API
+- **TypeScript** - Type-safe development
+- **Vue 3** - Progressive JavaScript framework
 
-# yarn
-yarn install
+## 🏗️ Architecture
 
-# bun
-bun install
+```
+├── app/
+│   ├── layouts/
+│   │   └── default.vue      # Main layout with header and styling
+│   ├── pages/
+│   │   └── index.vue        # Home page with IP information display
+│   └── app.vue              # Root component
+├── server/
+│   └── api/
+│       └── ip.get.ts        # Server-side API endpoint for IP fetching
+└── public/                  # Static assets and favicons
 ```
 
-## Development Server
+## 🚀 Quick Start
+
+### Prerequisites
+
+- Node.js 18+ 
+- npm, pnpm, yarn, or bun
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/mathieumaf/what-is-my-ip.git
+cd what-is-my-ip
+
+# Install dependencies
+npm install
+```
+
+### Development
 
 Start the development server on `http://localhost:3000`:
 
 ```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
 
-## Production
+### Production
 
 Build the application for production:
 
 ```bash
-# npm
 npm run build
-
-# pnpm
-pnpm build
-
-# yarn
-yarn build
-
-# bun
-bun run build
 ```
 
-Locally preview production build:
+Preview the production build:
 
 ```bash
-# npm
 npm run preview
-
-# pnpm
-pnpm preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
 ```
 
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
+## 📊 API Information
+
+The application uses the [ip-api.com](https://ip-api.com/) free API to fetch:
+
+- **IP Address** - Your public IP
+- **Location** - Country, region, city, timezone
+- **ISP Information** - Internet Service Provider details
+- **AS Number** - Autonomous System information
+- **Coordinates** - Latitude and longitude for map integration
+
+## 🎨 UI Components
+
+- **Loading States** - Elegant spinner during data fetching
+- **Error Handling** - User-friendly error messages with retry functionality
+- **Card Layout** - Clean, organized information display
+- **Interactive Elements** - Hover effects and smooth transitions
+- **Responsive Grid** - Adapts to different screen sizes
+
+## 🔧 Customization
+
+The application is built with modularity in mind:
+
+- **Styling** - Modify TailwindCSS classes in components
+- **API Fields** - Adjust fields in `server/api/ip.get.ts`
+- **Layout** - Update `app/layouts/default.vue` for different designs
+- **Meta Tags** - Configure SEO settings in `nuxt.config.ts`
+
+## 📝 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 👨‍💻 Author
+
+**Mathieu Mafille**
+
+---
+
+Built with ❤️ using Nuxt 4 and TailwindCSS
