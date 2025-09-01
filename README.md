@@ -75,6 +75,33 @@ Preview the production build:
 npm run preview
 ```
 
+## 🐳 Docker Deployment
+
+The application includes a multi-stage Dockerfile for containerized deployment:
+
+### Build the Docker image
+
+```bash
+docker build -t what-is-my-ip .
+```
+
+### Run the container
+
+```bash
+# Run in foreground
+docker run -p 3000:3000 what-is-my-ip
+
+# Run in background (detached)
+docker run -d -p 3000:3000 --name my-ip-app what-is-my-ip
+```
+
+### Docker Features
+
+- **Multi-stage build** - Optimized for production with smaller image size
+- **Security hardened** - Non-root user execution
+- **Alpine Linux** - Minimal base image for reduced attack surface
+- **Production ready** - Only runtime dependencies included
+
 ## 📊 API Information
 
 The application uses the [ip-api.com](https://ip-api.com/) free API to fetch:
