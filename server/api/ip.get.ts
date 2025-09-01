@@ -32,8 +32,30 @@ export default defineEventHandler(async (event) => {
                    event.node.req.socket?.remoteAddress ||
                    event.node.req.connection?.remoteAddress
 
-    // Use the detected client IP if available, otherwise let ip-api auto-detect
-    const apiUrl = clientIP && clientIP !== '::1' && clientIP !== '127.0.0.1'
+    // Function to check if IP is private/local
+    const isPrivateIP = (ip: string | undefined): boolean => {
+      if (!ip) return true
+      
+      // IPv6 localhost
+      if (ip === '::1' || ip === '::ffff:127.0.0.1') return true
+      
+      // IPv4 private ranges
+      if (ip === '127.0.0.1') return true
+      if (ip.startsWith('192.168.')) return true
+      if (ip.startsWith('10.')) return true
+      if (ip.startsWith('172.')) {
+        const secondOctet = parseInt(ip.split('.')[1])
+        if (secondOctet >= 16 && secondOctet <= 31) return true
+      }
+      if (ip.startsWith('169.254.')) return true // Link-local
+      if (ip.startsWith('224.')) return true // Multicast
+      
+      return false
+    }
+
+    // Use the detected client IP if it's public, otherwise let ip-api auto-detect the server's public IP
+    const useSpecificIP = clientIP && !isPrivateIP(clientIP)
+    const apiUrl = useSpecificIP
       ? `http://ip-api.com/json/${clientIP}?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query`
       : 'http://ip-api.com/json/?fields=status,message,country,countryCode,region,regionName,city,zip,lat,lon,timezone,isp,org,as,query'
 
@@ -44,7 +66,9 @@ export default defineEventHandler(async (event) => {
       return {
         success: true,
         data: response,
-        detectedIP: clientIP
+        detectedIP: clientIP,
+        isPrivateIP: !useSpecificIP,
+        usedSpecificIP: useSpecificIP
       }
     } else {
       throw createError({
