@@ -8,11 +8,11 @@ UI assets live in `app/` (layouts, pages, root `app.vue`), while Nuxt server han
 
 ## Build, Test, and Development Commands
 
-- `npm install` — install dependencies and run the Nuxt `postinstall` prepare step.
-- `npm run dev` — start the local server at `http://localhost:3000` with hot reload.
-- `npm run build` — create the production bundle for deployments or Docker builds.
-- `npm run preview` — serve the built output exactly as it will run in production.
-- `npm run generate` — emit a static build when targeting edge/CDN environments.
+- `bun install` — install dependencies and run the Nuxt `postinstall` prepare step (writes `bun.lock`).
+- `bun run dev` — start the local server at `http://localhost:3000` with hot reload.
+- `bun run build` — create the production bundle for deployments or Docker builds.
+- `bun run preview` — serve the built output exactly as it will run in production.
+- `bun run generate` — emit a static build when targeting edge/CDN environments.
 - `docker build -t what-is-my-ip .` / `docker run -p 3000:3000 what-is-my-ip` — containerized workflow used in CI.
 
 ## Coding Style & Naming Conventions
@@ -21,7 +21,7 @@ TypeScript is required for `.vue` files (use `<script setup lang="ts">`), with 2
 
 ## Testing Guidelines
 
-The project currently relies on targeted manual checks: hit `/api/ip` to validate server logic, and verify UI states (loading, loaded, error) via `npm run dev`. When adding automated tests, scaffold Vitest suites inside `tests/` mirroring the `app/` hierarchy, and focus on header parsing plus private-IP filtering.
+The project currently relies on targeted manual checks: hit `/api/ip` to validate server logic, and verify UI states (loading, loaded, error) via `bun run dev`. When adding automated tests, scaffold Vitest suites inside `tests/` mirroring the `app/` hierarchy, and focus on header parsing plus private-IP filtering.
 
 ## Commit & Pull Request Guidelines
 

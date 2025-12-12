@@ -39,8 +39,8 @@ A modern, responsive web application built with **Nuxt 4** and **TailwindCSS** t
 
 ### Prerequisites
 
-- Node.js 18+ 
-- npm, pnpm, yarn, or bun
+- Node.js 18+
+- Bun 1.3+ (recommended) or npm/pnpm/yarn
 
 ### Installation
 
@@ -49,8 +49,8 @@ A modern, responsive web application built with **Nuxt 4** and **TailwindCSS** t
 git clone https://github.com/mathieumaf/what-is-my-ip.git
 cd what-is-my-ip
 
-# Install dependencies
-npm install
+# Install dependencies (Bun)
+bun install
 ```
 
 ### Development
@@ -58,7 +58,7 @@ npm install
 Start the development server on `http://localhost:3000`:
 
 ```bash
-npm run dev
+bun run dev
 ```
 
 ### Production
@@ -66,13 +66,13 @@ npm run dev
 Build the application for production:
 
 ```bash
-npm run build
+bun run build
 ```
 
 Preview the production build:
 
 ```bash
-npm run preview
+bun run preview
 ```
 
 ## 🐳 Docker Deployment
