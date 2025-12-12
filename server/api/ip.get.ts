@@ -25,33 +25,52 @@ export default defineEventHandler(async (event) => {
     const clientIPHeader = getHeader(event, 'x-client-ip')
     
     // Extract first IP from x-forwarded-for if it contains multiple IPs
-    let clientIP = forwardedFor?.split(',')[0]?.trim() || 
-                   realIP || 
-                   cfIP || 
-                   clientIPHeader ||
-                   event.node.req.socket?.remoteAddress ||
-                   event.node.req.connection?.remoteAddress
+    const rawClientIP = forwardedFor?.split(',')[0]?.trim() || 
+                        realIP || 
+                        cfIP || 
+                        clientIPHeader ||
+                        event.node.req.socket?.remoteAddress ||
+                        event.node.req.connection?.remoteAddress
+
+    const normalizeIP = (ip: string | undefined | null): string | undefined => {
+      if (!ip) return undefined
+      const trimmed = ip.trim()
+      const lower = trimmed.toLowerCase()
+      if (lower.startsWith('::ffff:')) {
+        return trimmed.slice(7)
+      }
+      return trimmed
+    }
 
     // Function to check if IP is private/local
     const isPrivateIP = (ip: string | undefined): boolean => {
-      if (!ip) return true
+      const normalized = normalizeIP(ip)
+      if (!normalized) return true
       
-      // IPv6 localhost
-      if (ip === '::1' || ip === '::ffff:127.0.0.1') return true
-      
-      // IPv4 private ranges
-      if (ip === '127.0.0.1') return true
-      if (ip.startsWith('192.168.')) return true
-      if (ip.startsWith('10.')) return true
-      if (ip.startsWith('172.')) {
-        const secondOctet = parseInt(ip.split('.')[1])
-        if (secondOctet >= 16 && secondOctet <= 31) return true
+      const lower = normalized.toLowerCase()
+
+      if (normalized.includes(':')) {
+        if (lower === '::1' || lower === '::') return true
+        if (lower.startsWith('fc') || lower.startsWith('fd')) return true // Unique local addresses
+        if (lower.startsWith('fe80')) return true // Link-local
+        return false
       }
-      if (ip.startsWith('169.254.')) return true // Link-local
-      if (ip.startsWith('224.')) return true // Multicast
+
+      // IPv4 private ranges
+      if (normalized === '127.0.0.1') return true
+      if (normalized.startsWith('192.168.')) return true
+      if (normalized.startsWith('10.')) return true
+      if (normalized.startsWith('172.')) {
+        const secondOctet = parseInt(normalized.split('.')[1] || '', 10)
+        if (!Number.isNaN(secondOctet) && secondOctet >= 16 && secondOctet <= 31) return true
+      }
+      if (normalized.startsWith('169.254.')) return true // Link-local
+      if (normalized.startsWith('224.')) return true // Multicast
       
       return false
     }
+
+    const clientIP = normalizeIP(rawClientIP)
 
     // Use the detected client IP if it's public, otherwise let ip-api auto-detect the server's public IP
     const useSpecificIP = clientIP && !isPrivateIP(clientIP)

@@ -118,6 +118,6 @@
 </template>
 
 <script setup>
-// Fetch IP data from our server API
-const { data, pending, error, refresh } = await useFetch('/api/ip')
+// Fetch IP data exclusively on the client to capture the visitor's IP instead of the server's
+const { data, pending, error, refresh } = useFetch('/api/ip', { server: false })
 </script>
