@@ -12,12 +12,14 @@
 **Rationale:**
 
 For a portfolio-first utility project, visual excellence comes from:
+
 - ✅ Perfect implementation of modern standards
 - ✅ Flawless responsive behavior
 - ✅ Exceptional performance and accessibility
 - ✅ Attention to detail in spacing, hierarchy, polish
 
 NOT from:
+
 - ❌ Custom color palettes that add no functional value
 - ❌ Web fonts that slow page load
 - ❌ Over-designed interfaces that distract from content
@@ -27,6 +29,7 @@ NOT from:
 **Strategy: NuxtUI Default Theme (Unmodified)**
 
 **Primary Color Palette:**
+
 - Use NuxtUI's default primary color (green/emerald by default)
 - All semantic colors from NuxtUI defaults (success, warning, error, info)
 - Dark mode colors handled automatically by NuxtUI Color Mode
@@ -34,6 +37,7 @@ NOT from:
 **Rationale:**
 
 **Why NuxtUI Defaults Work:**
+
 1. **Professionally Designed:** Color palette designed by Nuxt team with accessibility in mind
 2. **WCAG AA Compliant:** Contrast ratios meet accessibility standards in both light/dark modes
 3. **Modern Aesthetic:** Contemporary color choices aligned with 2026 design trends
@@ -41,6 +45,7 @@ NOT from:
 5. **Cohesive Ecosystem:** Colors align with NuxtUI component library expectations
 
 **Why NOT Customize (For MVP):**
+
 - No brand identity to maintain (portfolio project, not company)
 - Custom colors don't improve IP lookup functionality
 - Theming adds complexity without portfolio value
@@ -50,12 +55,14 @@ NOT from:
 **Color Application:**
 
 **Light Mode:**
+
 - Background: NuxtUI default light background (white/gray-50)
 - Text: NuxtUI default text colors (gray-900 primary, gray-600 secondary)
 - Primary actions: NuxtUI primary color (buttons, links, accents)
 - Borders/dividers: NuxtUI border colors (gray-200)
 
 **Dark Mode:**
+
 - Background: NuxtUI default dark background (gray-900/gray-950)
 - Text: NuxtUI default dark text colors (white/gray-100 primary, gray-400 secondary)
 - Primary actions: NuxtUI primary color (adjusted for dark mode contrast)
@@ -64,6 +71,7 @@ NOT from:
 **Accessibility Compliance:**
 
 ✅ **WCAG AA Contrast Ratios (NuxtUI Defaults):**
+
 - Normal text: Minimum 4.5:1 (NuxtUI ensures this)
 - Large text: Minimum 3:1 (NuxtUI ensures this)
 - UI components: Minimum 3:1 (NuxtUI ensures this)
@@ -72,6 +80,7 @@ NOT from:
 **Semantic Color Usage:**
 
 Follow NuxtUI conventions:
+
 - **Primary:** Main actions (Copy IP button, primary CTAs)
 - **Gray:** Neutral content (IP address display, geolocation data)
 - **Success:** Positive feedback (successful copy notification)
@@ -81,6 +90,7 @@ Follow NuxtUI conventions:
 **Future Customization Strategy:**
 
 If post-launch feedback indicates need for visual differentiation:
+
 1. Consider subtle accent color adjustment via Tailwind config
 2. Maintain accessibility compliance (test all contrast ratios)
 3. Keep changes minimal (single accent color max)
@@ -93,9 +103,17 @@ If post-launch feedback indicates need for visual differentiation:
 **Primary Typeface:**
 
 ```css
-font-family: system-ui, -apple-system, BlinkMacSystemFont,
-  'Segoe UI', 'Roboto', 'Helvetica Neue', Arial,
-  sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+font-family:
+  system-ui,
+  -apple-system,
+  BlinkMacSystemFont,
+  'Segoe UI',
+  'Roboto',
+  'Helvetica Neue',
+  Arial,
+  sans-serif,
+  'Apple Color Emoji',
+  'Segoe UI Emoji';
 ```
 
 **This is NuxtUI/Tailwind's default system font stack.**
@@ -103,6 +121,7 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont,
 **Rationale:**
 
 **Why System Fonts:**
+
 1. **Zero Load Time:** No font file downloads = instant text rendering
 2. **Performance Critical:** Supports < 1s page load target
 3. **Familiar & Readable:** OS-optimized fonts users see everywhere
@@ -110,6 +129,7 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont,
 5. **Accessibility:** OS font rendering optimizations benefit readability
 
 **Why NOT Google Fonts/Web Fonts:**
+
 - Font files add 20-100KB download (degrades Lighthouse Performance)
 - Requires separate HTTP request (adds latency)
 - Flash of Unstyled Text (FOUT) or Flash of Invisible Text (FOIT)
@@ -119,12 +139,14 @@ font-family: system-ui, -apple-system, BlinkMacSystemFont,
 **System Font Characteristics:**
 
 On different platforms, users will see:
+
 - **macOS/iOS:** San Francisco (Apple's system font)
 - **Windows:** Segoe UI (Microsoft's system font)
 - **Android:** Roboto (Google's system font)
 - **Linux:** System default (typically Ubuntu/Cantarell/etc.)
 
 All are:
+
 - ✅ Clean, modern, highly readable
 - ✅ Optimized for screen rendering
 - ✅ Professionally designed
@@ -143,6 +165,7 @@ Use **Tailwind/NuxtUI default type scale** (no customization):
 **Font Weights:**
 
 Use Tailwind defaults:
+
 - **Bold:** `font-bold` (700) - Primary information (IP address)
 - **Semibold:** `font-semibold` (600) - Secondary headers
 - **Medium:** `font-medium` (500) - Interactive elements (buttons)
@@ -152,6 +175,7 @@ Use Tailwind defaults:
 **Line Heights:**
 
 Use Tailwind defaults:
+
 - **Tight:** `leading-tight` - Large display text (IP address)
 - **Snug:** `leading-snug` - Headings
 - **Normal:** `leading-normal` - Body text (default)
@@ -160,24 +184,28 @@ Use Tailwind defaults:
 **Typography Hierarchy Application:**
 
 **Primary (IP Address):**
+
 - Size: `text-5xl` or `text-6xl` (responsive)
 - Weight: `font-bold`
 - Color: Primary text color (high contrast)
 - Purpose: Immediate focus, largest element
 
 **Secondary (Geolocation Data):**
+
 - Size: `text-base` to `text-lg`
 - Weight: `font-normal`
 - Color: Secondary text color
 - Purpose: Supporting information, scannable
 
 **Tertiary (Labels, Metadata):**
+
 - Size: `text-sm`
 - Weight: `font-medium`
 - Color: Muted text color
 - Purpose: Context, clarification
 
 **Interactive (Buttons, Links):**
+
 - Size: `text-base`
 - Weight: `font-medium`
 - Color: Primary color (buttons), link color (links)
@@ -186,16 +214,19 @@ Use Tailwind defaults:
 **Accessibility Considerations:**
 
 ✅ **Minimum Font Sizes:**
+
 - Body text: 16px (1rem) = Tailwind `text-base` (default)
 - Small text: 14px = Tailwind `text-sm` (accessible minimum)
 - Never below 12px for any user-facing content
 
 ✅ **Readability:**
+
 - System fonts optimized for screen readability
 - Sufficient line height for comfortable reading
 - High contrast ratios (handled by color system)
 
 ✅ **Responsive Typography:**
+
 - Font sizes scale appropriately across breakpoints
 - Touch targets maintain minimum size (44x44px) even with smaller text
 
@@ -219,6 +250,7 @@ Use **Tailwind's default 4px-based spacing scale** (no customization):
 **Spacing Philosophy: Balanced**
 
 Not too dense (overwhelming), not too airy (wasted space):
+
 - Comfortable breathing room between elements
 - Clear visual grouping through consistent spacing
 - Responsive spacing (tighter on mobile, more generous on desktop)
@@ -254,10 +286,12 @@ Not too dense (overwhelming), not too airy (wasted space):
 **Vertical Spacing:**
 
 **Top Padding (from viewport edge):**
+
 - Mobile: `pt-8` to `pt-12` (32-48px)
 - Desktop: `pt-16` to `pt-24` (64-96px)
 
 **Section Spacing:**
+
 - Between major sections: `space-y-12` to `space-y-16` (48-64px)
 - Between related elements: `space-y-4` to `space-y-6` (16-24px)
 - Between tightly coupled elements: `space-y-2` (8px)
@@ -265,18 +299,22 @@ Not too dense (overwhelming), not too airy (wasted space):
 **Component Spacing:**
 
 **IP Address Display Card:**
+
 - Internal padding: `p-6` to `p-8` (24-32px)
 - Margin below: `mb-6` to `mb-8` (24-32px)
 
 **Geolocation Data Cards:**
+
 - Internal padding: `p-4` to `p-6` (16-24px)
 - Gap between cards: `gap-4` (16px) in grid layout
 
 **Buttons/Actions:**
+
 - Internal padding: `px-4 py-2` (16px horizontal, 8px vertical)
 - Margin between buttons: `gap-3` (12px)
 
 **Footer:**
+
 - Top margin: `mt-12` to `mt-16` (48-64px)
 - Internal padding: `py-6` (24px vertical)
 
@@ -285,20 +323,24 @@ Not too dense (overwhelming), not too airy (wasted space):
 If geolocation data uses grid layout:
 
 **Mobile (< 640px):**
+
 - Single column: Full width cards stacked vertically
 - `grid-cols-1`
 
 **Tablet (640px - 1024px):**
+
 - Two columns: `grid-cols-2`
 - Gap: `gap-4` (16px)
 
 **Desktop (1024px+):**
+
 - Two or three columns: `grid-cols-2` or `grid-cols-3`
 - Gap: `gap-6` (24px)
 
 **Responsive Behavior:**
 
 **Breakpoints (Tailwind Defaults):**
+
 - `sm`: 640px
 - `md`: 768px
 - `lg`: 1024px
@@ -306,6 +348,7 @@ If geolocation data uses grid layout:
 - `2xl`: 1536px
 
 **Spacing Adjustments:**
+
 - Tighter spacing on mobile (limited screen space)
 - More generous spacing on desktop (prevent content from feeling cramped on large screens)
 - Maintain visual hierarchy across all breakpoints
@@ -324,33 +367,39 @@ If geolocation data uses grid layout:
 **Visual Design Accessibility:**
 
 **1. Color Contrast (WCAG AA Compliance):**
+
 - ✅ Normal text contrast: Minimum 4.5:1 (NuxtUI defaults ensure this)
 - ✅ Large text contrast: Minimum 3:1 (headers, display text)
 - ✅ UI component contrast: Minimum 3:1 (buttons, borders, focus indicators)
 - ✅ Dark mode contrast: Same standards maintained
 
 **2. Typography Accessibility:**
+
 - ✅ Minimum font size: 16px (1rem) for body text
 - ✅ System fonts optimized for screen readability
 - ✅ Sufficient line height for comfortable reading (Tailwind defaults)
 - ✅ Text remains readable when zoomed to 200% (responsive typography)
 
 **3. Spacing & Touch Targets:**
+
 - ✅ Minimum touch target: 44x44px for all interactive elements (buttons, links)
 - ✅ Sufficient spacing between interactive elements (prevents accidental activation)
 - ✅ Clear visual separation between sections (spacing reinforces hierarchy)
 
 **4. Focus Indicators:**
+
 - ✅ Visible focus rings on all interactive elements (NuxtUI defaults)
 - ✅ High contrast focus indicators (distinguishable from non-focused state)
 - ✅ Keyboard navigation logical and predictable
 
 **5. Color-Independent Information:**
+
 - ✅ Information not conveyed by color alone (icons + text, patterns + color)
 - ✅ Links distinguishable without color (underline or weight difference)
 - ✅ Error states use icons + text, not just red color
 
 **6. Responsive Accessibility:**
+
 - ✅ Text resizable to 200% without loss of functionality
 - ✅ No horizontal scrolling at any zoom level
 - ✅ Touch targets maintain minimum size across breakpoints
@@ -359,11 +408,13 @@ If geolocation data uses grid layout:
 **Testing Strategy:**
 
 **Automated Testing:**
+
 - Lighthouse Accessibility audit (target: 100)
 - axe-core browser extension checks
 - WAVE accessibility evaluation tool
 
 **Manual Testing:**
+
 - Keyboard-only navigation (Tab, Enter, Space, Arrow keys)
 - Screen reader testing (VoiceOver on macOS, NVDA on Windows)
 - Color blindness simulation (various types)
@@ -399,6 +450,7 @@ If geolocation data uses grid layout:
 **Success Criteria:**
 
 Visual foundation succeeds when:
+
 - ✅ Lighthouse Performance > 90 (system fonts support this)
 - ✅ Lighthouse Accessibility = 100 (NuxtUI defaults support this)
 - ✅ Professional modern appearance (defaults are modern)

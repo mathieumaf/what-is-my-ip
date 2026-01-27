@@ -31,6 +31,7 @@ This is an **Excellence Showcase MVP** where quality trumps speed. Success is me
    - Success: Tags profile as "Strong Portfolio", forwards to technical lead
 
 **Shared Characteristics:**
+
 - Time-constrained (3-5 minute evaluation window)
 - Need immediate quality signals (no "digging" required)
 - Value professional presentation at every touchpoint
@@ -52,7 +53,7 @@ This is an **Excellence Showcase MVP** where quality trumps speed. Success is me
 
 1. **Creative Data Visualization**: Transform standard IP/geolocation data into visually innovative presentation. Move beyond flat text cards - explore subtle animations, strong visual hierarchy, meaningful micro-interactions while maintaining simplicity.
 
-2. **Performance as Visual Feature**: Lighthouse 90+, <1s load time, Core Web Vitals optimization. Instead of just achieving these metrics, make performance *feel* exceptional through instant transitions, fluid animations, zero perceived lag.
+2. **Performance as Visual Feature**: Lighthouse 90+, <1s load time, Core Web Vitals optimization. Instead of just achieving these metrics, make performance _feel_ exceptional through instant transitions, fluid animations, zero perceived lag.
 
 3. **Dark Mode as Signature**: Elevate dark mode from "functional requirement" to "signature showcase". Seamless OS detection, perfect contrast ratios, cohesive design system across both themes. Let it be a silent demonstration of mastery.
 

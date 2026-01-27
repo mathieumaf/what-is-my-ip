@@ -5,7 +5,7 @@
 **Architecture Decision Workflow:** COMPLETED ✅
 **Total Steps Completed:** 8
 **Date Completed:** 2026-01-23
-**Document Location:** _bmad-output/planning-artifacts/architecture.md
+**Document Location:** \_bmad-output/planning-artifacts/architecture.md
 
 ## Final Architecture Deliverables
 

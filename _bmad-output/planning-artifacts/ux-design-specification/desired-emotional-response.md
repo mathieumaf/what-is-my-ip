@@ -36,11 +36,12 @@
 
 **Stage 1: First Discovery (0-5 seconds) → "WOW"**
 
-*Target Emotion:* Immediate visual impact and quality perception
+_Target Emotion:_ Immediate visual impact and quality perception
 
-*User Thought:* "This is beautiful, answers my needs, no ads... where's the catch?" *(There is no catch - it's just excellent)*
+_User Thought:_ "This is beautiful, answers my needs, no ads... where's the catch?" _(There is no catch - it's just excellent)_
 
-*Design Support:*
+_Design Support:_
+
 - Instant page load (<1s)
 - Striking modern design with creative distinction
 - Clean layout, professional typography
@@ -49,11 +50,12 @@
 
 **Stage 2: During Use → SATISFACTION + COMFORT**
 
-*Target Emotion:* Feeling at home, effortless interaction
+_Target Emotion:_ Feeling at home, effortless interaction
 
-*User Thought:* "I know exactly what to do, everything makes sense"
+_User Thought:_ "I know exactly what to do, everything makes sense"
 
-*Design Support:*
+_Design Support:_
+
 - Intuitive information hierarchy
 - One-click actions (copy IP, refresh, map link)
 - Instant visual feedback for interactions
@@ -62,11 +64,12 @@
 
 **Stage 3: After Accomplishment → CONTENTMENT**
 
-*Target Emotion:* Satisfied with both outcome and experience
+_Target Emotion:_ Satisfied with both outcome and experience
 
-*User Thought:* "Got what I needed, and the experience was pleasant"
+_User Thought:_ "Got what I needed, and the experience was pleasant"
 
-*Design Support:*
+_Design Support:_
+
 - Clear success states
 - Beautiful presentation throughout
 - No frustration points encountered
@@ -74,11 +77,12 @@
 
 **Stage 4: Error Handling (If Occurs) → REASSURED**
 
-*Target Emotion:* Calm confidence that issue is temporary, not user's fault
+_Target Emotion:_ Calm confidence that issue is temporary, not user's fault
 
-*User Thought:* "The app handled this gracefully, I trust it"
+_User Thought:_ "The app handled this gracefully, I trust it"
 
-*Design Support:*
+_Design Support:_
+
 - User-friendly error messages (no technical jargon)
 - Clear explanation of what happened
 - Actionable next steps ("Try refresh" button)
@@ -87,11 +91,12 @@
 
 **Stage 5: Future Returns → VALIDATED QUALITY**
 
-*Target Emotion:* Confirmation of consistent excellence
+_Target Emotion:_ Confirmation of consistent excellence
 
-*User Thought:* "Still as good as I remembered - I didn't overestimate it"
+_User Thought:_ "Still as good as I remembered - I didn't overestimate it"
 
-*Design Support:*
+_Design Support:_
+
 - Consistent performance (no regression)
 - 99.9% uptime (always available)
 - Familiar interface (no jarring redesigns)
@@ -126,6 +131,7 @@
 **Emotion → UX Design Connections:**
 
 **Creating IMPRESSION (WOW):**
+
 - Modern design with distinctive creative twist (not generic Bootstrap templates)
 - Subtle but memorable 60fps animations (data fade-in, smooth transitions)
 - Exceptional attention to detail (typography, spacing, visual hierarchy, color harmony)
@@ -133,6 +139,7 @@
 - Dark mode as signature showcase (perfect contrast, smooth transitions)
 
 **Creating TRUST:**
+
 - Zero runtime errors (comprehensive testing, graceful error handling)
 - Quality signals visible (Lighthouse scores, test coverage badges on GitHub)
 - Dark mode perfection (demonstrates OS integration mastery)
@@ -140,6 +147,7 @@
 - Professional consistency (no spelling errors, broken links, or inconsistencies)
 
 **Balancing FUN/CREATIVITY + EFFICIENCY:**
+
 - Creative visuals that don't compromise functional clarity
 - Micro-interactions with purpose (not decorative animations)
 - Innovative data presentation (beyond flat text cards) while maintaining scannability
@@ -147,6 +155,7 @@
 - Delight without distraction (animations enhance, don't obstruct)
 
 **Creating CLARITY:**
+
 - Strong visual hierarchy guides eye immediately to IP address (primary info)
 - Explicit labels (no ambiguous icons without text)
 - Immediate visual feedback for all interactions (button states, copy confirmation, loading states)
@@ -154,6 +163,7 @@
 - Web conventions respected (footer links, standard interaction patterns)
 
 **Creating "FEELING AT HOME":**
+
 - Standard web patterns (no unconventional navigation that confuses)
 - GitHub/Contact links in expected footer location
 - Natural responsive behavior (adapts without breaking mental model)
@@ -161,6 +171,7 @@
 - Accessibility compliance (keyboard nav, screen reader support)
 
 **Ensuring CONSISTENT QUALITY (Future Returns):**
+
 - Stable performance (monitoring, no regression)
 - 99.9% uptime (reliable hosting, health checks)
 - Cohesive design system (NuxtUI consistency)

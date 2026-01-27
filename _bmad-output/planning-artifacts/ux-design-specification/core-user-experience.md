@@ -7,6 +7,7 @@
 **Primary User Action:** Instant information consumption upon page load. No clicks, no configuration, no waiting. Data appears < 1 second after navigation.
 
 **Secondary User Actions (One-Click Convenience):**
+
 - Copy IP address to clipboard (single click/tap)
 - Refresh IP/geolocation data manually
 - Open location on map (external link)
@@ -21,6 +22,7 @@
 **Delivery Method:** Universal web application (Nuxt 4 SSR + client hydration)
 
 **Device Strategy:** Platform-agnostic consistency
+
 - Mobile (320px - 639px): Touch-optimized, vertical layout
 - Tablet (640px - 1023px): Adaptive grid, touch + mouse/keyboard
 - Desktop (1024px+): Optimized horizontal layout, mouse/keyboard primary
@@ -29,6 +31,7 @@
 **Core Principle:** Identical feature set across all devices - only responsive layout adapts. No device-specific functionality. Performance and polish consistent regardless of platform.
 
 **Interaction Methods:**
+
 - Touch-friendly targets (44x44px minimum) for mobile/tablet
 - Keyboard navigation for accessibility and power users
 - Mouse-optimized interactions for desktop precision
@@ -57,6 +60,7 @@
 4. **GitHub/Contact Navigation**: Prominent footer links requiring single click to explore repository or contact developer.
 
 **Eliminated Friction Points:**
+
 - No authentication or account creation
 - No cookie consent banners (privacy-friendly analytics only)
 - No splash screens or marketing interruptions
@@ -67,30 +71,30 @@
 
 **Marc's 30-Second Evaluation (Technical Lead):**
 
-1. **0-3 seconds**: Page loads instantly, dark mode matches his OS (dark). Clean, modern interface appears. *"Fast."*
-2. **3-10 seconds**: Resizes browser window → layout adapts perfectly. Checks DevTools → clean HTML, no errors. *"Solid responsive design."*
-3. **10-20 seconds**: Opens Lighthouse → Performance 95+, Accessibility 100. *"This dev knows optimization."*
-4. **20-30 seconds**: Toggles OS dark mode → site transitions smoothly. Scrolls to footer → GitHub link visible. *"I want to see the code."*
+1. **0-3 seconds**: Page loads instantly, dark mode matches his OS (dark). Clean, modern interface appears. _"Fast."_
+2. **3-10 seconds**: Resizes browser window → layout adapts perfectly. Checks DevTools → clean HTML, no errors. _"Solid responsive design."_
+3. **10-20 seconds**: Opens Lighthouse → Performance 95+, Accessibility 100. _"This dev knows optimization."_
+4. **20-30 seconds**: Toggles OS dark mode → site transitions smoothly. Scrolls to footer → GitHub link visible. _"I want to see the code."_
 5. **Decision**: Stars repo, schedules interview. ✅
 
 **Sarah's First Impression (Recruiter):**
 
-1. **0-5 seconds**: Lands on site from LinkedIn → modern, professional design immediately visible. Loads instantly. *"Looks good."*
-2. **5-15 seconds**: Scrolls → clean information layout, no clutter. Responsive on her laptop. *"Professional presentation."*
-3. **15-30 seconds**: Footer GitHub link → clicks → sees badges, stars, activity. *"Active developer with quality work."*
+1. **0-5 seconds**: Lands on site from LinkedIn → modern, professional design immediately visible. Loads instantly. _"Looks good."_
+2. **5-15 seconds**: Scrolls → clean information layout, no clutter. Responsive on her laptop. _"Professional presentation."_
+3. **15-30 seconds**: Footer GitHub link → clicks → sees badges, stars, activity. _"Active developer with quality work."_
 4. **Decision**: Tags profile "Strong Portfolio," forwards to Marc. ✅
 
 **Julie's Confidence Building (Contributor):**
 
-1. **0-30 seconds**: Visits live site before cloning repo → works perfectly, modern UI, fast. *"This looks well-maintained."*
-2. **Post-Clone**: Runs `bun run dev` → site works locally, exactly like production. *"Clean setup."*
-3. **Code Exploration**: Browses components → clear patterns, NuxtUI components, readable. *"I can understand this code."*
+1. **0-30 seconds**: Visits live site before cloning repo → works perfectly, modern UI, fast. _"This looks well-maintained."_
+2. **Post-Clone**: Runs `bun run dev` → site works locally, exactly like production. _"Clean setup."_
+3. **Code Exploration**: Browses components → clear patterns, NuxtUI components, readable. _"I can understand this code."_
 4. **Decision**: Confident to make first contribution. ✅
 
 **General Visitor Success:**
 
-1. **Immediate Value**: Lands on page, sees IP + location instantly. *"Got what I came for."*
-2. **Optional Exploration**: Copies IP (one click), checks map (one click), refreshes data if needed. *"Easy to use."*
+1. **Immediate Value**: Lands on page, sees IP + location instantly. _"Got what I came for."_
+2. **Optional Exploration**: Copies IP (one click), checks map (one click), refreshes data if needed. _"Easy to use."_
 3. **Outcome**: Bookmark for future use, shares with others, returns when needed. ✅
 
 ## Experience Principles
@@ -107,7 +111,7 @@
 
 5. **One-Click Convenience for All Actions**: Secondary interactions (copy, refresh, links) require exactly one user action. Zero friction, immediate feedback.
 
-6. **Performance as Felt Experience**: Metrics matter (Lighthouse 90+), but performance must *feel* exceptional. 60fps animations, instant transitions, zero perceived lag.
+6. **Performance as Felt Experience**: Metrics matter (Lighthouse 90+), but performance must _feel_ exceptional. 60fps animations, instant transitions, zero perceived lag.
 
 7. **Triple-Audience Simultaneous Satisfaction**: Every design decision must serve Marc (technical excellence), Sarah (visual professionalism), and Julie (code clarity) equally. No persona is prioritized over others.
 

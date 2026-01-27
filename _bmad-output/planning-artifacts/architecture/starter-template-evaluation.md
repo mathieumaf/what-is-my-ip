@@ -29,6 +29,7 @@ The PRD already establishes clear technical preferences:
 **Option 1: Official Nuxt 4 CLI (`bunx nuxi init`)**
 
 **What it provides:**
+
 - Fresh Nuxt 4.3 project with latest best practices
 - TypeScript configuration out-of-the-box
 - Vite build tooling integrated
@@ -37,6 +38,7 @@ The PRD already establishes clear technical preferences:
 - Official Nuxt project structure
 
 **What requires manual setup:**
+
 - NuxtUI installation (`npx nuxi module add ui`)
 - Tailwind CSS configuration (auto-configured by NuxtUI)
 - Testing infrastructure (Vitest + Playwright)
@@ -46,6 +48,7 @@ The PRD already establishes clear technical preferences:
 - Environment configuration
 
 **Pros:**
+
 - Latest Nuxt 4.3 features and optimizations
 - Clean starting point with no unnecessary dependencies
 - Official support and documentation
@@ -53,6 +56,7 @@ The PRD already establishes clear technical preferences:
 - Full control over architectural decisions
 
 **Cons:**
+
 - Requires manual configuration of testing, linting, CI/CD
 - More initial setup work
 - No pre-configured quality gates
@@ -62,6 +66,7 @@ The PRD already establishes clear technical preferences:
 **Option 2: NuxtUI Starter Template (`nuxt-ui-templates/starter`)**
 
 **What it provides:**
+
 - Nuxt 4 with NuxtUI pre-installed
 - Tailwind CSS configured
 - Basic component structure
@@ -69,6 +74,7 @@ The PRD already establishes clear technical preferences:
 - Minimal example components
 
 **What requires manual setup:**
+
 - Testing infrastructure (Vitest + Playwright)
 - Linting and formatting configuration
 - CI/CD pipeline
@@ -77,12 +83,14 @@ The PRD already establishes clear technical preferences:
 - Performance monitoring
 
 **Pros:**
+
 - NuxtUI already configured
 - Dark mode setup included
 - Faster initial start
 - Example components for reference
 
 **Cons:**
+
 - Still requires significant testing/CI/CD setup
 - May include example code to remove
 - Less control over initial configuration decisions
@@ -94,11 +102,13 @@ The PRD already establishes clear technical preferences:
 Starting from scratch with manual installation of each piece.
 
 **Pros:**
+
 - Complete architectural control
 - Learn every decision deeply
 - No unnecessary boilerplate
 
 **Cons:**
+
 - Significant setup time
 - Risk of missing best practices
 - More room for configuration errors
@@ -120,6 +130,7 @@ Given the strict quality requirements (100% test coverage, Lighthouse > 90, WCAG
 6. **TypeScript First:** TypeScript configuration optimized for Nuxt 4
 
 **Why NOT NuxtUI starter template:**
+
 - Testing infrastructure is a first-class concern (100% coverage requirement)
 - CI/CD quality gates are architectural components, not afterthoughts
 - Clean slate allows TDD approach from day one
@@ -135,6 +146,7 @@ cd what-is-my-ip
 ```
 
 **Note about Bun + Nuxt 4 Compatibility:**
+
 - Bun has known socket communication issues with Nuxt 4 on Windows (as of January 2026)
 - Alternative: Use `npx nuxi init` if Bun issues encountered
 - Development server with Bun: `bun --bun run dev` (forces Bun runtime)
@@ -146,6 +158,7 @@ npx nuxi module add ui
 ```
 
 This command automatically:
+
 - Installs `@nuxt/ui` package
 - Adds module to `nuxt.config.ts`
 - Configures Tailwind CSS integration
@@ -199,11 +212,13 @@ bun add -D @nuxt/test-utils vitest @playwright/test eslint prettier @typescript-
 **Testing Framework:**
 
 **Unit Testing (Pre-configured):**
+
 - **Vitest:** Fast, Vite-native unit testing
 - **@nuxt/test-utils:** Nuxt-specific testing utilities
 - **Vue Test Utils:** Component testing support
 
 **E2E Testing (Requires Configuration):**
+
 - **Recommendation:** Playwright
 - **Rationale:**
   - Native parallelization (15 workers vs Cypress 5 paid parallels)
@@ -243,6 +258,7 @@ what-is-my-ip/
 ```
 
 **Conventions:**
+
 - Auto-imports for components, composables, utils (no explicit imports needed)
 - File-based routing from `pages/` directory
 - Server API routes in `server/api/` (e.g., `server/api/ip.get.ts` → `/api/ip`)
@@ -252,6 +268,7 @@ what-is-my-ip/
 **Development Experience:**
 
 **Out-of-the-Box:**
+
 - Hot Module Replacement (HMR) via Vite
 - TypeScript auto-completion and error checking
 - Vue DevTools integration
@@ -260,6 +277,7 @@ what-is-my-ip/
 - Error overlay with source maps
 
 **Requires Configuration:**
+
 - ESLint rules and pre-commit hooks
 - Prettier formatting automation
 - Husky for Git hooks
@@ -318,33 +336,39 @@ what-is-my-ip/
 **Rationale:**
 
 **Performance:**
+
 - Native parallelization: 15 workers vs Cypress 5 paid parallels
 - Faster CI execution: 14 minutes vs 90 minutes for equivalent coverage
 - Lower CI costs: No external parallelization services required
 
 **Capabilities:**
+
 - Cross-browser: Chrome, Firefox, Safari/WebKit (Cypress lacks Safari)
 - Mobile emulation: iOS and Android device simulation
 - Network conditions: Throttling, offline mode testing
 - Multiple tabs/contexts: Test complex user flows
 
 **Portfolio Value:**
+
 - Demonstrates mastery of modern testing tools (2026 standard)
 - Showcases understanding of CI/CD optimization
 - Aligns with performance-first architecture philosophy
 
 **Accessibility:**
+
 - Playwright Test integrates with axe-core for automated accessibility testing
 - Can validate WCAG AA compliance in E2E tests
 - Supports screen reader simulation
 
 **Developer Experience:**
+
 - Codegen tool for generating tests from browser interactions
 - Trace viewer for debugging failed tests
 - Built-in retry and timeout handling
 - TypeScript first-class support
 
 **Sources:**
+
 - [Cypress vs Playwright: I Ran 500 E2E Tests in Both](https://medium.com/lets-code-future/cypress-vs-playwright-i-ran-500-e2e-tests-in-both-heres-what-broke-2afc448470ee)
 - [Playwright vs Cypress: The 2026 Enterprise Testing Guide](https://devin-rosario.medium.com/playwright-vs-cypress-the-2026-enterprise-testing-guide-ade8b56d3478)
 - [Playwright vs Cypress: The Definitive Comparison](https://betterstack.com/community/guides/scaling-nodejs/playwright-vs-cypress/)

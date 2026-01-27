@@ -42,15 +42,15 @@ Project structure directly enables all architectural decisions:
 
 Every functional requirement has complete architectural support:
 
-| Category | FRs | Architectural Support | Files/Components |
-|----------|-----|----------------------|------------------|
-| IP Detection | FR1-FR9 | SSR detection, server API | `useIpDetection.ts`, `server/api/ip.get.ts`, `IpDisplay.vue` |
-| Geolocation | FR10-FR18 | ipapi.co integration, caching | `useGeolocation.ts`, `server/api/geolocation.get.ts`, `GeolocationCard.vue` |
-| Copy to Clipboard | FR19-FR27 | Clipboard API, optimistic UI | `useCopyToClipboard.ts`, `ActionButtons.vue` |
-| Refresh IP | FR28-FR36 | Cache invalidation, API refresh | `useIpRefresh.ts`, cache control headers |
-| Dark Mode | FR37-FR45 | @nuxtjs/color-mode, NuxtUI | Auto dark mode, SSR-safe theme switching |
-| Portfolio Features | FR46-FR54 | Footer links, GitHub integration | `Footer.vue`, external links |
-| Performance & SEO | FR55-FR69 | SSR, Nitro cache, @nuxtjs/seo | Lighthouse targets, meta tags |
+| Category           | FRs       | Architectural Support            | Files/Components                                                            |
+| ------------------ | --------- | -------------------------------- | --------------------------------------------------------------------------- |
+| IP Detection       | FR1-FR9   | SSR detection, server API        | `useIpDetection.ts`, `server/api/ip.get.ts`, `IpDisplay.vue`                |
+| Geolocation        | FR10-FR18 | ipapi.co integration, caching    | `useGeolocation.ts`, `server/api/geolocation.get.ts`, `GeolocationCard.vue` |
+| Copy to Clipboard  | FR19-FR27 | Clipboard API, optimistic UI     | `useCopyToClipboard.ts`, `ActionButtons.vue`                                |
+| Refresh IP         | FR28-FR36 | Cache invalidation, API refresh  | `useIpRefresh.ts`, cache control headers                                    |
+| Dark Mode          | FR37-FR45 | @nuxtjs/color-mode, NuxtUI       | Auto dark mode, SSR-safe theme switching                                    |
+| Portfolio Features | FR46-FR54 | Footer links, GitHub integration | `Footer.vue`, external links                                                |
+| Performance & SEO  | FR55-FR69 | SSR, Nitro cache, @nuxtjs/seo    | Lighthouse targets, meta tags                                               |
 
 **Cross-Cutting Functional Requirements:**
 
@@ -257,6 +257,7 @@ The important gaps (Testing Config, Env Vars) can be addressed in one of two way
 **Confidence Level:** **HIGH**
 
 Rationale:
+
 - Zero critical gaps identified
 - All architectural decisions coherent and compatible
 - 100% requirements coverage achieved
@@ -333,24 +334,19 @@ bun add -d @playwright/test vitest @vue/test-utils
 
 ```typescript
 export default defineNuxtConfig({
-  modules: [
-    '@nuxt/ui',
-    '@nuxtjs/color-mode',
-    '@nuxtjs/seo',
-    '@sentry/nuxt/module'
-  ],
+  modules: ['@nuxt/ui', '@nuxtjs/color-mode', '@nuxtjs/seo', '@sentry/nuxt/module'],
 
   colorMode: {
     preference: 'system',
-    fallback: 'light'
+    fallback: 'light',
   },
 
   seo: {
-    redirectToCanonicalSiteUrl: true
+    redirectToCanonicalSiteUrl: true,
   },
 
-  compatibilityDate: '2026-01-23'
-})
+  compatibilityDate: '2026-01-23',
+});
 ```
 
 **3. Create Directory Structure:**
@@ -365,6 +361,7 @@ mkdir -p types
 **4. First Feature: IP Detection (FR1-FR9)**
 
 Implement in this order:
+
 1. `types/index.ts` - Define `IpData` type
 2. `server/api/ip.get.ts` - SSR IP detection endpoint
 3. `app/composables/useIpDetection.ts` - Client composable

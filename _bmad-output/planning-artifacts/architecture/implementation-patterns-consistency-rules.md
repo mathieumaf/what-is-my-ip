@@ -7,6 +7,7 @@
 These patterns ensure all AI agents (Claude Code, future contributors, automated tools) write compatible code that integrates seamlessly.
 
 **Why These Patterns Matter:**
+
 - Multiple agents working on different stories must produce compatible code
 - Prevents merge conflicts and integration issues
 - Ensures consistent user experience across all features
@@ -24,23 +25,25 @@ These patterns ensure all AI agents (Claude Code, future contributors, automated
 **Pattern:** `useFeatureName` format (camelCase, descriptive)
 
 **Rules:**
+
 - Always start with `use` prefix
 - Follow with descriptive feature name in camelCase
 - Be specific enough to avoid conflicts, not overly verbose
 - Use singular form for single-purpose composables
 
 **Examples:**
+
 ```typescript
 // ✅ GOOD
-composables/useIpDetection.ts      // Clear, specific
-composables/useGeolocation.ts      // Standard naming
-composables/useCopyToClipboard.ts  // Action-oriented
+composables / useIpDetection.ts; // Clear, specific
+composables / useGeolocation.ts; // Standard naming
+composables / useCopyToClipboard.ts; // Action-oriented
 
 // ❌ BAD
-composables/useIp.ts               // Too vague
-composables/useIPDetection.ts      // Wrong case (IP should be Ip)
-composables/ip-detection.ts        // Wrong format (not composable pattern)
-composables/getIpAddress.ts        // Not a composable (use utility instead)
+composables / useIp.ts; // Too vague
+composables / useIPDetection.ts; // Wrong case (IP should be Ip)
+composables / ip - detection.ts; // Wrong format (not composable pattern)
+composables / getIpAddress.ts; // Not a composable (use utility instead)
 ```
 
 **Vue Components:**
@@ -48,24 +51,23 @@ composables/getIpAddress.ts        // Not a composable (use utility instead)
 **Pattern:** PascalCase without prefix
 
 **Rules:**
+
 - PascalCase naming (capitalize each word)
 - No namespace prefix (small project, unnecessary)
 - Descriptive single-word or compound names
 - Suffix with purpose if generic (Card, Button, Modal)
 
 **Examples:**
+
 ```vue
 <!-- ✅ GOOD -->
-components/IpDisplay.vue           // Clear component name
-components/GeolocationCard.vue     // Descriptive with suffix
-components/ActionButtons.vue       // Clear purpose
-components/Footer.vue              // Simple, clear
+components/IpDisplay.vue // Clear component name components/GeolocationCard.vue // Descriptive with
+suffix components/ActionButtons.vue // Clear purpose components/Footer.vue // Simple, clear
 
 <!-- ❌ BAD -->
-components/ip-display.vue          // Wrong case (kebab-case)
-components/IPDisplay.vue           // Wrong case (IP should be Ip)
-components/AppIpDisplay.vue        // Unnecessary prefix
-components/ip_display.vue          // Wrong format (snake_case)
+components/ip-display.vue // Wrong case (kebab-case) components/IPDisplay.vue // Wrong case (IP
+should be Ip) components/AppIpDisplay.vue // Unnecessary prefix components/ip_display.vue // Wrong
+format (snake_case)
 ```
 
 **Server API Routes:**
@@ -73,22 +75,24 @@ components/ip_display.vue          // Wrong format (snake_case)
 **Pattern:** Nuxt 4 file-based routing convention
 
 **Rules:**
+
 - Format: `[name].[method].ts` or `[name].[method].[format].ts`
 - Use lowercase for file names
 - HTTP method as suffix: `.get`, `.post`, `.put`, `.delete`
 - Optional format suffix: `.json`, `.xml` (rarely needed)
 
 **Examples:**
+
 ```typescript
 // ✅ GOOD
-server/api/ip.get.ts               // GET /api/ip
-server/api/geolocation.get.ts      // GET /api/geolocation
-server/api/health.get.ts           // GET /api/health
+server / api / ip.get.ts; // GET /api/ip
+server / api / geolocation.get.ts; // GET /api/geolocation
+server / api / health.get.ts; // GET /api/health
 
 // ❌ BAD
-server/api/getIp.ts                // Wrong format (no HTTP method)
-server/api/IP.get.ts               // Wrong case (should be lowercase)
-server/api/get-ip.ts               // Wrong format (not Nuxt convention)
+server / api / getIp.ts; // Wrong format (no HTTP method)
+server / api / IP.get.ts; // Wrong case (should be lowercase)
+server / api / get - ip.ts; // Wrong format (not Nuxt convention)
 ```
 
 **Types & Interfaces:**
@@ -96,12 +100,14 @@ server/api/get-ip.ts               // Wrong format (not Nuxt convention)
 **Pattern:** PascalCase without prefix
 
 **Rules:**
+
 - PascalCase for all types and interfaces
 - No `I` prefix (modern TypeScript convention)
 - Descriptive names ending with purpose if needed (Data, Config, Options)
 - Use `type` for simple types, `interface` for objects
 
 **Examples:**
+
 ```typescript
 // ✅ GOOD
 type IpAddress = string
@@ -127,29 +133,31 @@ type IPAddress = string            // Wrong case (IP should be Ip)
 **Pattern:** camelCase (JavaScript standard)
 
 **Rules:**
+
 - camelCase for all variables and functions
 - Descriptive names (avoid abbreviations unless common)
 - Boolean variables: prefix with `is`, `has`, `should`, `can`
 - Functions: verb-first for actions (`fetch`, `get`, `set`, `update`)
 
 **Examples:**
+
 ```typescript
 // ✅ GOOD
-const ipAddress = ref<string>('')
-const isLoading = ref(false)
-const canRefresh = computed(() => !isLoading.value)
+const ipAddress = ref<string>('');
+const isLoading = ref(false);
+const canRefresh = computed(() => !isLoading.value);
 
-async function fetchGeolocation() { }
-function copyToClipboard(text: string) { }
+async function fetchGeolocation() {}
+function copyToClipboard(text: string) {}
 
 // ❌ BAD
-const IPAddress = ref<string>('')  // Wrong case
-const ip = ref<string>('')         // Too abbreviated
-const loading = ref(false)         // Should be isLoading for boolean
-const ip_address = ref('')         // Wrong format (snake_case)
+const IPAddress = ref<string>(''); // Wrong case
+const ip = ref<string>(''); // Too abbreviated
+const loading = ref(false); // Should be isLoading for boolean
+const ip_address = ref(''); // Wrong format (snake_case)
 
-async function get_geolocation() { } // Wrong format
-function clipboard(text: string) { } // Not descriptive (verb missing)
+async function get_geolocation() {} // Wrong format
+function clipboard(text: string) {} // Not descriptive (verb missing)
 ```
 
 **Constants:**
@@ -157,24 +165,26 @@ function clipboard(text: string) { } // Not descriptive (verb missing)
 **Pattern:** UPPER_SNAKE_CASE for true constants, camelCase for configuration values
 
 **Rules:**
+
 - UPPER_SNAKE_CASE for compile-time constants (magic numbers, fixed values)
 - camelCase for runtime configuration (imported from config, environment)
 - Always `const`, never `let` for constants
 
 **Examples:**
+
 ```typescript
 // ✅ GOOD
-const MAX_RETRIES = 3
-const API_TIMEOUT_MS = 5000
-const CACHE_DURATION_MINUTES = 5
+const MAX_RETRIES = 3;
+const API_TIMEOUT_MS = 5000;
+const CACHE_DURATION_MINUTES = 5;
 
-const apiBaseUrl = useRuntimeConfig().public.apiUrl // Config value
+const apiBaseUrl = useRuntimeConfig().public.apiUrl; // Config value
 
 // ❌ BAD
-const maxRetries = 3               // Should be UPPER_SNAKE_CASE
-const MAX_API_TIMEOUT = 5000       // Inconsistent (use MS suffix)
-let MAX_RETRIES = 3                // Should be const
-const api_base_url = config.url    // Wrong format for config value
+const maxRetries = 3; // Should be UPPER_SNAKE_CASE
+const MAX_API_TIMEOUT = 5000; // Inconsistent (use MS suffix)
+let MAX_RETRIES = 3; // Should be const
+const api_base_url = config.url; // Wrong format for config value
 ```
 
 **API Naming Conventions:**
@@ -184,12 +194,14 @@ const api_base_url = config.url    // Wrong format for config value
 **Pattern:** Lowercase, hyphen-separated, RESTful
 
 **Rules:**
+
 - Lowercase paths
 - Hyphen-separated for multi-word resources
 - Plural for collections, singular for specific items
 - Avoid verbs in paths (use HTTP methods instead)
 
 **Examples:**
+
 ```
 ✅ GOOD
 GET /api/ip                        # Get IP address
@@ -207,6 +219,7 @@ GET /api/geoLocation              # Wrong case (camelCase not allowed)
 **Pattern:** camelCase (consistent with JavaScript)
 
 **Examples:**
+
 ```
 ✅ GOOD
 /api/geolocation?ipAddress=1.2.3.4
@@ -282,6 +295,7 @@ what-is-my-ip/
 ```
 
 **Rules:**
+
 - **Components:** Flat structure in `app/components/` (no nested folders for small project)
 - **Composables:** Flat structure in `app/composables/` (one file per composable)
 - **Tests:** Mirrored structure in `tests/unit/` matching source files
@@ -313,27 +327,27 @@ server/api/geo.get.ts              → Abbreviated name (unclear)
 
 ```typescript
 // types/index.ts
-export type IpAddress = string
+export type IpAddress = string;
 
 export interface GeolocationData {
-  ip: string
-  country: string
-  countryCode: string
-  region: string
-  regionName: string
-  city: string
-  zip: string
-  lat: number
-  lon: number
-  timezone: string
-  isp: string
-  org: string
-  as: string
+  ip: string;
+  country: string;
+  countryCode: string;
+  region: string;
+  regionName: string;
+  city: string;
+  zip: string;
+  lat: number;
+  lon: number;
+  timezone: string;
+  isp: string;
+  org: string;
+  as: string;
 }
 
 export interface ApiError {
-  message: string
-  statusCode: number
+  message: string;
+  statusCode: number;
 }
 ```
 
@@ -342,16 +356,17 @@ export interface ApiError {
 ```typescript
 // composables/useIpRefresh.ts
 interface RefreshState {
-  canRefresh: boolean
-  cooldownSeconds: number
+  canRefresh: boolean;
+  cooldownSeconds: number;
 }
 
 export const useIpRefresh = (): RefreshState => {
   // Implementation
-}
+};
 ```
 
 **Rules:**
+
 - Types used in 2+ files → `types/index.ts`
 - Types used in 1 file only → co-located with implementation
 - Always export types that might be reused
@@ -366,6 +381,7 @@ export const useIpRefresh = (): RefreshState => {
 **Pattern:** Direct response (no wrapper)
 
 **Rules:**
+
 - Return data directly without wrapper object
 - Use HTTP status codes for success/error indication
 - Errors thrown via `createError()` (Nuxt built-in)
@@ -375,10 +391,10 @@ export const useIpRefresh = (): RefreshState => {
 
 ```typescript
 // server/api/geolocation.get.ts
-export default defineCachedEventHandler(async (event) => {
-  const ip = getRequestIP(event)
+export default defineCachedEventHandler(async event => {
+  const ip = getRequestIP(event);
 
-  const data = await $fetch(`http://ip-api.com/json/${ip}`)
+  const data = await $fetch(`http://ip-api.com/json/${ip}`);
 
   // Return direct data (transformed to camelCase)
   return {
@@ -395,28 +411,29 @@ export default defineCachedEventHandler(async (event) => {
     isp: data.isp,
     org: data.org,
     as: data.as,
-  }
-})
+  };
+});
 ```
 
 **Error Response Example:**
 
 ```typescript
 // server/api/geolocation.get.ts
-export default defineEventHandler(async (event) => {
+export default defineEventHandler(async event => {
   try {
-    const data = await $fetch('...')
-    return data
+    const data = await $fetch('...');
+    return data;
   } catch (error) {
     throw createError({
       statusCode: 500,
       message: 'Failed to fetch geolocation data',
-    })
+    });
   }
-})
+});
 ```
 
 **Client receives:**
+
 ```json
 // Success (200)
 {
@@ -439,6 +456,7 @@ export default defineEventHandler(async (event) => {
 **Pattern:** camelCase for all JSON fields
 
 **Transformation Rule:**
+
 - External APIs (ip-api.com) may return `snake_case`
 - Transform to `camelCase` in server API routes
 - Frontend always receives `camelCase`
@@ -448,17 +466,17 @@ export default defineEventHandler(async (event) => {
 ```typescript
 // External API response (snake_case)
 const externalData = {
-  query: "1.2.3.4",
-  country_code: "CA",
-  region_name: "Quebec"
-}
+  query: '1.2.3.4',
+  country_code: 'CA',
+  region_name: 'Quebec',
+};
 
 // Transform to camelCase for frontend
 const transformedData = {
   ip: externalData.query,
   countryCode: externalData.country_code,
-  regionName: externalData.region_name
-}
+  regionName: externalData.region_name,
+};
 ```
 
 **Date/Time Format:**
@@ -466,6 +484,7 @@ const transformedData = {
 **Pattern:** ISO 8601 strings (JavaScript standard)
 
 **Rules:**
+
 - Always use `toISOString()` for dates
 - Server sends ISO strings
 - Client parses with `new Date(isoString)`
@@ -475,16 +494,16 @@ const transformedData = {
 
 ```typescript
 // ✅ GOOD
-const timestamp = new Date().toISOString()
+const timestamp = new Date().toISOString();
 // "2026-01-23T10:30:00.000Z"
 
-const date = new Date(timestamp)
+const date = new Date(timestamp);
 // Display: formatDate(date) in component
 
 // ❌ BAD
-const timestamp = Date.now()          // Unix timestamp (harder to read)
-const dateString = date.toString()    // Non-standard format
-const formatted = "2026-01-23"        // Pre-formatted (lose timezone)
+const timestamp = Date.now(); // Unix timestamp (harder to read)
+const dateString = date.toString(); // Non-standard format
+const formatted = '2026-01-23'; // Pre-formatted (lose timezone)
 ```
 
 **Boolean Representations:**
@@ -532,6 +551,7 @@ const formatted = "2026-01-23"        // Pre-formatted (lose timezone)
 **Pattern:** NuxtUI toast API with consistent structure
 
 **Rules:**
+
 - Always use `useToast()` composable
 - Provide `title` (required), `description` (optional), `icon`, `color`
 - Use semantic colors: `green` (success), `red` (error), `yellow` (warning), `blue` (info)
@@ -541,7 +561,7 @@ const formatted = "2026-01-23"        // Pre-formatted (lose timezone)
 **Success Toast Example:**
 
 ```typescript
-const toast = useToast()
+const toast = useToast();
 
 toast.add({
   title: 'IP Copied!',
@@ -549,7 +569,7 @@ toast.add({
   icon: 'i-heroicons-check-circle',
   color: 'green',
   timeout: 3000, // 3 seconds
-})
+});
 ```
 
 **Error Toast Example:**
@@ -561,7 +581,7 @@ toast.add({
   icon: 'i-heroicons-exclamation-triangle',
   color: 'red',
   timeout: 0, // Persistent until dismissed
-})
+});
 ```
 
 **Info Toast Example:**
@@ -573,7 +593,7 @@ toast.add({
   icon: 'i-heroicons-information-circle',
   color: 'blue',
   timeout: 5000,
-})
+});
 ```
 
 **State Management Patterns:**
@@ -583,6 +603,7 @@ toast.add({
 **Pattern:** Return error as `Ref<Error | null>`
 
 **Rules:**
+
 - Always initialize as `ref<Error | null>(null)`
 - Set to `Error` object on failure
 - Reset to `null` on success
@@ -592,27 +613,27 @@ toast.add({
 
 ```typescript
 export const useGeolocation = () => {
-  const geolocation = ref<GeolocationData | null>(null)
-  const loading = ref(false)
-  const error = ref<Error | null>(null)
+  const geolocation = ref<GeolocationData | null>(null);
+  const loading = ref(false);
+  const error = ref<Error | null>(null);
 
   const fetchGeolocation = async () => {
-    loading.value = true
-    error.value = null // Reset previous error
+    loading.value = true;
+    error.value = null; // Reset previous error
 
     try {
-      const data = await $fetch('/api/geolocation')
-      geolocation.value = data
+      const data = await $fetch('/api/geolocation');
+      geolocation.value = data;
     } catch (e) {
-      error.value = e as Error
+      error.value = e as Error;
       // Component will check error.value and display UI
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
-  return { geolocation, loading, error, fetchGeolocation }
-}
+  return { geolocation, loading, error, fetchGeolocation };
+};
 ```
 
 **Loading State Naming:**
@@ -620,6 +641,7 @@ export const useGeolocation = () => {
 **Pattern:** Descriptive boolean refs with `is` prefix or specific action name
 
 **Rules:**
+
 - Generic loading: `loading` or `isLoading`
 - Specific actions: `isRefreshing`, `isSubmitting`, `isFetching`
 - Always boolean ref
@@ -629,15 +651,15 @@ export const useGeolocation = () => {
 
 ```typescript
 // ✅ GOOD
-const loading = ref(false)          // Generic loading
-const isRefreshing = ref(false)     // Specific action
-const isSubmitting = ref(false)     // Form submission
-const isCopying = ref(false)        // Copy action
+const loading = ref(false); // Generic loading
+const isRefreshing = ref(false); // Specific action
+const isSubmitting = ref(false); // Form submission
+const isCopying = ref(false); // Copy action
 
 // ❌ BAD
-const load = ref(false)             // Not clear it's a boolean
-const refreshing = ref(false)       // Missing 'is' prefix
-const loadingState = ref(false)     // Redundant 'State' suffix
+const load = ref(false); // Not clear it's a boolean
+const refreshing = ref(false); // Missing 'is' prefix
+const loadingState = ref(false); // Redundant 'State' suffix
 ```
 
 **Event Naming (if needed):**
@@ -648,8 +670,8 @@ const loadingState = ref(false)     // Redundant 'State' suffix
 
 ```typescript
 // Custom events (if needed)
-emit('ip:detected', ipAddress)
-emit('geolocation:failed', error)
+emit('ip:detected', ipAddress);
+emit('geolocation:failed', error);
 ```
 
 ---
@@ -665,21 +687,21 @@ emit('geolocation:failed', error)
 ```typescript
 // composables/useGeolocation.ts
 export const useGeolocation = () => {
-  const error = ref<Error | null>(null)
+  const error = ref<Error | null>(null);
 
   const fetchGeolocation = async () => {
     try {
-      const data = await $fetch('/api/geolocation')
-      geolocation.value = data
-      error.value = null
+      const data = await $fetch('/api/geolocation');
+      geolocation.value = data;
+      error.value = null;
     } catch (e) {
-      error.value = e as Error
+      error.value = e as Error;
       // Don't throw - let component handle
     }
-  }
+  };
 
-  return { geolocation, error, fetchGeolocation }
-}
+  return { geolocation, error, fetchGeolocation };
+};
 ```
 
 **Layer 2: Component Error Display**
@@ -694,18 +716,20 @@ export const useGeolocation = () => {
       icon="i-heroicons-exclamation-triangle"
       title="Location Unavailable"
       description="We couldn't determine your location. Your IP address is still visible above."
-      :actions="[{
-        label: 'Try Again',
-        color: 'red',
-        variant: 'outline',
-        click: () => fetchGeolocation()
-      }]"
+      :actions="[
+        {
+          label: 'Try Again',
+          color: 'red',
+          variant: 'outline',
+          click: () => fetchGeolocation(),
+        },
+      ]"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-const { geolocation, error, fetchGeolocation } = useGeolocation()
+const { geolocation, error, fetchGeolocation } = useGeolocation();
 </script>
 ```
 
@@ -713,27 +737,28 @@ const { geolocation, error, fetchGeolocation } = useGeolocation()
 
 ```typescript
 // plugins/errorHandler.ts
-export default defineNuxtPlugin((nuxtApp) => {
+export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.config.errorHandler = (error, instance, info) => {
     // Log to Sentry
-    console.error('Uncaught Vue Error:', error, info)
+    console.error('Uncaught Vue Error:', error, info);
 
     // Show user-friendly toast
-    const toast = useToast()
+    const toast = useToast();
     toast.add({
       title: 'Something went wrong',
       description: 'Please refresh the page',
       color: 'red',
       icon: 'i-heroicons-exclamation-triangle',
       timeout: 0,
-    })
-  }
-})
+    });
+  };
+});
 ```
 
 **Error Message Guidelines:**
 
 **Rules:**
+
 - User-facing: Friendly, actionable, no technical jargon
 - Logs/Sentry: Technical details, stack traces
 - Always provide recovery action ("Try Again" button)
@@ -742,14 +767,14 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ```typescript
 // ✅ GOOD (user-facing)
-"We couldn't load your location. Please try again."
-"Copy failed. Please try again."
-"Network error. Check your connection."
+"We couldn't load your location. Please try again.";
+'Copy failed. Please try again.';
+'Network error. Check your connection.';
 
 // ❌ BAD (user-facing)
-"API request to ip-api.com returned 503"
-"TypeError: Cannot read property 'country' of undefined"
-"CORS policy blocked the request"
+'API request to ip-api.com returned 503';
+"TypeError: Cannot read property 'country' of undefined";
+'CORS policy blocked the request';
 ```
 
 **Loading State Patterns:**
@@ -757,6 +782,7 @@ export default defineNuxtPlugin((nuxtApp) => {
 **Pattern:** Boolean ref with try/finally
 
 **Rules:**
+
 - Set to `true` immediately before async operation
 - Set to `false` in `finally` block (ensures cleanup)
 - Show loading UI in component when `loading.value === true`
@@ -766,26 +792,26 @@ export default defineNuxtPlugin((nuxtApp) => {
 
 ```typescript
 export const useIpDetection = () => {
-  const ipAddress = ref<string>('')
-  const loading = ref(false)
-  const error = ref<Error | null>(null)
+  const ipAddress = ref<string>('');
+  const loading = ref(false);
+  const error = ref<Error | null>(null);
 
   const detectIp = async () => {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
 
     try {
-      const data = await $fetch('/api/ip')
-      ipAddress.value = data.ip
+      const data = await $fetch('/api/ip');
+      ipAddress.value = data.ip;
     } catch (e) {
-      error.value = e as Error
+      error.value = e as Error;
     } finally {
-      loading.value = false // Always cleanup
+      loading.value = false; // Always cleanup
     }
-  }
+  };
 
-  return { ipAddress, loading, error, detectIp }
-}
+  return { ipAddress, loading, error, detectIp };
+};
 ```
 
 **Component Loading UI:**
@@ -796,13 +822,7 @@ export const useIpDetection = () => {
     <USkeleton v-if="loading" class="h-12 w-48" />
     <div v-else class="text-4xl">{{ ipAddress }}</div>
 
-    <UButton
-      :loading="isRefreshing"
-      :disabled="isRefreshing"
-      @click="refresh"
-    >
-      Refresh
-    </UButton>
+    <UButton :loading="isRefreshing" :disabled="isRefreshing" @click="refresh"> Refresh </UButton>
   </div>
 </template>
 ```
@@ -812,6 +832,7 @@ export const useIpDetection = () => {
 **Pattern:** Manual retry via user action (no automatic retries)
 
 **Rules:**
+
 - No automatic retries (user control)
 - Provide explicit "Try Again" button on errors
 - Clear error message explaining what failed
@@ -825,10 +846,12 @@ export const useIpDetection = () => {
     v-if="error"
     color="red"
     title="Location Unavailable"
-    :actions="[{
-      label: 'Try Again',
-      click: () => fetchGeolocation()
-    }]"
+    :actions="[
+      {
+        label: 'Try Again',
+        click: () => fetchGeolocation(),
+      },
+    ]"
   />
 </template>
 ```
@@ -882,6 +905,7 @@ export const useIpDetection = () => {
 **Pattern Verification:**
 
 **During Code Review:**
+
 - Check all new files follow naming conventions
 - Verify error handling uses three-layer pattern
 - Confirm loading states use try/finally
@@ -889,12 +913,14 @@ export const useIpDetection = () => {
 - Ensure types are properly defined and exported
 
 **Automated Checks (ESLint/TypeScript):**
+
 - ESLint enforces camelCase/PascalCase naming
 - TypeScript strict mode prevents `any` types
 - Prettier enforces consistent formatting
 - Pre-commit hooks validate all patterns
 
 **CI/CD Quality Gates:**
+
 - Lint check fails if naming violations
 - Type check fails if type errors
 - Tests fail if patterns not followed
@@ -903,6 +929,7 @@ export const useIpDetection = () => {
 **Pattern Updates:**
 
 **Process for Changing Patterns:**
+
 1. Discuss change rationale with team (or in architecture doc)
 2. Update this section of architecture document
 3. Refactor existing code to match new pattern (if needed)
@@ -910,6 +937,7 @@ export const useIpDetection = () => {
 5. Communicate change to all contributors
 
 **When to Update Patterns:**
+
 - Pattern causes implementation conflicts
 - Better pattern discovered through experience
 - Technology upgrade requires pattern change
@@ -925,34 +953,34 @@ export const useIpDetection = () => {
 
 ```typescript
 // composables/useGeolocation.ts
-import type { GeolocationData } from '~/types'
+import type { GeolocationData } from '~/types';
 
 export const useGeolocation = () => {
-  const geolocation = ref<GeolocationData | null>(null)
-  const loading = ref(false)
-  const error = ref<Error | null>(null)
+  const geolocation = ref<GeolocationData | null>(null);
+  const loading = ref(false);
+  const error = ref<Error | null>(null);
 
   const fetchGeolocation = async () => {
-    loading.value = true
-    error.value = null
+    loading.value = true;
+    error.value = null;
 
     try {
-      const data = await $fetch<GeolocationData>('/api/geolocation')
-      geolocation.value = data
+      const data = await $fetch<GeolocationData>('/api/geolocation');
+      geolocation.value = data;
     } catch (e) {
-      error.value = e as Error
+      error.value = e as Error;
     } finally {
-      loading.value = false
+      loading.value = false;
     }
-  }
+  };
 
   return {
     geolocation: readonly(geolocation),
     loading: readonly(loading),
     error: readonly(error),
     fetchGeolocation,
-  }
-}
+  };
+};
 ```
 
 **Component with Full Pattern:**
@@ -973,12 +1001,14 @@ export const useGeolocation = () => {
         icon="i-heroicons-exclamation-triangle"
         title="Location Unavailable"
         description="We couldn't determine your location."
-        :actions="[{
-          label: 'Try Again',
-          color: 'red',
-          variant: 'outline',
-          click: () => fetchGeolocation()
-        }]"
+        :actions="[
+          {
+            label: 'Try Again',
+            color: 'red',
+            variant: 'outline',
+            click: () => fetchGeolocation(),
+          },
+        ]"
       />
     </template>
 
@@ -999,11 +1029,11 @@ export const useGeolocation = () => {
 </template>
 
 <script setup lang="ts">
-const { geolocation, loading, error, fetchGeolocation } = useGeolocation()
+const { geolocation, loading, error, fetchGeolocation } = useGeolocation();
 
 onMounted(() => {
-  fetchGeolocation()
-})
+  fetchGeolocation();
+});
 </script>
 ```
 
@@ -1012,18 +1042,18 @@ onMounted(() => {
 ```typescript
 // server/api/geolocation.get.ts
 export default defineCachedEventHandler(
-  async (event) => {
-    const ip = getRequestIP(event)
+  async event => {
+    const ip = getRequestIP(event);
 
     if (!ip) {
       throw createError({
         statusCode: 400,
         message: 'IP address not found',
-      })
+      });
     }
 
     try {
-      const response = await $fetch(`http://ip-api.com/json/${ip}`)
+      const response = await $fetch(`http://ip-api.com/json/${ip}`);
 
       // Transform snake_case to camelCase
       return {
@@ -1040,19 +1070,19 @@ export default defineCachedEventHandler(
         isp: response.isp,
         org: response.org,
         as: response.as,
-      }
+      };
     } catch (error) {
       throw createError({
         statusCode: 500,
         message: 'Failed to fetch geolocation data',
-      })
+      });
     }
   },
   {
     maxAge: 60 * 5, // 5 minutes cache
-    getKey: (event) => getRequestIP(event) || 'unknown',
+    getKey: event => getRequestIP(event) || 'unknown',
   }
-)
+);
 ```
 
 ---
@@ -1063,7 +1093,7 @@ export default defineCachedEventHandler(
 
 ```typescript
 // composables/ipDetection.ts - Missing 'use' prefix
-export const ipDetection = () => { }
+export const ipDetection = () => {};
 
 // components/ip-display.vue - Wrong case
 // components/IPDisplay.vue - Wrong case for 'IP'
@@ -1097,27 +1127,27 @@ export const useGeolocation = () => {
 ```typescript
 // ❌ BAD: Not using finally
 const fetchData = async () => {
-  loading.value = true
+  loading.value = true;
   try {
-    const data = await $fetch('/api/data')
-    loading.value = false // ❌ Won't run if error thrown
+    const data = await $fetch('/api/data');
+    loading.value = false; // ❌ Won't run if error thrown
   } catch (e) {
-    error.value = e
-    loading.value = false // ❌ Duplicated cleanup
+    error.value = e;
+    loading.value = false; // ❌ Duplicated cleanup
   }
-}
+};
 
 // ✅ GOOD: Use finally
 const fetchData = async () => {
-  loading.value = true
+  loading.value = true;
   try {
-    const data = await $fetch('/api/data')
+    const data = await $fetch('/api/data');
   } catch (e) {
-    error.value = e
+    error.value = e;
   } finally {
-    loading.value = false // ✅ Always runs
+    loading.value = false; // ✅ Always runs
   }
-}
+};
 ```
 
 **❌ Wrong API Response Format:**
@@ -1126,13 +1156,13 @@ const fetchData = async () => {
 // ❌ BAD: Wrapped response
 return {
   success: true,
-  data: { ip: '1.2.3.4' }
-}
+  data: { ip: '1.2.3.4' },
+};
 
 // ✅ GOOD: Direct response
 return {
-  ip: '1.2.3.4'
-}
+  ip: '1.2.3.4',
+};
 ```
 
 **❌ Inconsistent JSON Field Naming:**
@@ -1140,17 +1170,17 @@ return {
 ```typescript
 // ❌ BAD: Mixed naming conventions
 return {
-  ipAddress: '1.2.3.4',     // camelCase
-  country_code: 'CA',        // snake_case ❌
-  'region-name': 'Quebec'    // kebab-case ❌
-}
+  ipAddress: '1.2.3.4', // camelCase
+  country_code: 'CA', // snake_case ❌
+  'region-name': 'Quebec', // kebab-case ❌
+};
 
 // ✅ GOOD: Consistent camelCase
 return {
   ipAddress: '1.2.3.4',
   countryCode: 'CA',
-  regionName: 'Quebec'
-}
+  regionName: 'Quebec',
+};
 ```
 
 **❌ Wrong File Organization:**
@@ -1181,6 +1211,7 @@ app/composables/useGeolocation.ts
 6. **Consistency:** All agents follow same patterns, no exceptions
 
 **When in Doubt:**
+
 - Check existing code for pattern precedent
 - Reference this architecture document
 - Ask for clarification rather than guessing

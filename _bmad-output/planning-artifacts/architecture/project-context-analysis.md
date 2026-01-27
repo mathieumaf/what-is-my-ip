@@ -82,6 +82,7 @@ what-is-my-ip implements 69 functional requirements across 7 major categories:
    - High availability (no planned downtime)
 
 **Architectural Implications:**
+
 - SSR-first architecture required for instant IP visibility and SEO
 - Client-side hydration for interactive features (copy, refresh, animations)
 - External API integration with caching and error handling
@@ -219,6 +220,7 @@ Critical NFRs that will drive architectural decisions:
 ## Technical Constraints & Dependencies
 
 **Technology Stack (Specified):**
+
 - **Core Framework:** Nuxt 4 (latest stable) - Universal/Hybrid rendering mode
 - **UI Library:** NuxtUI (official Nuxt ecosystem design system)
 - **Styling:** Tailwind CSS (integrated via NuxtUI)
@@ -231,6 +233,7 @@ Critical NFRs that will drive architectural decisions:
 - **Build Tool:** Vite (via Nuxt)
 
 **External Dependencies:**
+
 - **Geolocation API:** ip-api.com (existing integration)
   - Rate limits and caching strategy required
   - Fallback/error handling mandatory
@@ -239,6 +242,7 @@ Critical NFRs that will drive architectural decisions:
 - **Analytics:** Privacy-friendly solution (Plausible, Fathom, or similar)
 
 **Deployment Constraints:**
+
 - **Hosting:** Node.js SSR hosting required (not static)
 - **SSL/HTTPS:** Mandatory with auto-renewal
 - **CI/CD:** GitHub Actions (specified)
@@ -246,12 +250,14 @@ Critical NFRs that will drive architectural decisions:
 - **Zero-downtime:** Deployment strategy must support this
 
 **Browser Support:**
+
 - Modern browsers only (latest 2 versions)
 - Chrome, Firefox, Safari, Edge
 - No legacy browser support (IE11, etc.)
 - ES2022+, modern CSS (Grid, Flexbox, Custom Properties)
 
 **Development Constraints:**
+
 - Solo developer (Mathieu) with Claude Code assistance
 - Quality over speed (timeline flexible for excellence)
 - TDD approach for 100% coverage
@@ -265,6 +271,7 @@ Critical NFRs that will drive architectural decisions:
 Affects: All components, server routes, build pipeline, deployment
 
 **Concerns:**
+
 - Bundle size management (< 150KB JS, < 30KB CSS gzipped)
 - SSR optimization for instant first paint (< 1s load)
 - Core Web Vitals compliance (LCP, FID, CLS)
@@ -274,6 +281,7 @@ Affects: All components, server routes, build pipeline, deployment
 - Font strategy (system fonts = zero load time)
 
 **Architectural Decisions Needed:**
+
 - Component lazy loading strategy
 - API caching implementation approach
 - Bundle analysis and optimization workflow
@@ -286,6 +294,7 @@ Affects: All components, server routes, build pipeline, deployment
 Affects: All UI components, navigation, interactions, content structure
 
 **Concerns:**
+
 - WCAG 2.1 Level AA compliance (non-negotiable)
 - Semantic HTML structure throughout
 - ARIA attributes and live regions
@@ -296,6 +305,7 @@ Affects: All UI components, navigation, interactions, content structure
 - Text resizability (200% without breaking)
 
 **Architectural Decisions Needed:**
+
 - Semantic HTML component structure
 - Focus management system
 - Skip link and landmark navigation
@@ -309,6 +319,7 @@ Affects: All UI components, navigation, interactions, content structure
 Affects: All code, CI/CD pipeline, deployment gates, development workflow
 
 **Concerns:**
+
 - 100% test coverage requirement (hard gate)
 - Unit tests (Vitest) for all components and utilities
 - E2E tests (Playwright/Cypress) for all critical journeys
@@ -318,6 +329,7 @@ Affects: All code, CI/CD pipeline, deployment gates, development workflow
 - Test failure = deployment prevention
 
 **Architectural Decisions Needed:**
+
 - E2E framework selection (Playwright vs Cypress)
 - Test organization and structure
 - CI/CD pipeline architecture with quality gates
@@ -331,6 +343,7 @@ Affects: All code, CI/CD pipeline, deployment gates, development workflow
 Affects: All UI components, theme system, color tokens, transitions
 
 **Concerns:**
+
 - Automatic OS preference detection (`prefers-color-scheme`)
 - Manual toggle capability (optional override)
 - Smooth transitions without flash
@@ -339,6 +352,7 @@ Affects: All UI components, theme system, color tokens, transitions
 - Theme persistence (if manual toggle added)
 
 **Architectural Decisions Needed:**
+
 - NuxtUI Color Mode configuration
 - Theme token management
 - Transition animation approach
@@ -351,6 +365,7 @@ Affects: All UI components, theme system, color tokens, transitions
 Affects: All UI components, layout system, breakpoints, touch interactions
 
 **Concerns:**
+
 - Mobile-first CSS architecture (320px baseline)
 - Three primary breakpoints (mobile, tablet, desktop)
 - Perfect layout adaptation at ALL sizes (320px → 1280px+)
@@ -360,6 +375,7 @@ Affects: All UI components, layout system, breakpoints, touch interactions
 - Responsive images and assets
 
 **Architectural Decisions Needed:**
+
 - Layout component structure
 - Breakpoint strategy (Tailwind defaults)
 - Responsive image handling
@@ -372,6 +388,7 @@ Affects: All UI components, layout system, breakpoints, touch interactions
 Affects: All API calls, external dependencies, client-side features
 
 **Concerns:**
+
 - API failure handling (geolocation unavailable)
 - Network timeout handling
 - Progressive enhancement (JS failure resilience)
@@ -381,6 +398,7 @@ Affects: All API calls, external dependencies, client-side features
 - Error state consistency
 
 **Architectural Decisions Needed:**
+
 - Error boundary implementation
 - Fallback state components
 - API retry logic
@@ -393,6 +411,7 @@ Affects: All API calls, external dependencies, client-side features
 Affects: All code, documentation, contribution workflow, maintainability
 
 **Concerns:**
+
 - ESLint configuration (zero errors enforced)
 - Prettier formatting (automated)
 - TypeScript strict mode (no `any` types)
@@ -403,6 +422,7 @@ Affects: All code, documentation, contribution workflow, maintainability
 - Claude Code pattern adherence
 
 **Architectural Decisions Needed:**
+
 - Code organization and folder structure
 - Naming conventions
 - Component patterns and best practices
@@ -416,6 +436,7 @@ Affects: All code, documentation, contribution workflow, maintainability
 Affects: UI components, data flow, reactivity, user interactions
 
 **Concerns:**
+
 - Simple ephemeral state (no complex global state)
 - Vue 3 Composition API with composables
 - No Pinia/Vuex needed (per requirements)
@@ -424,6 +445,7 @@ Affects: UI components, data flow, reactivity, user interactions
 - Theme state (dark/light mode)
 
 **Architectural Decisions Needed:**
+
 - Composable structure for data fetching
 - State reactivity patterns
 - Component prop vs composable strategy
@@ -435,6 +457,7 @@ Affects: UI components, data flow, reactivity, user interactions
 Affects: Meta tags, social sharing, sitemap, structured data, HTML structure
 
 **Concerns:**
+
 - Unique meta titles and descriptions
 - Open Graph tags for social sharing
 - Twitter Card tags
@@ -444,6 +467,7 @@ Affects: Meta tags, social sharing, sitemap, structured data, HTML structure
 - robots.txt configuration
 
 **Architectural Decisions Needed:**
+
 - Meta tag management approach (Nuxt SEO module?)
 - Sitemap generation automation
 - Structured data implementation
@@ -455,6 +479,7 @@ Affects: Meta tags, social sharing, sitemap, structured data, HTML structure
 Affects: User tracking, GitHub click tracking, performance monitoring
 
 **Concerns:**
+
 - Privacy-friendly analytics (no intrusive cookies)
 - Site visit tracking
 - GitHub link click tracking
@@ -464,6 +489,7 @@ Affects: User tracking, GitHub click tracking, performance monitoring
 - Uptime monitoring (99.9% target)
 
 **Architectural Decisions Needed:**
+
 - Analytics provider selection (Plausible/Fathom/etc)
 - Event tracking implementation
 - Monitoring tool integration

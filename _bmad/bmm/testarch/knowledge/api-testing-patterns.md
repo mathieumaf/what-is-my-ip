@@ -23,16 +23,16 @@ API-first testing provides:
 
 ## When to Use API Tests vs E2E Tests
 
-| Scenario | API Test | E2E Test |
-|----------|----------|----------|
-| CRUD operations | ✅ Primary | ❌ Overkill |
-| Business logic validation | ✅ Primary | ❌ Overkill |
-| Error handling (4xx, 5xx) | ✅ Primary | ⚠️ Supplement |
-| Authentication flows | ✅ Primary | ⚠️ Supplement |
-| Data transformation | ✅ Primary | ❌ Overkill |
-| User journeys | ❌ Can't test | ✅ Primary |
-| Visual regression | ❌ Can't test | ✅ Primary |
-| Cross-browser issues | ❌ Can't test | ✅ Primary |
+| Scenario                  | API Test      | E2E Test      |
+| ------------------------- | ------------- | ------------- |
+| CRUD operations           | ✅ Primary    | ❌ Overkill   |
+| Business logic validation | ✅ Primary    | ❌ Overkill   |
+| Error handling (4xx, 5xx) | ✅ Primary    | ⚠️ Supplement |
+| Authentication flows      | ✅ Primary    | ⚠️ Supplement |
+| Data transformation       | ✅ Primary    | ❌ Overkill   |
+| User journeys             | ❌ Can't test | ✅ Primary    |
+| Visual regression         | ❌ Can't test | ✅ Primary    |
+| Cross-browser issues      | ❌ Can't test | ✅ Primary    |
 
 **Rule of thumb**: If you're testing what the server returns (not how it looks), use API tests.
 
@@ -281,7 +281,7 @@ test.describe('Service Integration', () => {
           path: '/api/inventory/prod-1',
           baseUrl: INVENTORY_SERVICE_URL,
         }),
-      (response) => response.body.quantity === initialInventory.quantity - 2,
+      response => response.body.quantity === initialInventory.quantity - 2,
       { timeout: 10000, interval: 500 }
     );
 
@@ -559,7 +559,7 @@ test.describe('Background Jobs', () => {
     // Poll until job completes
     const { body: completedJob } = await recurse(
       () => apiRequest({ method: 'GET', path: `/api/exports/${job.id}` }),
-      (response) => response.body.status === 'completed',
+      response => response.body.status === 'completed',
       {
         timeout: 60000,
         interval: 2000,
@@ -586,7 +586,7 @@ test.describe('Background Jobs', () => {
     // Poll until job fails
     const { body: failedJob } = await recurse(
       () => apiRequest({ method: 'GET', path: `/api/exports/${job.id}` }),
-      (response) => ['completed', 'failed'].includes(response.body.status),
+      response => ['completed', 'failed'].includes(response.body.status),
       { timeout: 30000 }
     );
 
@@ -610,7 +610,7 @@ test.describe('Background Jobs', () => {
     // Poll for webhook delivery status
     const { body: webhookStatus } = await recurse(
       () => apiRequest({ method: 'GET', path: `/api/webhooks/order/${order.id}` }),
-      (response) => response.body.delivered === true,
+      response => response.body.delivered === true,
       { timeout: 30000, interval: 1000 }
     );
 
@@ -730,7 +730,7 @@ export default defineConfig({
   use: {
     baseURL: process.env.API_URL || 'http://localhost:3000',
     extraHTTPHeaders: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
   },
@@ -774,15 +774,15 @@ export default defineConfig({
 
 ## Comparison: API Tests vs E2E Tests
 
-| Aspect | API Test | E2E Test |
-|--------|----------|----------|
-| **Speed** | ~50-100ms per test | ~2-10s per test |
-| **Stability** | Very stable | More flaky (UI timing) |
-| **Setup** | Minimal | Browser, context, page |
-| **Debugging** | Clear request/response | DOM, screenshots, traces |
-| **Coverage** | Service logic | User experience |
-| **Parallelization** | Easy (stateless) | Complex (browser resources) |
-| **CI Cost** | Low (no browser) | High (browser containers) |
+| Aspect              | API Test               | E2E Test                    |
+| ------------------- | ---------------------- | --------------------------- |
+| **Speed**           | ~50-100ms per test     | ~2-10s per test             |
+| **Stability**       | Very stable            | More flaky (UI timing)      |
+| **Setup**           | Minimal                | Browser, context, page      |
+| **Debugging**       | Clear request/response | DOM, screenshots, traces    |
+| **Coverage**        | Service logic          | User experience             |
+| **Parallelization** | Easy (stateless)       | Complex (browser resources) |
+| **CI Cost**         | Low (no browser)       | High (browser containers)   |
 
 ## Related Fragments
 
@@ -834,10 +834,20 @@ test('validate user creation', async ({ apiRequest }) => {
 ```typescript
 // Good: Explicit API test suite
 test.describe('Users API', () => {
-  test('creates user', async ({ apiRequest }) => { /* ... */ });
-  test('handles duplicate email', async ({ apiRequest }) => { /* ... */ });
-  test('validates required fields', async ({ apiRequest }) => { /* ... */ });
-  test('handles malformed JSON', async ({ apiRequest }) => { /* ... */ });
-  test('rate limits requests', async ({ apiRequest }) => { /* ... */ });
+  test('creates user', async ({ apiRequest }) => {
+    /* ... */
+  });
+  test('handles duplicate email', async ({ apiRequest }) => {
+    /* ... */
+  });
+  test('validates required fields', async ({ apiRequest }) => {
+    /* ... */
+  });
+  test('handles malformed JSON', async ({ apiRequest }) => {
+    /* ... */
+  });
+  test('rate limits requests', async ({ apiRequest }) => {
+    /* ... */
+  });
 });
 ```

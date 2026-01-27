@@ -19,6 +19,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 ### Functional Requirements
 
 **IP Detection & Geolocation Display:**
+
 - FR1: Visitors can view their public IP address automatically upon page load
 - FR2: Visitors can view geolocation data associated with their IP address (country, region, city, timezone)
 - FR3: Visitors can view ISP (Internet Service Provider) information for their IP address
@@ -30,6 +31,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR9: System can gracefully handle API failures and display appropriate error messages
 
 **User Interface & Accessibility:**
+
 - FR10: Visitors can view the application in light mode or dark mode
 - FR11: System automatically switches theme based on operating system preferences
 - FR12: Visitors can manually toggle between light and dark themes
@@ -43,6 +45,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR20: Visitors can view content with sufficient color contrast ratios (WCAG AA)
 
 **Repository Discovery & Navigation:**
+
 - FR21: Visitors can navigate from the live site to the GitHub repository via visible link
 - FR22: Visitors can navigate from the live site to the developer's personal profile
 - FR23: GitHub visitors can view project status via visual badges (build, tests, coverage, Lighthouse)
@@ -54,6 +57,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR29: GitHub visitors can discover the project via relevant topics and tags
 
 **Contribution & Collaboration:**
+
 - FR30: Potential contributors can view comprehensive contribution guidelines
 - FR31: Potential contributors can view code style standards and conventions
 - FR32: Potential contributors can view commit message conventions
@@ -66,6 +70,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR39: Contributors can request features using a structured issue template
 
 **Testing & Quality Assurance:**
+
 - FR40: System can execute unit tests for all code components
 - FR41: System can execute end-to-end tests for critical user journeys
 - FR42: System can generate test coverage reports showing 100% coverage
@@ -77,6 +82,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR48: Developers can view test results in CI/CD pipeline
 
 **Performance & SEO:**
+
 - FR49: System can achieve Lighthouse Performance score > 90
 - FR50: System can achieve Lighthouse Accessibility score of 100
 - FR51: System can achieve Core Web Vitals targets (LCP < 1.5s, FID < 100ms, CLS < 0.1)
@@ -89,6 +95,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR58: System can cache API responses to reduce external API calls
 
 **Analytics & Monitoring:**
+
 - FR59: System can track site visits in a privacy-friendly manner
 - FR60: System can track clicks to GitHub repository link
 - FR61: System can track clicks to personal profile link
@@ -97,6 +104,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR64: Project maintainer can monitor issue activity
 
 **Build & Deployment:**
+
 - FR65: System can build production-ready artifacts via automated pipeline
 - FR66: System can deploy to production environment automatically upon successful build and tests
 - FR67: System can serve the application via HTTPS with valid SSL certificate
@@ -106,6 +114,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 ### NonFunctional Requirements
 
 **Performance:**
+
 - NFR-P1: Initial page load must complete within 1.5 seconds on 4G mobile connection
 - NFR-P2: Largest Contentful Paint (LCP) must occur within 1.5 seconds
 - NFR-P3: First Input Delay (FID) must be less than 100 milliseconds
@@ -122,6 +131,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - NFR-P14: API responses must be cached for 5 minutes to reduce external API calls
 
 **Accessibility:**
+
 - NFR-A1: All color contrast ratios must meet WCAG AA standards (4.5:1 for normal text, 3:1 for large text)
 - NFR-A2: All interactive elements must be keyboard accessible with logical tab order
 - NFR-A3: All interactive elements must have visible focus indicators
@@ -136,6 +146,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - NFR-A12: Lighthouse Accessibility score must be 100
 
 **Reliability & Availability:**
+
 - NFR-R1: Application must maintain 99.9% uptime (< 8.76 hours downtime per year)
 - NFR-R2: No planned maintenance downtime (use zero-downtime deployment strategies)
 - NFR-R3: SSL certificate must be valid and auto-renewing
@@ -148,6 +159,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - NFR-R10: Failed tests must prevent deployment to production
 
 **Maintainability & Code Quality:**
+
 - NFR-M1: All code must pass ESLint validation with zero errors
 - NFR-M2: All code must be formatted with Prettier
 - NFR-M3: TypeScript must be used in strict mode with no `any` types except where explicitly justified
@@ -164,6 +176,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - NFR-M14: All environment variables and configuration options must be documented
 
 **Usability:**
+
 - NFR-U1: Application must be fully functional on mobile devices (320px width minimum)
 - NFR-U2: Application must adapt layout for tablet devices (640px-1024px)
 - NFR-U3: Application must optimize layout for desktop devices (1024px+)
@@ -178,6 +191,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - NFR-U12: Interactive elements must be visually distinguishable from static content
 
 **Search Engine Optimization (SEO):**
+
 - NFR-S1: All pages must have unique, descriptive title tags (< 60 characters)
 - NFR-S2: All pages must have compelling meta descriptions (< 160 characters)
 - NFR-S3: Open Graph tags must be present for social media sharing
@@ -192,6 +206,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - NFR-S12: Preview image must be high-quality and representative of the application
 
 **Security (Basic):**
+
 - NFR-SE1: All communication must occur over HTTPS with valid SSL certificate
 - NFR-SE2: No sensitive information should be exposed in client-side code or console
 - NFR-SE3: External API keys (if any) must not be exposed in client-side code
@@ -205,56 +220,66 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 **From Architecture:**
 
 **Starter Template & Project Initialization:**
+
 - Architecture specifies Official Nuxt 4 CLI (`bunx nuxi init what-is-my-ip`) as the starter template
 - NuxtUI installation via `npx nuxi module add ui`
 - Bun as package manager with Node.js 18+ LTS runtime
 - TypeScript strict mode configuration
 
 **Testing Framework Decision:**
+
 - Playwright selected for E2E testing over Cypress
 - Vitest for unit testing
 - Rationale: Superior parallel execution, cross-browser support, CI optimization
 
 **Infrastructure & Deployment:**
+
 - Hosting: Vercel with automatic SSL and zero-downtime deployments
 - Build Command: `bun run build`
 - Output Directory: `.output` (Nuxt default)
 - Environment: Node.js 18.x LTS
 
 **API & Communication Patterns:**
+
 - Nitro Cache with 5-minute TTL for API responses (`defineCachedEventHandler()`)
 - Dual-layer rate limiting (server-side: 10 req/min per IP, client-side: 10s cooldown)
 - External API: ip-api.com for geolocation data
 - Server route: `/api/ip` and `/api/geolocation`
 
 **Analytics & Monitoring:**
+
 - Vercel Analytics for Web Vitals tracking and visitor metrics
 - Sentry (free tier) for error monitoring with source maps
 - Custom event tracking: `github_link_click`, `profile_link_click`, `copy_ip_click`, `refresh_ip_click`
 
 **Frontend Architecture:**
+
 - Composable pattern for business logic: `useIpDetection`, `useGeolocation`, `useCopyToClipboard`, `useIpRefresh`
 - Single-file components for UI: `IpDisplay.vue`, `GeolocationCard.vue`, `ActionButtons.vue`, `Footer.vue`
 - Error handling: Three-layer strategy (composable error refs → component error UI → global Vue error handler + Sentry)
 
 **SEO & Discoverability:**
+
 - @nuxtjs/seo module for all-in-one SEO solution (includes sitemap, meta tags, Open Graph, Twitter Cards, robots.txt)
 - Site URL configuration for canonical URLs
 - Automatic Open Graph image generation
 
 **CI/CD Pipeline:**
+
 - GitHub Actions with matrix strategy (parallel jobs)
 - Quality gates: lint, typecheck, unit tests, E2E tests, build validation, Lighthouse CI
 - Deployment blocked if any job fails
 - Vercel deployment only on successful pipeline completion
 
 **Environment Configuration:**
+
 - `.env` files for local development (git-ignored)
 - `.env.example` template committed to repository
 - Vercel Environment Variables for production
 - Nuxt `runtimeConfig` for type-safe access
 
 **Implementation Patterns & Consistency Rules:**
+
 - **Naming:** camelCase for variables/functions, PascalCase for components/types, UPPER_SNAKE_CASE for constants
 - **Composables:** `useFeatureName` format, always return refs with `readonly()` wrapper
 - **Components:** PascalCase without prefix, flat structure in `app/components/`
@@ -267,12 +292,14 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 **From UX Design:**
 
 **Design System:**
+
 - NuxtUI as the official design system (accessible by default, Tailwind CSS integration)
 - "Default Excellence" philosophy: minimal customization, leverage NuxtUI defaults
 
 **UX Consistency Patterns:**
 
 **Toast Notifications (UNotification):**
+
 - Position: Top-right desktop, top-center mobile
 - Success: Green color, 3s auto-dismiss, checkmark icon
 - Error: Red color, persistent until dismissed, exclamation icon with "Try Again" action
@@ -280,6 +307,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - ARIA live regions for screen reader announcements
 
 **Button Hierarchy:**
+
 - Primary: Solid, large size (48px), prominent placement (Copy IP button)
 - Secondary: Outline/ghost variant, medium size (40px) (Refresh, View on Map)
 - Tertiary: Links with hover underline (Footer navigation, GitHub link)
@@ -287,17 +315,20 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - Minimum touch targets: 48px mobile, 44px desktop
 
 **Loading States:**
+
 - Skeleton screens: Rare (SSR handles initial render)
 - Inline spinners: Button actions (refresh, copy)
 - Optimistic UI: Copy to clipboard (instant success feedback, rollback on error)
 
 **Error & Empty States:**
+
 - Inline alerts (UAlert) with friendly messages, recovery actions
 - Graceful degradation: Core IP value always visible (SSR), secondary features fail gracefully
 - Network timeout: Warning at 5s, error at 10s with retry option
 - Error tone: Friendly, actionable, no technical jargon
 
 **Responsive Design:**
+
 - Mobile-first approach: 320px minimum → 1280px+ maximum
 - Breakpoints: Mobile (320-639px), Tablet (640-1023px), Desktop (1024px+)
 - Single-column centered layout across all devices
@@ -305,6 +336,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - Typography scaling: 32px IP on mobile → 48px tablet → 64px desktop
 
 **Accessibility (WCAG 2.1 Level AA):**
+
 - Semantic HTML structure with ARIA landmarks
 - Color contrast: 4.5:1 normal text, 3:1 large text
 - Keyboard navigation: Logical tab order, visible focus indicators
@@ -317,6 +349,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 ### FR Coverage Map
 
 **Epic 1: Project Initialization & Quality Foundation**
+
 - FR40: Execute unit tests for all code components
 - FR41: Execute end-to-end tests for critical user journeys
 - FR42: Generate test coverage reports showing 100% coverage
@@ -333,6 +366,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR69: Handle high availability requirements (no planned downtime)
 
 **Epic 2: Core IP Detection & Responsive UI**
+
 - FR1: View public IP address automatically upon page load
 - FR10: View application in light mode or dark mode
 - FR11: Automatically switch theme based on OS preferences
@@ -345,6 +379,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR20: View content with sufficient color contrast ratios (WCAG AA)
 
 **Epic 3: Geolocation & User Interactions**
+
 - FR2: View geolocation data (country, region, city, timezone)
 - FR3: View ISP information
 - FR4: View geographic coordinates (latitude, longitude)
@@ -356,6 +391,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR58: Cache API responses to reduce external API calls
 
 **Epic 4: GitHub Repository Showcase & SEO**
+
 - FR21: Navigate from live site to GitHub repository via visible link
 - FR22: Navigate from live site to developer's personal profile
 - FR23: View project status via visual badges (build, tests, coverage, Lighthouse)
@@ -370,6 +406,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR56: Search engines can access sitemap for crawling
 
 **Epic 5: Contribution Infrastructure**
+
 - FR30: View comprehensive contribution guidelines
 - FR31: View code style standards and conventions
 - FR32: View commit message conventions
@@ -382,6 +419,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR39: Request features using structured issue template
 
 **Epic 6: Performance & Accessibility Excellence**
+
 - FR13: Navigate all interactive elements using keyboard only
 - FR14: Screen readers can access all information and functionality
 - FR49: Achieve Lighthouse Performance score > 90
@@ -392,6 +430,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 - FR57: Load application within 1 second on modern connections
 
 **Epic 7: Production Analytics & Monitoring**
+
 - FR59: Track site visits in privacy-friendly manner
 - FR60: Track clicks to GitHub repository link
 - FR61: Track clicks to personal profile link
@@ -402,6 +441,7 @@ This document provides the complete epic and story breakdown for what-is-my-ip, 
 ## Epic List
 
 ### Epic 1: Project Initialization & Quality Foundation
+
 Establish a professional development foundation with quality infrastructure from day one, enabling developers to work with automated testing (100% coverage), CI/CD validation, TypeScript strict mode, and proper deployment infrastructure. This epic creates the technical foundation that enables all future epics.
 
 **FRs covered:** FR40-FR48 (testing), FR65-FR69 (build/deploy), FR46 (code quality)
@@ -411,6 +451,7 @@ Establish a professional development foundation with quality infrastructure from
 **Standalone:** ✅ Yes - Provides complete development infrastructure, enables all future epics without depending on them
 
 **Stories:**
+
 1. Story 1.1: Initialize Nuxt 4 Project with NuxtUI
 2. Story 1.2: Configure TypeScript Strict Mode and Code Quality Tools
 3. Story 1.3: Set Up Unit Testing with Vitest
@@ -422,6 +463,7 @@ Establish a professional development foundation with quality infrastructure from
 ---
 
 ### Epic 2: Core IP Detection & Responsive UI
+
 Visitors can see their IP address instantly upon page load with a modern, responsive interface that works across mobile, tablet, and desktop devices. Dark mode automatically adapts to OS preferences, and the UI is fully responsive from 320px to 1280px+ displays.
 
 **FRs covered:** FR1 (IP detection), FR10-FR12 (dark mode), FR15-FR17 (responsive), FR18-FR20 (basic accessibility)
@@ -431,6 +473,7 @@ Visitors can see their IP address instantly upon page load with a modern, respon
 **Standalone:** ✅ Yes - Core functionality works independently, provides base for Epic 3
 
 **Stories:**
+
 1. Story 2.1: Create Server API Endpoint for IP Detection
 2. Story 2.2: Create IP Display Component with SSR
 3. Story 2.3: Implement Responsive Layout (Mobile, Tablet, Desktop)
@@ -441,6 +484,7 @@ Visitors can see their IP address instantly upon page load with a modern, respon
 ---
 
 ### Epic 3: Geolocation & User Interactions
+
 Visitors obtain detailed geographic information (country, city, region, ISP, coordinates) and can interact with their data by copying IP to clipboard, refreshing data, viewing location on Google Maps, with graceful error handling for API failures.
 
 **FRs covered:** FR2-FR9 (geolocation & interactions), FR58 (API caching)
@@ -450,6 +494,7 @@ Visitors obtain detailed geographic information (country, city, region, ISP, coo
 **Standalone:** ✅ Yes - Enriches Epic 2, functions independently with complete geolocation features
 
 **Stories:**
+
 1. Story 3.1: Create Geolocation API Endpoint with Caching
 2. Story 3.2: Display Geolocation Data (Country, City, Region, ISP, Coordinates)
 3. Story 3.3: Implement Copy IP to Clipboard Feature
@@ -460,6 +505,7 @@ Visitors obtain detailed geographic information (country, city, region, ISP, coo
 ---
 
 ### Epic 4: GitHub Repository Showcase & SEO
+
 The project is discoverable and presents a professional image on GitHub and search engines. Visitors can find the project via GitHub topics/tags, see visual badges (build, tests, coverage, Lighthouse), view screenshots/GIFs, access live demo, and see tech stack. SEO optimization ensures Google discoverability.
 
 **FRs covered:** FR21-FR29 (repository discovery), FR54-FR56 (SEO)
@@ -469,6 +515,7 @@ The project is discoverable and presents a professional image on GitHub and sear
 **Standalone:** ✅ Yes - Visibility and discoverability features independent from core application
 
 **Stories:**
+
 1. Story 4.1: Create README with Badges, Screenshots, and Tech Stack
 2. Story 4.2: Configure SEO Module with Meta Tags and Open Graph
 3. Story 4.3: Add GitHub and Profile Links to Footer
@@ -479,6 +526,7 @@ The project is discoverable and presents a professional image on GitHub and sear
 ---
 
 ### Epic 5: Contribution Infrastructure
+
 Potential contributors can easily understand how to contribute and submit PRs. Comprehensive CONTRIBUTING.md guides contributors, "good first issues" are well-labeled with acceptance criteria, PR/issue templates provide structure, and automated CI/CD validates all contributions.
 
 **FRs covered:** FR30-FR39 (contribution & collaboration)
@@ -488,6 +536,7 @@ Potential contributors can easily understand how to contribute and submit PRs. C
 **Standalone:** ✅ Yes - Contribution infrastructure independent of application features
 
 **Stories:**
+
 1. Story 5.1: Create CONTRIBUTING.md Guide
 2. Story 5.2: Create PR Template with Checklist
 3. Story 5.3: Create Issue Templates (Bug, Feature, Good First Issue)
@@ -497,6 +546,7 @@ Potential contributors can easily understand how to contribute and submit PRs. C
 ---
 
 ### Epic 6: Performance & Accessibility Excellence
+
 The application achieves professional standards: Lighthouse Performance > 90, Accessibility = 100, WCAG 2.1 Level AA compliance (keyboard navigation, screen reader friendly), Core Web Vitals optimized (LCP < 1.5s, FID < 100ms, CLS < 0.1), and optimized bundles (JS < 150KB, CSS < 30KB).
 
 **FRs covered:** FR13-FR14 (keyboard/screen reader), FR49-FR53 (performance), FR57 (load time)
@@ -506,6 +556,7 @@ The application achieves professional standards: Lighthouse Performance > 90, Ac
 **Standalone:** ✅ Yes - Optimization and compliance improvements that enhance Epic 2 & 3
 
 **Stories:**
+
 1. Story 6.1: Optimize Bundle Sizes (JS < 150KB, CSS < 30KB)
 2. Story 6.2: Implement Core Web Vitals Optimization (LCP, FID, CLS)
 3. Story 6.3: Configure Lighthouse CI with Quality Gates
@@ -516,6 +567,7 @@ The application achieves professional standards: Lighthouse Performance > 90, Ac
 ---
 
 ### Epic 7: Production Analytics & Monitoring
+
 Project maintainer can track application usage, detect errors, and measure portfolio impact. Privacy-friendly analytics track site visits and GitHub link clicks, Sentry monitors errors with alerts, Vercel Analytics provides Web Vitals in real-time, and GitHub metrics track stars/forks/activity.
 
 **FRs covered:** FR59-FR64 (analytics & monitoring)
@@ -525,6 +577,7 @@ Project maintainer can track application usage, detect errors, and measure portf
 **Standalone:** ✅ Yes - Monitoring and analytics independent of application functionality
 
 **Stories:**
+
 1. Story 7.1: Configure Vercel Analytics for Web Vitals
 2. Story 7.2: Set Up Sentry Error Monitoring
 3. Story 7.3: Implement Custom Event Tracking

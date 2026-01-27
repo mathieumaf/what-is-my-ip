@@ -139,7 +139,7 @@ test('should handle 500 errors', async ({ apiRequest }) => {
       method: 'GET',
       path: '/api/error',
       retryConfig: { maxRetries: 0 }, // Disable retry
-    }),
+    })
   ).rejects.toThrow('Request failed with status 500');
 });
 ```
@@ -227,8 +227,8 @@ test('should poll until job completes', async ({ apiRequest, recurse }) => {
   // Poll until ready
   const completedJob = await recurse(
     () => apiRequest({ method: 'GET', path: `/api/jobs/${jobId}` }),
-    (response) => response.body.status === 'completed',
-    { timeout: 60000, interval: 2000 },
+    response => response.body.status === 'completed',
+    { timeout: 60000, interval: 2000 }
   );
 
   expect(completedJob.body.result).toBeDefined();

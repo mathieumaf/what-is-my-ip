@@ -11,6 +11,7 @@
 what-is-my-ip employs a **single-column, centered layout** strategy that adapts gracefully from the smallest mobile device (320px) to large desktop displays (1280px+). The design maintains visual consistency while optimizing for each device context.
 
 **Why This Approach:**
+
 - **Simplicity First:** Single-column layout eliminates complexity, perfect for instant IP lookup
 - **Content-Focused:** No sidebars or multi-column distractions, user sees their IP immediately
 - **Universal Usability:** Same mental model across all devices, zero learning curve
@@ -25,6 +26,7 @@ what-is-my-ip employs a **single-column, centered layout** strategy that adapts 
 **Viewport Range:** 320px minimum to 639px maximum
 
 **Layout Adaptations:**
+
 - **Single-column layout:** All content stacked vertically
 - **Full-width cards:** UContainer with padding-x for edge breathing room
 - **Large touch targets:** 48px minimum height for all interactive elements
@@ -33,12 +35,14 @@ what-is-my-ip employs a **single-column, centered layout** strategy that adapts 
 - **Optimized typography:** 32px IP address (text-3xl), 16px body text
 
 **Mobile-Specific Optimizations:**
+
 - **Toast notifications:** Full-width, top-center position for visibility
 - **Map links:** Open in native maps app (iOS Maps, Google Maps)
 - **Reduced animation:** 200ms transitions (faster for perceived performance)
 - **Simplified footer:** Stacked vertical links, larger touch targets
 
 **Critical Mobile Considerations:**
+
 - **Thumb Zone Optimization:** Primary actions (Copy IP) within easy reach (bottom 2/3 of screen)
 - **Network Awareness:** SSR ensures instant render even on slow 3G/4G
 - **Haptic Feedback:** Vibration on button press (iOS/Android native)
@@ -51,6 +55,7 @@ what-is-my-ip employs a **single-column, centered layout** strategy that adapts 
 **Viewport Range:** 640px (sm) to 1023px (lg)
 
 **Layout Adaptations:**
+
 - **Centered content:** Max-width container (640px - 768px) for optimal reading
 - **Increased spacing:** 24px vertical spacing (space-y-6) between elements
 - **Medium touch targets:** 44px minimum (WCAG 2.1 AA compliant)
@@ -58,12 +63,14 @@ what-is-my-ip employs a **single-column, centered layout** strategy that adapts 
 - **Horizontal button groups:** Copy + Refresh side-by-side when space allows
 
 **Tablet-Specific Optimizations:**
+
 - **Touch-optimized interactions:** Both mouse and touch input supported seamlessly
 - **Landscape mode:** Wider max-width (768px) for landscape orientation
 - **Gesture support:** Swipe to refresh (optional enhancement)
 - **Split keyboard:** Layout adjusts when iOS split keyboard appears
 
 **Tablet Considerations:**
+
 - **Hybrid Input:** Design for both touch and mouse pointer (hover states still valuable)
 - **Orientation Changes:** Smooth transitions between portrait/landscape (no layout shift jank)
 - **Multitasking:** iPad Split View support (minimum 320px width maintained)
@@ -75,6 +82,7 @@ what-is-my-ip employs a **single-column, centered layout** strategy that adapts 
 **Viewport Range:** 1024px to 1280px maximum
 
 **Layout Adaptations:**
+
 - **Max-width container:** 1280px maximum (prevents over-stretching on ultrawide displays)
 - **Generous spacing:** 32px vertical spacing (space-y-8) between elements
 - **Precise interactions:** 40px buttons (smaller than mobile, optimized for mouse)
@@ -83,12 +91,14 @@ what-is-my-ip employs a **single-column, centered layout** strategy that adapts 
 - **Keyboard shortcuts:** Cmd/Ctrl+C shortcut hint visible on hover
 
 **Desktop-Specific Optimizations:**
+
 - **Extra screen real estate:** Use whitespace effectively, don't over-pack
 - **Multi-column footer:** Links arranged horizontally with generous spacing
 - **Enhanced animations:** 300ms smooth transitions (users expect polish on desktop)
 - **Cursor affordances:** Pointer cursors, hover states, tooltips for enhanced discoverability
 
 **Desktop Considerations:**
+
 - **Keyboard-First:** Tab navigation optimized, focus indicators prominent
 - **Multi-Monitor:** Design works on secondary displays (high contrast, large text)
 - **Accessibility Tools:** Works with browser zoom (200%+), high contrast mode, screen readers
@@ -132,6 +142,7 @@ We use **3 primary breakpoints** for simplicity:
 3. **Desktop:** 1024px+ (`lg`, `xl`, `2xl` breakpoints)
 
 **Rationale:**
+
 - **Simplicity:** Three breakpoints cover 99% of devices without over-engineering
 - **NuxtUI Alignment:** Leverages Tailwind's default breakpoints (no custom config)
 - **Performance:** Fewer media queries = smaller CSS bundle
@@ -142,6 +153,7 @@ We use **3 primary breakpoints** for simplicity:
 ### Layout Behavior Across Breakpoints
 
 **320px - 639px (Mobile):**
+
 ```vue
 <UContainer class="px-4 py-8">
   <UCard class="text-center">
@@ -154,6 +166,7 @@ We use **3 primary breakpoints** for simplicity:
 ```
 
 **640px - 1023px (Tablet):**
+
 ```vue
 <UContainer class="px-6 py-12 max-w-2xl mx-auto">
   <UCard class="text-center">
@@ -169,6 +182,7 @@ We use **3 primary breakpoints** for simplicity:
 ```
 
 **1024px+ (Desktop):**
+
 ```vue
 <UContainer class="px-8 py-16 max-w-4xl mx-auto">
   <UCard class="text-center py-12">
@@ -188,6 +202,7 @@ We use **3 primary breakpoints** for simplicity:
 ### Content Priority by Device
 
 **Mobile (Most Restrictive):**
+
 - ✅ IP Address (hero, 32px)
 - ✅ Location (city, country)
 - ✅ Copy IP button (primary action)
@@ -196,12 +211,14 @@ We use **3 primary breakpoints** for simplicity:
 - ⚠️ Footer links (minimal, collapsed)
 
 **Tablet (Balanced):**
+
 - ✅ All mobile content
 - ✅ Map link (more prominent)
 - ✅ Footer links (horizontal layout)
 - ✅ Additional geolocation details (ISP, timezone if available)
 
 **Desktop (Most Generous):**
+
 - ✅ All tablet content
 - ✅ Keyboard shortcut hints (Cmd+C to copy)
 - ✅ Enhanced footer (multiple columns, more links)
@@ -214,6 +231,7 @@ We use **3 primary breakpoints** for simplicity:
 **Manual Testing Targets:**
 
 **Physical Devices (Priority):**
+
 - iPhone SE (375px) - Smallest common device
 - iPhone 14/15 Pro (393px) - Modern iOS standard
 - Samsung Galaxy S23 (360px) - Android standard
@@ -221,11 +239,13 @@ We use **3 primary breakpoints** for simplicity:
 - MacBook Pro 14" (1512px) - Desktop standard
 
 **Browser DevTools Emulation:**
+
 - Chrome DevTools responsive mode (320px → 1920px sweep)
 - Firefox Responsive Design Mode
 - Safari Web Inspector (iOS device simulation)
 
 **Automated Testing:**
+
 - Lighthouse CI: Test at 375px (mobile) and 1920px (desktop)
 - Percy.io visual regression (if budget allows)
 - Playwright tests at all 3 breakpoints
@@ -243,11 +263,13 @@ We use **3 primary breakpoints** for simplicity:
 **Perceivable:**
 
 **1.3.1 Info and Relationships (Level A):**
+
 - Semantic HTML structure (`<main>`, `<header>`, `<footer>`, `<nav>`)
 - Proper heading hierarchy (H1 for IP address, H2 for sections)
 - ARIA landmarks where semantic HTML isn't sufficient
 
 **1.4.3 Contrast (Minimum) (Level AA):**
+
 - **Normal Text:** 4.5:1 contrast ratio minimum
   - NuxtUI gray.900 on white (21:1 ✅)
   - NuxtUI gray.300 on gray.900 dark mode (7:1 ✅)
@@ -257,16 +279,19 @@ We use **3 primary breakpoints** for simplicity:
   - Buttons, links, form controls all meet 3:1 minimum
 
 **NuxtUI Default Colors (Pre-Validated):**
+
 - Primary (green.500): 4.5:1 on white ✅
 - Error (red.500): 4.5:1 on white ✅
 - Success (green.500): 4.5:1 on white ✅
 
 **1.4.4 Resize Text (Level AA):**
+
 - Text can be resized to 200% without loss of content or functionality
 - Use `rem` units exclusively (never `px` for font sizes)
 - Test with browser zoom at 200%, 300%, 400%
 
 **1.4.5 Images of Text (Level AA):**
+
 - No images of text (all text rendered as actual text)
 - IP address displayed as HTML text, not canvas/image
 - Logo (if any) is SVG with accessible text alternative
@@ -276,25 +301,30 @@ We use **3 primary breakpoints** for simplicity:
 **Operable:**
 
 **2.1.1 Keyboard (Level A):**
+
 - All functionality available via keyboard
 - Tab order: Hero content → Copy button → Refresh → Map link → Footer links
 - No keyboard traps (focus can always escape)
 
 **2.1.2 No Keyboard Trap (Level A):**
+
 - Modals (if any) can be closed with Escape key
 - Toast notifications dismissible with Escape
 - No infinite tab loops
 
 **2.4.3 Focus Order (Level A):**
+
 - Logical focus order: top to bottom, left to right
 - Primary action (Copy IP) focused first after page load (optional, user preference)
 
 **2.4.7 Focus Visible (Level AA):**
+
 - Visible focus indicators on all interactive elements
 - NuxtUI default focus ring: 2px offset, primary color
 - High contrast focus ring in high contrast mode
 
 **2.5.5 Target Size (Level AAA - We're implementing this despite AA target):**
+
 - **Mobile:** 48x48px minimum touch targets
 - **Desktop:** 44x44px minimum (AA requirement: 24x24px, we exceed)
 - Spacing between targets: 8px minimum
@@ -304,22 +334,27 @@ We use **3 primary breakpoints** for simplicity:
 **Understandable:**
 
 **3.1.1 Language of Page (Level A):**
+
 - `<html lang="en">` attribute set correctly
 - French version: `<html lang="fr">` (if multi-language support added)
 
 **3.2.1 On Focus (Level A):**
+
 - No unexpected context changes when element receives focus
 - Focus on button doesn't trigger action (requires click/Enter)
 
 **3.2.2 On Input (Level A):**
+
 - No unexpected behavior when user interacts with controls
 - Copy button requires explicit activation (click/Enter/Space)
 
 **3.3.1 Error Identification (Level A):**
+
 - Errors clearly identified with color + text + icon (not color alone)
 - API errors: Red icon + "Location Unavailable" text + "Try Again" action
 
 **3.3.3 Error Suggestion (Level AA):**
+
 - Errors provide recovery suggestions
 - Network timeout: "Check your network connection" + "Try Again" button
 
@@ -328,12 +363,14 @@ We use **3 primary breakpoints** for simplicity:
 **Robust:**
 
 **4.1.2 Name, Role, Value (Level A):**
+
 - All UI components have accessible names
 - Buttons: `<UButton aria-label="Copy IP address to clipboard">`
 - Links: `<ULink aria-label="View location on Google Maps">`
 - Icons: Include `aria-hidden="true"` for decorative icons, descriptive text for functional icons
 
 **4.1.3 Status Messages (Level AA):**
+
 - Toast notifications use ARIA live regions
 - Success: `<div role="status" aria-live="polite">`
 - Errors: `<div role="alert" aria-live="assertive">`
@@ -347,45 +384,37 @@ We use **3 primary breakpoints** for simplicity:
 
 ```html
 <html lang="en">
-<body>
-  <a href="#main-content" class="skip-link">Skip to main content</a>
+  <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-  <header role="banner">
-    <h1>What Is My IP</h1>
-  </header>
+    <header role="banner">
+      <h1>What Is My IP</h1>
+    </header>
 
-  <main id="main-content" role="main">
-    <section aria-labelledby="ip-heading">
-      <h2 id="ip-heading" class="sr-only">Your IP Address</h2>
-      <div aria-label="IP Address: 192.168.1.1" class="text-6xl">
-        192.168.1.1
+    <main id="main-content" role="main">
+      <section aria-labelledby="ip-heading">
+        <h2 id="ip-heading" class="sr-only">Your IP Address</h2>
+        <div aria-label="IP Address: 192.168.1.1" class="text-6xl">192.168.1.1</div>
+      </section>
+
+      <section aria-labelledby="location-heading">
+        <h2 id="location-heading" class="sr-only">Your Location</h2>
+        <p>Montreal, Canada</p>
+      </section>
+
+      <div role="group" aria-label="Actions">
+        <button aria-label="Copy IP address to clipboard">Copy IP</button>
+        <button aria-label="Refresh IP address">Refresh</button>
       </div>
-    </section>
+    </main>
 
-    <section aria-labelledby="location-heading">
-      <h2 id="location-heading" class="sr-only">Your Location</h2>
-      <p>Montreal, Canada</p>
-    </section>
-
-    <div role="group" aria-label="Actions">
-      <button aria-label="Copy IP address to clipboard">
-        Copy IP
-      </button>
-      <button aria-label="Refresh IP address">
-        Refresh
-      </button>
-    </div>
-  </main>
-
-  <footer role="contentinfo">
-    <nav aria-label="Footer navigation">
-      <a href="/about">About</a>
-      <a href="https://github.com/mathieumaf/what-is-my-ip">
-        View Source Code
-      </a>
-    </nav>
-  </footer>
-</body>
+    <footer role="contentinfo">
+      <nav aria-label="Footer navigation">
+        <a href="/about">About</a>
+        <a href="https://github.com/mathieumaf/what-is-my-ip"> View Source Code </a>
+      </nav>
+    </footer>
+  </body>
 </html>
 ```
 
@@ -398,7 +427,10 @@ We use **3 primary breakpoints** for simplicity:
 </div>
 
 <!-- Loading States -->
-<button :aria-busy="isLoading" :aria-label="isLoading ? 'Refreshing IP address' : 'Refresh IP address'">
+<button
+  :aria-busy="isLoading"
+  :aria-label="isLoading ? 'Refreshing IP address' : 'Refresh IP address'"
+>
   Refresh
 </button>
 
@@ -411,16 +443,19 @@ We use **3 primary breakpoints** for simplicity:
 **Screen Reader Testing Checklist:**
 
 ✅ **VoiceOver (macOS/iOS):**
+
 - Navigate entire page with VoiceOver enabled
 - Test rotor navigation (headings, links, form controls)
 - Verify all interactive elements are announced correctly
 
 ✅ **NVDA (Windows):**
+
 - Browse mode navigation
 - Focus mode for interactive elements
 - Verify ARIA labels and live regions
 
 ✅ **JAWS (Windows) (if available):**
+
 - Forms mode testing
 - Virtual cursor navigation
 - Verify landmark navigation
@@ -441,12 +476,14 @@ We use **3 primary breakpoints** for simplicity:
 **Keyboard Shortcuts:**
 
 **Primary Actions:**
+
 - `Tab` - Navigate forward through interactive elements
 - `Shift + Tab` - Navigate backward
 - `Enter` / `Space` - Activate focused button/link
 - `Escape` - Dismiss toast notifications, close modals (if any)
 
 **Optional Enhancements (Future):**
+
 - `Cmd/Ctrl + C` - Global copy shortcut (when focus anywhere on page)
 - `Cmd/Ctrl + R` - Global refresh shortcut
 - `?` - Show keyboard shortcuts help modal
@@ -456,16 +493,10 @@ We use **3 primary breakpoints** for simplicity:
 ```vue
 <template>
   <!-- Skip Link (visible on focus) -->
-  <a href="#main-content" class="skip-link">
-    Skip to main content
-  </a>
+  <a href="#main-content" class="skip-link"> Skip to main content </a>
 
   <!-- Focus Ring Styles -->
-  <UButton
-    class="focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"
-  >
-    Copy IP
-  </UButton>
+  <UButton class="focus:ring-2 focus:ring-offset-2 focus:ring-primary-500"> Copy IP </UButton>
 
   <!-- Focus Trap in Modals -->
   <UModal v-model="isOpen" trap-focus>
@@ -506,20 +537,24 @@ We use **3 primary breakpoints** for simplicity:
 **Color Blindness Considerations:**
 
 **Protanopia (Red-Blind) & Deuteranopia (Green-Blind):**
+
 - Don't rely on red/green alone for success/error states
 - Success: Green + Checkmark icon + "Success" text
 - Error: Red + Exclamation icon + "Error" text
 
 **Tritanopia (Blue-Blind):**
+
 - Blue info notifications include info icon + "Info" text
 - Links underlined on hover (not just color change)
 
 **Testing Tools:**
+
 - Chrome DevTools: Emulate vision deficiencies
 - Stark plugin: Real-time color blindness simulation
 - Color Oracle: System-wide color blindness simulator
 
 **NuxtUI Color Validation:**
+
 - All NuxtUI semantic colors tested for color blindness accessibility
 - Icons always accompany color-coded messages
 - Underline + color change for links (not color alone)
@@ -563,9 +598,9 @@ jobs:
     },
     "assert": {
       "assertions": {
-        "categories:accessibility": ["error", {"minScore": 1}],
-        "categories:performance": ["error", {"minScore": 0.9}],
-        "categories:best-practices": ["error", {"minScore": 0.9}]
+        "categories:accessibility": ["error", { "minScore": 1 }],
+        "categories:performance": ["error", { "minScore": 0.9 }],
+        "categories:best-practices": ["error", { "minScore": 0.9 }]
       }
     }
   }
@@ -573,6 +608,7 @@ jobs:
 ```
 
 **Target Scores:**
+
 - Accessibility: 100/100 (non-negotiable)
 - Performance: 90+/100
 - Best Practices: 90+/100
@@ -583,32 +619,32 @@ jobs:
 
 ```javascript
 // tests/accessibility.spec.js
-import { test, expect } from '@playwright/test'
-import AxeBuilder from '@axe-core/playwright'
+import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
 
 test.describe('Accessibility Tests', () => {
   test('homepage should not have accessibility violations', async ({ page }) => {
-    await page.goto('http://localhost:3000')
+    await page.goto('http://localhost:3000');
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .analyze()
+      .analyze();
 
-    expect(accessibilityScanResults.violations).toEqual([])
-  })
+    expect(accessibilityScanResults.violations).toEqual([]);
+  });
 
   test('keyboard navigation works correctly', async ({ page }) => {
-    await page.goto('http://localhost:3000')
+    await page.goto('http://localhost:3000');
 
     // Tab to Copy button
-    await page.keyboard.press('Tab')
-    await expect(page.locator('button:has-text("Copy IP")')).toBeFocused()
+    await page.keyboard.press('Tab');
+    await expect(page.locator('button:has-text("Copy IP")')).toBeFocused();
 
     // Activate with Enter
-    await page.keyboard.press('Enter')
-    await expect(page.locator('[role="status"]')).toContainText('IP Copied')
-  })
-})
+    await page.keyboard.press('Enter');
+    await expect(page.locator('[role="status"]')).toContainText('IP Copied');
+  });
+});
 ```
 
 ---
@@ -626,10 +662,7 @@ test.describe('Accessibility Tests', () => {
       "args": ["--no-sandbox"]
     }
   },
-  "urls": [
-    "http://localhost:3000",
-    "http://localhost:3000?theme=dark"
-  ]
+  "urls": ["http://localhost:3000", "http://localhost:3000?theme=dark"]
 }
 ```
 
@@ -640,12 +673,14 @@ test.describe('Accessibility Tests', () => {
 **Screen Reader Testing:**
 
 **VoiceOver (macOS):**
+
 - Cmd + F5: Toggle VoiceOver
 - VO + Right Arrow: Navigate forward
 - VO + Left Arrow: Navigate backward
 - VO + U: Open rotor (headings, links, landmarks)
 
 **Test Scenarios:**
+
 1. Navigate entire page with VoiceOver
 2. Activate "Copy IP" button with VO + Space
 3. Hear toast notification announcement
@@ -653,12 +688,14 @@ test.describe('Accessibility Tests', () => {
 5. Test skip link with VO + Right Arrow from page load
 
 **NVDA (Windows):**
+
 - Ctrl + Alt + N: Start NVDA
 - Insert + Down Arrow: Browse mode
 - Insert + Space: Toggle focus/browse mode
 - Insert + F7: Elements list
 
 **Test Scenarios:**
+
 1. Browse mode navigation (arrow keys)
 2. Focus mode for buttons (Enter on button → focus mode)
 3. Forms mode testing (if forms added later)
@@ -669,6 +706,7 @@ test.describe('Accessibility Tests', () => {
 **Keyboard-Only Testing:**
 
 **Test Checklist:**
+
 - [ ] Tab through entire page (no keyboard traps)
 - [ ] Activate Copy IP with Enter/Space
 - [ ] Activate Refresh with Enter/Space
@@ -679,6 +717,7 @@ test.describe('Accessibility Tests', () => {
 - [ ] Focus indicators visible on all elements
 
 **Testing Browsers:**
+
 - Chrome (Windows/Mac)
 - Firefox (Windows/Mac)
 - Safari (Mac only)
@@ -689,11 +728,13 @@ test.describe('Accessibility Tests', () => {
 **Color Contrast Testing:**
 
 **Tools:**
+
 - Chrome DevTools: Inspect → Accessibility pane → Contrast ratio
 - Stark plugin: Real-time contrast checker
 - WebAIM Contrast Checker: Manual verification
 
 **Test Scenarios:**
+
 - Normal text on light background (4.5:1 minimum)
 - Large text on light background (3:1 minimum)
 - Dark mode: Normal text (4.5:1 minimum)
@@ -708,6 +749,7 @@ test.describe('Accessibility Tests', () => {
 **Responsive Testing:**
 
 **Physical Device Testing (Priority):**
+
 - iPhone SE (iOS 17+): Smallest mobile device
 - iPhone 14 Pro (iOS 17+): Standard iOS device
 - Samsung Galaxy S23 (Android 13+): Standard Android device
@@ -715,11 +757,13 @@ test.describe('Accessibility Tests', () => {
 - MacBook Pro 14" (macOS): Desktop testing
 
 **Browser DevTools Emulation:**
+
 - Chrome: Responsive mode (320px → 1920px sweep)
 - Firefox: Responsive Design Mode
 - Safari: Responsive Design Mode (iOS device simulation)
 
 **Test Scenarios:**
+
 - Layout at 320px (smallest supported)
 - Layout at 375px (iPhone SE)
 - Layout at 393px (iPhone 14 Pro)
@@ -733,16 +777,19 @@ test.describe('Accessibility Tests', () => {
 ### User Testing with Assistive Technologies
 
 **Recruitment:**
+
 - Recruit 2-3 users with disabilities (screen reader users, keyboard-only users, low vision users)
 - Compensate fairly for their time ($50-100/hour industry standard)
 
 **Testing Protocol:**
+
 - **Task 1:** Navigate to site and find your IP address
 - **Task 2:** Copy IP to clipboard using keyboard only
 - **Task 3:** Refresh IP address and verify update
 - **Task 4:** Navigate to GitHub link in footer
 
 **Success Metrics:**
+
 - 100% task completion rate
 - No critical accessibility barriers identified
 - Users feel experience is "as good as" non-assistive tech experience
@@ -820,10 +867,7 @@ test.describe('Accessibility Tests', () => {
 
 ```vue
 <!-- Mobile: 48x48px minimum -->
-<UButton
-  size="lg"
-  class="min-h-[48px] min-w-[48px] sm:min-h-[44px]"
->
+<UButton size="lg" class="min-h-[48px] min-w-[48px] sm:min-h-[44px]">
   Copy IP
 </UButton>
 
@@ -841,7 +885,7 @@ test.describe('Accessibility Tests', () => {
 ```html
 <!-- nuxt.config.ts or app.vue -->
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
   <!-- Allow zoom up to 5x for accessibility -->
   <!-- DO NOT use user-scalable=no (fails WCAG) -->
 </head>
@@ -897,10 +941,7 @@ test.describe('Accessibility Tests', () => {
 ```vue
 <template>
   <!-- Buttons with descriptive labels -->
-  <UButton
-    aria-label="Copy IP address to clipboard"
-    @click="copyToClipboard"
-  >
+  <UButton aria-label="Copy IP address to clipboard" @click="copyToClipboard">
     <UIcon name="i-heroicons-clipboard-document" aria-hidden="true" />
     Copy IP
   </UButton>
@@ -952,28 +993,28 @@ test.describe('Accessibility Tests', () => {
 <script setup>
 // Handle Escape key to dismiss toasts
 onMounted(() => {
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      dismissToast()
+      dismissToast();
     }
-  })
-})
+  });
+});
 
 // Optional: Global keyboard shortcuts
 onMounted(() => {
-  document.addEventListener('keydown', (e) => {
+  document.addEventListener('keydown', e => {
     // Cmd/Ctrl + C to copy IP
     if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
-      copyToClipboard()
+      copyToClipboard();
     }
 
     // Cmd/Ctrl + R to refresh (prevent default browser refresh)
     if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
-      e.preventDefault()
-      refreshIP()
+      e.preventDefault();
+      refreshIP();
     }
-  })
-})
+  });
+});
 </script>
 ```
 
@@ -983,38 +1024,33 @@ onMounted(() => {
 
 ```vue
 <script setup>
-const toast = useToast()
-const copyButton = ref(null)
+const toast = useToast();
+const copyButton = ref(null);
 
 async function copyToClipboard() {
   try {
-    await navigator.clipboard.writeText(ipAddress.value)
+    await navigator.clipboard.writeText(ipAddress.value);
     toast.add({
       title: 'IP Copied!',
-      icon: 'i-heroicons-check-circle'
-    })
+      icon: 'i-heroicons-check-circle',
+    });
 
     // Return focus to copy button after toast appears
     nextTick(() => {
-      copyButton.value?.$el.focus()
-    })
+      copyButton.value?.$el.focus();
+    });
   } catch (error) {
     toast.add({
       title: 'Copy Failed',
       color: 'red',
-      icon: 'i-heroicons-exclamation-triangle'
-    })
+      icon: 'i-heroicons-exclamation-triangle',
+    });
   }
 }
 </script>
 
 <template>
-  <UButton
-    ref="copyButton"
-    @click="copyToClipboard"
-  >
-    Copy IP
-  </UButton>
+  <UButton ref="copyButton" @click="copyToClipboard"> Copy IP </UButton>
 </template>
 ```
 
@@ -1092,6 +1128,7 @@ async function copyToClipboard() {
 ## Implementation Priority
 
 **Phase 1 (MVP - Must Have):**
+
 - ✅ Semantic HTML structure
 - ✅ WCAG 2.1 Level AA compliance
 - ✅ Keyboard navigation support
@@ -1102,6 +1139,7 @@ async function copyToClipboard() {
 - ✅ Lighthouse Accessibility 100/100
 
 **Phase 2 (Post-MVP - Nice to Have):**
+
 - ⚠️ Global keyboard shortcuts (Cmd+C, Cmd+R)
 - ⚠️ Keyboard shortcuts help modal (?)
 - ⚠️ User preference persistence (dark mode choice)
@@ -1110,6 +1148,7 @@ async function copyToClipboard() {
 - ⚠️ High contrast mode enhancements
 
 **Phase 3 (Future - Optional):**
+
 - 🔮 WCAG 2.2 compliance (when finalized)
 - 🔮 Multi-language support (i18n)
 - 🔮 Voice control optimization (Siri, Google Assistant)

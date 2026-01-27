@@ -163,7 +163,7 @@ test('should handle API errors gracefully', async ({ page, interceptNetworkCall 
 test('should handle timeout', async ({ page, interceptNetworkCall }) => {
   await interceptNetworkCall({
     url: '**/api/slow',
-    handler: async (route) => {
+    handler: async route => {
       // Never respond - simulates timeout
       await new Promise(() => {});
     },
@@ -328,7 +328,7 @@ The utility uses [picomatch](https://github.com/micromatch/picomatch) for powerf
 
 ```typescript
 // Vanilla Playwright - complex predicate
-const predicate = (response) => {
+const predicate = response => {
   const url = response.url();
   return (
     url.endsWith('/api/users') ||

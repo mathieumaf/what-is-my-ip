@@ -330,10 +330,10 @@ expect(headers).toContain('age');
 {
   content: {
     worksheets: Array<{
-      name: string,                       // Sheet name
-      rows: Array<Array<any>>,            // All rows including headers
-      headers?: string[]                  // First row as headers (if present)
-    }>
+      name: string; // Sheet name
+      rows: Array<Array<any>>; // All rows including headers
+      headers?: string[]; // First row as headers (if present)
+    }>;
   }
 }
 ```
