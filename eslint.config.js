@@ -1,8 +1,8 @@
 // @ts-check
-import eslint from '@eslint/js';
-import tseslint from 'typescript-eslint';
-import eslintConfigPrettier from 'eslint-config-prettier';
-import vueParser from 'vue-eslint-parser';
+import eslint from '@eslint/js'
+import tseslint from 'typescript-eslint'
+import eslintConfigPrettier from 'eslint-config-prettier'
+import vueParser from 'vue-eslint-parser'
 
 export default tseslint.config(
   {
@@ -87,4 +87,4 @@ export default tseslint.config(
       ],
     },
   }
-);
+)

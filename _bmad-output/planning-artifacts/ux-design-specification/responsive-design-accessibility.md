@@ -619,32 +619,32 @@ jobs:
 
 ```javascript
 // tests/accessibility.spec.js
-import { test, expect } from '@playwright/test';
-import AxeBuilder from '@axe-core/playwright';
+import { test, expect } from '@playwright/test'
+import AxeBuilder from '@axe-core/playwright'
 
 test.describe('Accessibility Tests', () => {
   test('homepage should not have accessibility violations', async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('http://localhost:3000')
 
     const accessibilityScanResults = await new AxeBuilder({ page })
       .withTags(['wcag2a', 'wcag2aa', 'wcag21aa'])
-      .analyze();
+      .analyze()
 
-    expect(accessibilityScanResults.violations).toEqual([]);
-  });
+    expect(accessibilityScanResults.violations).toEqual([])
+  })
 
   test('keyboard navigation works correctly', async ({ page }) => {
-    await page.goto('http://localhost:3000');
+    await page.goto('http://localhost:3000')
 
     // Tab to Copy button
-    await page.keyboard.press('Tab');
-    await expect(page.locator('button:has-text("Copy IP")')).toBeFocused();
+    await page.keyboard.press('Tab')
+    await expect(page.locator('button:has-text("Copy IP")')).toBeFocused()
 
     // Activate with Enter
-    await page.keyboard.press('Enter');
-    await expect(page.locator('[role="status"]')).toContainText('IP Copied');
-  });
-});
+    await page.keyboard.press('Enter')
+    await expect(page.locator('[role="status"]')).toContainText('IP Copied')
+  })
+})
 ```
 
 ---
@@ -995,26 +995,26 @@ test.describe('Accessibility Tests', () => {
 onMounted(() => {
   document.addEventListener('keydown', e => {
     if (e.key === 'Escape') {
-      dismissToast();
+      dismissToast()
     }
-  });
-});
+  })
+})
 
 // Optional: Global keyboard shortcuts
 onMounted(() => {
   document.addEventListener('keydown', e => {
     // Cmd/Ctrl + C to copy IP
     if ((e.metaKey || e.ctrlKey) && e.key === 'c') {
-      copyToClipboard();
+      copyToClipboard()
     }
 
     // Cmd/Ctrl + R to refresh (prevent default browser refresh)
     if ((e.metaKey || e.ctrlKey) && e.key === 'r') {
-      e.preventDefault();
-      refreshIP();
+      e.preventDefault()
+      refreshIP()
     }
-  });
-});
+  })
+})
 </script>
 ```
 
@@ -1024,27 +1024,27 @@ onMounted(() => {
 
 ```vue
 <script setup>
-const toast = useToast();
-const copyButton = ref(null);
+const toast = useToast()
+const copyButton = ref(null)
 
 async function copyToClipboard() {
   try {
-    await navigator.clipboard.writeText(ipAddress.value);
+    await navigator.clipboard.writeText(ipAddress.value)
     toast.add({
       title: 'IP Copied!',
       icon: 'i-heroicons-check-circle',
-    });
+    })
 
     // Return focus to copy button after toast appears
     nextTick(() => {
-      copyButton.value?.$el.focus();
-    });
+      copyButton.value?.$el.focus()
+    })
   } catch (error) {
     toast.add({
       title: 'Copy Failed',
       color: 'red',
       icon: 'i-heroicons-exclamation-triangle',
-    });
+    })
   }
 }
 </script>

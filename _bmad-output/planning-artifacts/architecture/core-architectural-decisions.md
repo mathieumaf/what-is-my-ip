@@ -83,15 +83,15 @@
 // server/api/geolocation.get.ts
 export default defineCachedEventHandler(
   async event => {
-    const ip = getRequestIP(event);
-    const geoData = await $fetch(`http://ip-api.com/json/${ip}`);
-    return geoData;
+    const ip = getRequestIP(event)
+    const geoData = await $fetch(`http://ip-api.com/json/${ip}`)
+    return geoData
   },
   {
     maxAge: 60 * 5, // 5 minutes in seconds
     getKey: event => getRequestIP(event) || 'unknown', // Cache per IP
   }
-);
+)
 ```
 
 **Cache Invalidation:**
@@ -119,21 +119,21 @@ export default defineCachedEventHandler(
 
 ```typescript
 // server/utils/rateLimiter.ts
-import { LRUCache } from 'lru-cache';
+import { LRUCache } from 'lru-cache'
 
 const rateLimitCache = new LRUCache({
   max: 500,
   ttl: 60_000, // 1 minute
-});
+})
 
 export function checkRateLimit(identifier: string): boolean {
-  const requests = (rateLimitCache.get(identifier) as number) || 0;
+  const requests = (rateLimitCache.get(identifier) as number) || 0
   if (requests >= 10) {
     // 10 requests per minute per IP
-    return false;
+    return false
   }
-  rateLimitCache.set(identifier, requests + 1);
-  return true;
+  rateLimitCache.set(identifier, requests + 1)
+  return true
 }
 ```
 
@@ -142,28 +142,28 @@ export function checkRateLimit(identifier: string): boolean {
 ```typescript
 // composables/useIpRefresh.ts
 export const useIpRefresh = () => {
-  const canRefresh = ref(true);
-  const cooldownSeconds = ref(0);
+  const canRefresh = ref(true)
+  const cooldownSeconds = ref(0)
 
   const refresh = async () => {
-    if (!canRefresh.value) return;
+    if (!canRefresh.value) return
 
-    canRefresh.value = false;
-    cooldownSeconds.value = 10; // 10 second cooldown
+    canRefresh.value = false
+    cooldownSeconds.value = 10 // 10 second cooldown
 
     // Perform refresh...
 
     const interval = setInterval(() => {
-      cooldownSeconds.value--;
+      cooldownSeconds.value--
       if (cooldownSeconds.value <= 0) {
-        canRefresh.value = true;
-        clearInterval(interval);
+        canRefresh.value = true
+        clearInterval(interval)
       }
-    }, 1000);
-  };
+    }, 1000)
+  }
 
-  return { refresh, canRefresh, cooldownSeconds };
-};
+  return { refresh, canRefresh, cooldownSeconds }
+}
 ```
 
 **Rate Limit Strategy:**
@@ -210,11 +210,11 @@ bun add @vercel/analytics
 
 ```typescript
 // app.vue or plugins/analytics.ts
-import { inject } from '@vercel/analytics';
+import { inject } from '@vercel/analytics'
 
 export default defineNuxtPlugin(() => {
-  inject();
-});
+  inject()
+})
 ```
 
 **Custom Events (for PRD requirements):**
@@ -265,7 +265,7 @@ export default defineNuxtConfig({
     replaysSessionSampleRate: 0.1, // 10% session replay
     replaysOnErrorSampleRate: 1.0, // 100% on errors
   },
-});
+})
 ```
 
 **Error Tracking Strategy:**
@@ -306,67 +306,67 @@ export default defineNuxtConfig({
 ```typescript
 // composables/useIpDetection.ts
 export const useIpDetection = () => {
-  const ipAddress = ref<string>('');
-  const loading = ref(true);
-  const error = ref<Error | null>(null);
+  const ipAddress = ref<string>('')
+  const loading = ref(true)
+  const error = ref<Error | null>(null)
 
   const detectIp = async () => {
-    loading.value = true;
-    error.value = null;
+    loading.value = true
+    error.value = null
     try {
-      const data = await $fetch('/api/ip');
-      ipAddress.value = data.ip;
+      const data = await $fetch('/api/ip')
+      ipAddress.value = data.ip
     } catch (e) {
-      error.value = e as Error;
+      error.value = e as Error
     } finally {
-      loading.value = false;
+      loading.value = false
     }
-  };
+  }
 
-  return { ipAddress, loading, error, detectIp };
-};
+  return { ipAddress, loading, error, detectIp }
+}
 ```
 
 ```typescript
 // composables/useGeolocation.ts
 export const useGeolocation = (ip: Ref<string>) => {
-  const geolocation = ref<GeolocationData | null>(null);
-  const loading = ref(false);
-  const error = ref<Error | null>(null);
+  const geolocation = ref<GeolocationData | null>(null)
+  const loading = ref(false)
+  const error = ref<Error | null>(null)
 
   const fetchGeolocation = async () => {
     // ... implementation
-  };
+  }
 
-  return { geolocation, loading, error, fetchGeolocation };
-};
+  return { geolocation, loading, error, fetchGeolocation }
+}
 ```
 
 ```typescript
 // composables/useCopyToClipboard.ts
 export const useCopyToClipboard = () => {
-  const toast = useToast();
+  const toast = useToast()
 
   const copy = async (text: string) => {
     try {
-      await navigator.clipboard.writeText(text);
+      await navigator.clipboard.writeText(text)
       toast.add({
         title: 'IP Copied!',
         icon: 'i-heroicons-check-circle',
         color: 'green',
-      });
+      })
     } catch (error) {
       toast.add({
         title: 'Copy Failed',
         description: 'Please try again',
         icon: 'i-heroicons-exclamation-triangle',
         color: 'red',
-      });
+      })
     }
-  };
+  }
 
-  return { copy };
-};
+  return { copy }
+}
 ```
 
 **Component Structure:**
@@ -413,18 +413,18 @@ app/components/
 export default defineNuxtPlugin(nuxtApp => {
   nuxtApp.vueApp.config.errorHandler = (error, instance, info) => {
     // Log to Sentry
-    console.error('Vue Error:', error, info);
+    console.error('Vue Error:', error, info)
 
     // Optionally show user-friendly toast
-    const toast = useToast();
+    const toast = useToast()
     toast.add({
       title: 'Something went wrong',
       description: 'Please refresh the page',
       color: 'red',
       timeout: 0, // Persistent
-    });
-  };
-});
+    })
+  }
+})
 ```
 
 **Nuxt Error Page:**
@@ -443,10 +443,10 @@ export default defineNuxtPlugin(nuxtApp => {
 
 <script setup lang="ts">
 const props = defineProps<{
-  error: { statusCode: number; message: string };
-}>();
+  error: { statusCode: number; message: string }
+}>()
 
-const handleError = () => clearError({ redirect: '/' });
+const handleError = () => clearError({ redirect: '/' })
 </script>
 ```
 
@@ -455,22 +455,22 @@ const handleError = () => clearError({ redirect: '/' });
 ```typescript
 // Example in composable
 export const useGeolocation = (ip: Ref<string>) => {
-  const geolocation = ref<GeolocationData | null>(null);
-  const error = ref<Error | null>(null);
+  const geolocation = ref<GeolocationData | null>(null)
+  const error = ref<Error | null>(null)
 
   const fetchGeolocation = async () => {
     try {
-      const data = await $fetch('/api/geolocation');
-      geolocation.value = data;
-      error.value = null;
+      const data = await $fetch('/api/geolocation')
+      geolocation.value = data
+      error.value = null
     } catch (e) {
-      error.value = e as Error;
+      error.value = e as Error
       // Component can display friendly error UI
     }
-  };
+  }
 
-  return { geolocation, error, fetchGeolocation };
-};
+  return { geolocation, error, fetchGeolocation }
+}
 ```
 
 **Error Hierarchy:**
@@ -518,7 +518,7 @@ export default defineNuxtConfig({
     strictNuxtContentPaths: true,
     exclude: ['/api/**'], // Exclude API routes
   },
-});
+})
 ```
 
 **Generated Sitemap:**
@@ -579,7 +579,7 @@ export default defineNuxtConfig({
     allow: ['/'],
     disallow: ['/api'],
   },
-});
+})
 ```
 
 **Page-Level Meta:**
@@ -598,7 +598,7 @@ useSeoMeta({
   twitterTitle: 'What Is My IP',
   twitterDescription: 'Instant IP detection and geolocation',
   twitterImage: '/og-image.png',
-});
+})
 </script>
 ```
 
@@ -833,7 +833,7 @@ export default defineNuxtConfig({
       siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
     },
   },
-});
+})
 ```
 
 **Vercel Environment Variables (Production):**
@@ -866,12 +866,12 @@ vercel env add SENTRY_DSN production
 
 ```typescript
 // Server-side (server/api/geolocation.get.ts)
-const config = useRuntimeConfig();
-const apiKey = config.ipApiKey; // Private, server-only
+const config = useRuntimeConfig()
+const apiKey = config.ipApiKey // Private, server-only
 
 // Client-side (components or composables)
-const config = useRuntimeConfig();
-const siteUrl = config.public.siteUrl; // Public, available everywhere
+const config = useRuntimeConfig()
+const siteUrl = config.public.siteUrl // Public, available everywhere
 ```
 
 **Security Best Practices:**

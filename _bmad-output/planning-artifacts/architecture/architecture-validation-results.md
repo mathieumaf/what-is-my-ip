@@ -346,7 +346,7 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2026-01-23',
-});
+})
 ```
 
 **3. Create Directory Structure:**
