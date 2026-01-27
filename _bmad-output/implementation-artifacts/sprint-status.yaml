@@ -43,7 +43,7 @@ development_status:
   # Epic 1: Project Initialization & Quality Foundation
   epic-1: in-progress
   1-1-initialize-nuxt-4-project-with-nuxtui: done
-  1-2-configure-typescript-strict-mode-and-code-quality-tools: ready-for-dev
+  1-2-configure-typescript-strict-mode-and-code-quality-tools: review
   1-3-set-up-unit-testing-with-vitest: backlog
   1-4-set-up-e2e-testing-with-playwright: backlog
   1-5-configure-github-actions-ci-cd-pipeline: backlog
