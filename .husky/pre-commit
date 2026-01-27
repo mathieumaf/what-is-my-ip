@@ -1,0 +1,7 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+# Run quality checks before commit
+bun run lint
+bun run typecheck
+bun run format:check
