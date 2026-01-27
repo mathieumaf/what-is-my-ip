@@ -25,5 +25,7 @@ logs
 
 # Testing
 coverage
+coverage/
 playwright-report
 test-results/
+.vitest/
