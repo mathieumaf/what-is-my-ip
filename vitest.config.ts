@@ -25,13 +25,17 @@ export default defineVitestConfig({
         '**/*.d.ts',
         '**/*.config.*',
         '**/mockData',
+        // TODO: Remove these exclusions when tests are added for existing code
+        'app/pages/**',
+        'app/layouts/**',
+        'types/**',
       ],
-      all: false,
+      all: true,
       thresholds: {
-        lines: 0, // TODO: Increase to 80% when production code has tests (Story 2.x+)
-        functions: 0,
-        branches: 0,
-        statements: 0,
+        lines: 80,
+        functions: 80,
+        branches: 80,
+        statements: 80,
         perFile: true,
       },
     },

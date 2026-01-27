@@ -2,6 +2,7 @@
   "name": "what-is-my-ip",
   "type": "module",
   "private": true,
+  "packageManager": "bun@latest",
   "scripts": {
     "build": "nuxt build",
     "dev": "nuxt dev",

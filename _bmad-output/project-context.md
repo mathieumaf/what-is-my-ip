@@ -187,9 +187,10 @@ _This file contains critical rules and patterns that AI agents must follow when 
 
 **Vitest (Unit Tests):**
 
-- Environment: `jsdom` for component tests
+- Environment: `nuxt` with `happy-dom` for DOM operations
 - Globals enabled (no need to import `describe`, `it`, `expect`)
-- Coverage threshold: 80% (lines, functions, branches, statements)
+- Coverage threshold: 80% minimum enforced (lines, functions, branches, statements)
+- Coverage provider: V8 (recommended for accuracy and performance)
 - Mock $fetch and Nuxt composables as needed
 
 **Playwright (E2E Tests):**
