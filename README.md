@@ -1,5 +1,7 @@
 # Nuxt Minimal Starter
 
+[![CI/CD Pipeline](https://github.com/mathieumaf/what-is-my-ip/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieumaf/what-is-my-ip/actions/workflows/ci.yml)
+
 Look at the [Nuxt documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
 
 ## Setup

@@ -138,6 +138,10 @@ jobs:
           configPath: './lighthouserc.json'
           uploadArtifacts: true
           temporaryPublicStorage: true
+          runs: 3
+          startServerCommand: 'bun run preview'
+          startServerReadyPattern: 'Local:.*:3000'
+          startServerReadyTimeout: 30000
 
   deploy:
     name: Deploy to Vercel
