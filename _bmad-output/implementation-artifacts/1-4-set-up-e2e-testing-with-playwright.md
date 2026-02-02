@@ -1,6 +1,6 @@
 # Story 1.4: Set Up E2E Testing with Playwright
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -62,8 +62,8 @@ So that I can write and run E2E tests for critical user journeys.
   - [x] Test: Homepage loads successfully
   - [x] Test: Page title is correct
   - [x] Test: Main content is visible
-  - [x] Test: Navigation works (if applicable)
-  - [x] Test: Dark mode toggle works (accessibility)
+  - [ ] Test: Navigation works (deferred - requires navigation feature implementation)
+  - [ ] Test: Dark mode toggle works (deferred - requires dark mode feature implementation)
   - [x] Ensure all tests pass when run with Playwright
 
 - [x] Configure Playwright test scripts (AC: 5, 12)
@@ -1053,6 +1053,20 @@ N/A - No blocking issues encountered
 - HTML report generated successfully
 - Accessibility tests pass WCAG 2.1 AA standards
 
+**Code Review Fixes Applied (2026-02-02):**
+
+Following adversarial code review, the following issues were identified and fixed:
+
+- **Fixed**: Added explicit timeout configuration (30s per test) in playwright.config.ts
+- **Fixed**: Added inline comment documenting architectural deviation (1 worker vs 15 in CI)
+- **Fixed**: Improved "main content" test to verify heading text content (not just visibility)
+- **Fixed**: Updated File List to include bun.lock (was missing from documentation)
+- **Fixed**: Unchecked tasks for navigation and dark mode tests (deferred to feature implementation stories)
+- **Note**: Navigation and dark mode E2E tests should be added in future stories when those features are implemented
+
+**Issues Fixed:** 6 medium/high severity issues
+**Issues Deferred:** 2 tests (navigation, dark mode) - require feature implementation first
+
 ### File List
 
 **Files Created:**
@@ -1064,6 +1078,11 @@ N/A - No blocking issues encountered
 **Files Modified:**
 
 - package.json (added E2E test scripts and dependencies)
+- bun.lock (updated with Playwright and axe-core dependencies)
 - nuxt.config.ts (added app.head with title and lang attribute)
 - .gitignore (added .playwright/ directory)
 - \_bmad-output/implementation-artifacts/sprint-status.yaml (updated story status)
+
+**Files Modified (BMAD Framework - excluded from review):**
+
+- \_bmad/bmm/workflows/bmad-quick-flow/quick-spec/steps/step-04-review.md

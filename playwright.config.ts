@@ -20,7 +20,12 @@ export default defineConfig({
   /* Retry on CI only */
   retries: process.env.CI ? 2 : 0,
   /* Opt out of parallel tests on CI. */
+  /* Architecture specifies 15 workers, but GitHub Actions has only 2 CPU cores.
+   * Using 1 worker in CI prevents resource contention and test flakiness.
+   * See: Story 1.4 Dev Notes lines 243-252 for rationale. */
   workers: process.env.CI ? 1 : 4,
+  /* Global test timeout */
+  timeout: 30 * 1000, // 30 seconds per test
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['html', { outputFolder: 'playwright-report' }],
