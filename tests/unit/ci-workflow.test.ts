@@ -157,7 +157,7 @@ describe('CI/CD Workflow Configuration', () => {
       const config = yaml.parse(content) as WorkflowConfig
       const testJob = config.jobs['test-unit']
       const codecovStep = testJob.steps.find((step: WorkflowStep) => step.uses?.includes('codecov'))
-      expect(codecovStep?.uses).toBe('codecov/codecov-action@v3')
+      expect(codecovStep?.uses).toBe('codecov/codecov-action@v4')
       expect(codecovStep?.with?.files).toBe('./coverage/coverage-final.json')
     })
   })
@@ -196,7 +196,7 @@ describe('CI/CD Workflow Configuration', () => {
       const uploadStep = e2eJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('upload-artifact')
       )
-      expect(uploadStep?.uses).toBe('actions/upload-artifact@v3')
+      expect(uploadStep?.uses).toBe('actions/upload-artifact@v4')
       expect(uploadStep?.if).toBe('always()')
       expect(uploadStep?.with?.name).toBe('playwright-report')
     })
@@ -257,7 +257,7 @@ describe('CI/CD Workflow Configuration', () => {
       const lighthouseStep = lighthouseJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('lighthouse-ci')
       )
-      expect(lighthouseStep?.with?.uploadArtifacts).toBe(true)
+      expect(lighthouseStep?.with?.uploadArtifacts).toBe(false)
     })
   })
 
