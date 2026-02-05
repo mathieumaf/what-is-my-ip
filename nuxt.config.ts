@@ -3,6 +3,11 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-15', // Nuxt 4 compatibility date for stable API
   devtools: { enabled: true },
   modules: ['@nuxt/ui'],
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+    },
+  },
   app: {
     head: {
       title: 'What is my IP',

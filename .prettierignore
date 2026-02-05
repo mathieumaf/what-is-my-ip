@@ -7,3 +7,6 @@ playwright-report
 test-results
 bun.lock
 package-lock.json
+_bmad
+_bmad-output
+.claude/commands
