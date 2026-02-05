@@ -1,0 +1,5 @@
+#!/bin/sh
+# Run quality checks before commit
+bun run lint
+bun run typecheck
+bun run format:check

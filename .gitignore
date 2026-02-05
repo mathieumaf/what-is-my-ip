@@ -9,9 +9,6 @@ dist
 # Node dependencies
 node_modules
 
-# Bun
-.bun
-
 # Logs
 logs
 *.log
@@ -26,6 +23,9 @@ logs
 .env.*
 !.env.example
 
-# Docker compose file
-docker-compose.yml
-compose.yaml
+# Testing
+coverage/
+playwright-report/
+test-results/
+.vitest/
+.playwright/

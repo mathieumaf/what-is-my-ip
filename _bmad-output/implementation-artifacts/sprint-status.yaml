@@ -1,0 +1,109 @@
+# generated: 2026-01-24
+# project: what-is-my-ip
+# project_key: what-is-my-ip
+# tracking_system: file-system
+# story_location: _bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Epic Status Transitions:
+#   - backlog → in-progress: Automatically when first story is created (via create-story)
+#   - in-progress → done: Manually when all stories reach 'done' status
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created in stories folder
+#   - in-progress: Developer actively working on implementation
+#   - review: Ready for code review (via Dev's code-review workflow)
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Epic transitions to 'in-progress' automatically when first story is created
+# - Stories can be worked in parallel if team capacity allows
+# - SM typically creates next story after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then runs code-review (fresh context, different LLM recommended)
+
+generated: 2026-01-24
+project: what-is-my-ip
+project_key: what-is-my-ip
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # Epic 1: Project Initialization & Quality Foundation
+  epic-1: in-progress
+  1-1-initialize-nuxt-4-project-with-nuxtui: done
+  1-2-configure-typescript-strict-mode-and-code-quality-tools: done
+  1-3-set-up-unit-testing-with-vitest: done
+  1-4-set-up-e2e-testing-with-playwright: done
+  1-5-configure-github-actions-ci-cd-pipeline: done
+  1-6-set-up-vercel-deployment-with-environment-config: ready-for-dev
+  1-7-create-readme-with-installation-instructions: backlog
+  epic-1-retrospective: optional
+
+  # Epic 2: Core IP Detection & Responsive UI
+  epic-2: backlog
+  2-1-create-server-api-endpoint-for-ip-detection: backlog
+  2-2-create-ip-display-component-with-ssr: backlog
+  2-3-implement-responsive-layout-mobile-tablet-desktop: backlog
+  2-4-implement-dark-mode-with-auto-os-detection: backlog
+  2-5-add-manual-dark-light-mode-toggle: backlog
+  2-6-implement-basic-accessibility-semantic-html-aria-keyboard: backlog
+  epic-2-retrospective: optional
+
+  # Epic 3: Geolocation & User Interactions
+  epic-3: backlog
+  3-1-create-geolocation-api-endpoint-with-caching: backlog
+  3-2-display-geolocation-data-country-city-region-isp-coordinates: backlog
+  3-3-implement-copy-ip-to-clipboard-feature: backlog
+  3-4-implement-manual-refresh-with-rate-limiting: backlog
+  3-5-add-view-on-map-external-link: backlog
+  3-6-implement-error-handling-and-graceful-degradation: backlog
+  epic-3-retrospective: optional
+
+  # Epic 4: GitHub Repository Showcase & SEO
+  epic-4: backlog
+  4-1-create-readme-with-badges-screenshots-and-tech-stack: backlog
+  4-2-configure-seo-module-with-meta-tags-and-open-graph: backlog
+  4-3-add-github-and-profile-links-to-footer: backlog
+  4-4-create-sitemap-and-robots-txt: backlog
+  4-5-add-github-topics-and-repository-description: backlog
+  4-6-create-installation-and-development-instructions: backlog
+  epic-4-retrospective: optional
+
+  # Epic 5: Contribution Infrastructure
+  epic-5: backlog
+  5-1-create-contributing-md-guide: backlog
+  5-2-create-pr-template-with-checklist: backlog
+  5-3-create-issue-templates-bug-feature-good-first-issue: backlog
+  5-4-configure-code-rabbit-integration: backlog
+  5-5-document-code-style-and-commit-conventions: backlog
+  epic-5-retrospective: optional
+
+  # Epic 6: Performance & Accessibility Excellence
+  epic-6: backlog
+  6-1-optimize-bundle-sizes-js-150kb-css-30kb: backlog
+  6-2-implement-core-web-vitals-optimization-lcp-fid-cls: backlog
+  6-3-configure-lighthouse-ci-with-quality-gates: backlog
+  6-4-implement-comprehensive-keyboard-navigation: backlog
+  6-5-add-screen-reader-optimization-skip-links-aria: backlog
+  6-6-validate-wcag-2-1-aa-compliance: backlog
+  epic-6-retrospective: optional
+
+  # Epic 7: Production Analytics & Monitoring
+  epic-7: backlog
+  7-1-configure-vercel-analytics-for-web-vitals: backlog
+  7-2-set-up-sentry-error-monitoring: backlog
+  7-3-implement-custom-event-tracking: backlog
+  7-4-create-analytics-dashboard-monitoring: backlog
+  epic-7-retrospective: optional
