@@ -36,6 +36,13 @@ describe('CI/CD Workflow Configuration', () => {
   let lighthouseConfig: Record<string, unknown>
 
   beforeAll(() => {
+    if (!existsSync(workflowPath)) {
+      throw new Error(`workflow file missing: ${workflowPath}`)
+    }
+    if (!existsSync(lighthousePath)) {
+      throw new Error(`lighthouse config file missing: ${lighthousePath}`)
+    }
+
     const workflowContent = readFileSync(workflowPath, 'utf-8')
     workflowConfig = yaml.parse(workflowContent) as WorkflowConfig
 
@@ -95,13 +102,14 @@ describe('CI/CD Workflow Configuration', () => {
       })
     })
 
-    it('should use oven-sh/setup-bun@v1 in all jobs except deploy', () => {
+    it('should use oven-sh/setup-bun@v1 with pinned version in all jobs except deploy', () => {
       Object.entries(workflowConfig.jobs).forEach(([jobName, job]: [string, WorkflowJob]) => {
         if (jobName === 'deploy') return // Deploy job uses Vercel action directly
         const bunSetupStep = job.steps.find((step: WorkflowStep) =>
           step.uses?.includes('setup-bun')
         )
         expect(bunSetupStep?.uses).toBe('oven-sh/setup-bun@v1')
+        expect(bunSetupStep?.with?.['bun-version']).toBe('1.3.8')
       })
     })
   })
