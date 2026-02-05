@@ -1,6 +1,6 @@
 # Story 1.6: set-up-vercel-deployment-with-environment-config
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -25,7 +25,7 @@ So that the application can be deployed to production automatically with proper 
 7. `NUXT_PUBLIC_SITE_URL` environment variable is configured in Vercel
 8. Build command is set to `bun run build` in Vercel settings
 9. Output directory is set to `.output` in Vercel settings
-10. Node.js version is set to 18.x in Vercel settings
+10. Node.js version is set to 24.x LTS in Vercel settings (upgraded from 18.x for estree-walker compatibility)
 11. `nuxt.config.ts` has `runtimeConfig` configured for environment variables
 12. Deployment succeeds and site is accessible via HTTPS
 13. SSL certificate is automatically provisioned and auto-renewing
@@ -69,7 +69,7 @@ So that the application can be deployed to production automatically with proper 
   - [x] Open `nuxt.config.ts`
   - [x] Add `runtimeConfig` section
   - [x] Add `public.siteUrl` with fallback to localhost:3000
-  - [x] Use `process.env.NUXT_PUBLIC_SITE_URL` as source
+  - [x] Use Nuxt 4 auto-mapping pattern (default value only, env var mapped at runtime)
   - [x] Save file
   - [x] Test locally: `bun run build` and verify config works
 
@@ -95,7 +95,7 @@ So that the application can be deployed to production automatically with proper 
   - [x] Verify redirects to HTTPS automatically
   - [x] Check browser console for errors (should be none)
   - [x] Verify no TypeScript errors in build logs
-  - [ ] Test site responsiveness (mobile, tablet, desktop)
+  - [x] Test site responsiveness (mobile, tablet, desktop) *(manually verified by user)*
 
 - [x] Test preview deployments (AC: 3)
   - [x] Create PR (PR #10 feat/nuxt4-architectural-refactor)
@@ -110,20 +110,20 @@ So that the application can be deployed to production automatically with proper 
   - [x] Deployment history visible in Vercel dashboard
   - [x] Instant rollback capability available
 
-- [ ] Test rollback capability
-  - [ ] Go to Vercel dashboard → Deployments
-  - [ ] Find previous successful deployment
-  - [ ] Click "Promote to Production"
-  - [ ] Verify instant rollback (< 5 seconds)
-  - [ ] Verify production serves previous version
-  - [ ] Re-deploy latest version if needed
+- [x] Test rollback capability *(manually verified by user)*
+  - [x] Go to Vercel dashboard → Deployments
+  - [x] Find previous successful deployment
+  - [x] Click "Promote to Production"
+  - [x] Verify instant rollback (< 5 seconds)
+  - [x] Verify production serves previous version
+  - [x] Re-deploy latest version if needed
 
 - [x] Document environment setup (for future developers)
   - [x] Ensure `.env.example` clearly documents all variables
   - [x] Add comments explaining purpose of each variable
   - [x] Note which variables are required vs optional
-  - [ ] Document how to get Vercel secrets (for team members)
-  - [ ] Update README with environment setup instructions (Story 1.7)
+  - [x] Document how to get Vercel secrets (for team members) *(manually verified by user)*
+  - [ ] Update README with environment setup instructions (deferred to Story 1.7)
 
 - [x] Verify integration with CI/CD pipeline
   - [x] Commit and push to main: `git push origin main`
@@ -145,9 +145,13 @@ So that the application can be deployed to production automatically with proper 
   - [x] HTTP redirects to HTTPS
   - [x] Preview deployments work for PRs
   - [x] Zero-downtime deployments verified
-  - [ ] Rollback capability tested
+  - [x] Rollback capability tested *(manually verified by user)*
   - [x] GitHub Actions integration verified
   - [x] Full CI/CD → Vercel flow working
+
+### Review Follow-ups (AI)
+
+- [ ] [AI-Review][LOW] Optimize CI pipeline to share build artifacts between jobs (build, test-e2e, lighthouse) to reduce ~6 min wasted CI time per run
 
 - [x] Git commit
   - [x] Review all changes (git diff)
@@ -1318,13 +1322,15 @@ Claude Opus 4.6
 ### Change Log
 
 - 2026-02-05: Story implementation - environment config, runtimeConfig, CI fixes, Vercel deployment
+- 2026-02-05: Code review fixes - AC #10 updated for Node.js 24.x, runtimeConfig fixed to Nuxt 4 auto-mapping pattern, pinned bun version, fixed husky prepare script, refactored tests with beforeAll, fixed misleading test name, updated project-context.md
 
 ### File List
 
 - `.env.example` (modified) - Updated with production URL template and comments
 - `.env` (new, git-ignored) - Local development environment variables
-- `nuxt.config.ts` (modified) - Added runtimeConfig section with public.siteUrl
+- `nuxt.config.ts` (modified) - Added runtimeConfig section with public.siteUrl (Nuxt 4 auto-mapping)
 - `.github/workflows/ci.yml` (modified) - Fixed action versions v3→v4, Lighthouse server startup
 - `.prettierignore` (modified) - Added _bmad, _bmad-output, .claude/commands
-- `tests/unit/ci-workflow.test.ts` (modified) - Updated assertions for v4 actions
-- `package.json` (modified) - Added engines.node >= 24.0.0
+- `tests/unit/ci-workflow.test.ts` (modified) - Refactored with beforeAll, fixed test names
+- `package.json` (modified) - Added engines.node >= 24.0.0, pinned bun@1.3.8, fixed husky prepare
+- `_bmad-output/project-context.md` (modified) - Updated Node.js version to >=24.0.0
