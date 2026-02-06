@@ -45,6 +45,7 @@ Architecture complete. Read fully and follow: `_bmad/core/tasks/bmad-help.md` wi
 
 Upon Completion of task output: offer to answer any questions about the Architecture Document.
 
+
 ## SUCCESS METRICS:
 
 ✅ Complete architecture document delivered with all sections
