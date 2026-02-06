@@ -158,6 +158,11 @@ describe('CI/CD Workflow Configuration', () => {
   })
 
   describe('E2E Test Job', () => {
+    it('should depend on build job for shared artifacts', () => {
+      const e2eJob = workflowConfig.jobs['test-e2e']
+      expect(e2eJob.needs).toContain('build')
+    })
+
     it('should install Playwright browsers with deps', () => {
       const e2eJob = workflowConfig.jobs['test-e2e']
       const playwrightInstallStep = e2eJob.steps.find((step: WorkflowStep) =>
@@ -166,10 +171,17 @@ describe('CI/CD Workflow Configuration', () => {
       expect(playwrightInstallStep?.run).toBe('bunx playwright install --with-deps')
     })
 
-    it('should build before running tests', () => {
+    it('should download build artifacts instead of building', () => {
       const e2eJob = workflowConfig.jobs['test-e2e']
+      const downloadStep = e2eJob.steps.find((step: WorkflowStep) =>
+        step.uses?.includes('download-artifact')
+      )
+      expect(downloadStep?.uses).toBe('actions/download-artifact@v4')
+      expect(downloadStep?.with?.name).toBe('build-output')
+      expect(downloadStep?.with?.path).toBe('.output/')
+
       const buildStep = e2eJob.steps.find((step: WorkflowStep) => step.run === 'bun run build')
-      expect(buildStep).toBeDefined()
+      expect(buildStep).toBeUndefined()
     })
 
     it('should run E2E tests', () => {
@@ -203,12 +215,53 @@ describe('CI/CD Workflow Configuration', () => {
       )
       expect(analyzeStep?.run).toBe('bun run analyze:bundle')
     })
+
+    it('should upload build artifacts for downstream jobs', () => {
+      const buildJob = workflowConfig.jobs.build
+      const uploadStep = buildJob.steps.find(
+        (step: WorkflowStep) =>
+          step.uses?.includes('upload-artifact') && step.with?.name === 'build-output'
+      )
+      expect(uploadStep?.uses).toBe('actions/upload-artifact@v4')
+      expect(uploadStep?.with?.path).toBe('.output/')
+      expect(uploadStep?.with?.['if-no-files-found']).toBe('error')
+      expect(uploadStep?.with?.['retention-days']).toBe(1)
+    })
+
+    it('should upload artifacts before analyze:bundle to avoid overwrite', () => {
+      const buildJob = workflowConfig.jobs.build
+      const uploadIndex = buildJob.steps.findIndex(
+        (step: WorkflowStep) =>
+          step.uses?.includes('upload-artifact') && step.with?.name === 'build-output'
+      )
+      const analyzeIndex = buildJob.steps.findIndex((step: WorkflowStep) =>
+        step.run?.includes('analyze:bundle')
+      )
+      expect(uploadIndex).toBeGreaterThan(-1)
+      expect(analyzeIndex).toBeGreaterThan(-1)
+      expect(uploadIndex).toBeLessThan(analyzeIndex)
+    })
   })
 
   describe('Lighthouse Job', () => {
     it('should depend on build job', () => {
       const lighthouseJob = workflowConfig.jobs.lighthouse
       expect(lighthouseJob.needs).toContain('build')
+    })
+
+    it('should download build artifacts instead of building', () => {
+      const lighthouseJob = workflowConfig.jobs.lighthouse
+      const downloadStep = lighthouseJob.steps.find((step: WorkflowStep) =>
+        step.uses?.includes('download-artifact')
+      )
+      expect(downloadStep?.uses).toBe('actions/download-artifact@v4')
+      expect(downloadStep?.with?.name).toBe('build-output')
+      expect(downloadStep?.with?.path).toBe('.output/')
+
+      const buildStep = lighthouseJob.steps.find(
+        (step: WorkflowStep) => step.run === 'bun run build'
+      )
+      expect(buildStep).toBeUndefined()
     })
 
     it('should use Lighthouse CI action', () => {

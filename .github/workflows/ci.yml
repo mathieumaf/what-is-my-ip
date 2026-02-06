@@ -73,6 +73,7 @@ jobs:
   test-e2e:
     name: E2E Tests (Playwright)
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -88,8 +89,11 @@ jobs:
       - name: Install Playwright browsers
         run: bunx playwright install --with-deps
 
-      - name: Build production artifacts
-        run: bun run build
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: .output/
 
       - name: Run E2E tests
         run: bun run test:e2e
@@ -120,6 +124,15 @@ jobs:
       - name: Run production build
         run: bun run build
 
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: .output/
+          if-no-files-found: error
+          include-hidden-files: true
+          retention-days: 1
+
       - name: Analyze bundle sizes
         run: bun run analyze:bundle
 
@@ -139,8 +152,11 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build production artifacts
-        run: bun run build
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-output
+          path: .output/
 
       - name: Start preview server
         run: bun run preview &

@@ -151,7 +151,7 @@ So that the application can be deployed to production automatically with proper 
 
 ### Review Follow-ups (AI)
 
-- [ ] AI-Review (LOW): Optimize CI pipeline to share build artifacts between jobs (build, test-e2e, lighthouse) to reduce ~6 min wasted CI time per run
+- [x] AI-Review (LOW): Optimize CI pipeline to share build artifacts between jobs (build, test-e2e, lighthouse) to reduce ~6 min wasted CI time per run
 
 - [x] Git commit
   - [x] Review all changes (git diff)
@@ -1308,6 +1308,8 @@ Claude Opus 4.6
 - `.env` confirmed git-ignored via `git status`
 - CI pipeline: all 7 jobs passed on main (lint, typecheck, unit, e2e, build, lighthouse, deploy)
 - Vercel deployment successful after Node.js 24 fix
+- ✅ Resolved review finding [LOW]: Optimized CI pipeline to share build artifacts between build, test-e2e, and lighthouse jobs
+- Unit tests: 64/64 passed after CI artifact sharing refactor
 
 ### Completion Notes List
 
@@ -1326,11 +1328,14 @@ Claude Opus 4.6
 - Fixed Vercel deployment: Node.js 18 → 24 (estree-walker exports incompatibility)
 - Added `engines.node >= 24.0.0` to `package.json`
 - Full CI/CD → Vercel deployment pipeline verified working end-to-end
+- Optimized CI pipeline: build job uploads `.output/` artifact, test-e2e and lighthouse download it instead of rebuilding (~6 min CI time saved per run)
+- Updated tests to verify artifact sharing (download-artifact in e2e/lighthouse, no redundant build steps)
 
 ### Change Log
 
 - 2026-02-05: Story implementation - environment config, runtimeConfig, CI fixes, Vercel deployment
 - 2026-02-05: Code review fixes - AC #10 updated for Node.js 24.x, runtimeConfig fixed to Nuxt 4 auto-mapping pattern, pinned bun version, fixed husky prepare script, refactored tests with beforeAll, fixed misleading test name, updated project-context.md
+- 2026-02-06: Review follow-up - Optimized CI pipeline to share build artifacts between jobs, eliminating redundant builds in test-e2e and lighthouse
 
 ### File List
 
@@ -1342,3 +1347,5 @@ Claude Opus 4.6
 - `tests/unit/ci-workflow.test.ts` (modified) - Refactored with beforeAll, fixed test names
 - `package.json` (modified) - Added engines.node >= 24.0.0, pinned bun@1.3.8, fixed husky prepare
 - `_bmad-output/project-context.md` (modified) - Updated Node.js version to >=24.0.0
+- `.github/workflows/ci.yml` (modified) - Added build artifact upload/download to share between build, test-e2e, and lighthouse jobs
+- `tests/unit/ci-workflow.test.ts` (modified) - Added tests for artifact sharing, updated e2e/lighthouse tests
