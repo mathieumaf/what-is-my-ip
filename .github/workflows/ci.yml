@@ -130,6 +130,7 @@ jobs:
           name: build-output
           path: .output/
           if-no-files-found: error
+          include-hidden-files: true
           retention-days: 1
 
       - name: Analyze bundle sizes
