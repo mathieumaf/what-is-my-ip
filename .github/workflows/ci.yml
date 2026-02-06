@@ -124,15 +124,16 @@ jobs:
       - name: Run production build
         run: bun run build
 
-      - name: Analyze bundle sizes
-        run: bun run analyze:bundle
-
       - name: Upload build artifacts
         uses: actions/upload-artifact@v4
         with:
           name: build-output
           path: .output/
+          if-no-files-found: error
           retention-days: 1
+
+      - name: Analyze bundle sizes
+        run: bun run analyze:bundle
 
   lighthouse:
     name: Lighthouse CI

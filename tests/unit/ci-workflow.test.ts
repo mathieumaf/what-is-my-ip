@@ -224,7 +224,22 @@ describe('CI/CD Workflow Configuration', () => {
       )
       expect(uploadStep?.uses).toBe('actions/upload-artifact@v4')
       expect(uploadStep?.with?.path).toBe('.output/')
+      expect(uploadStep?.with?.['if-no-files-found']).toBe('error')
       expect(uploadStep?.with?.['retention-days']).toBe(1)
+    })
+
+    it('should upload artifacts before analyze:bundle to avoid overwrite', () => {
+      const buildJob = workflowConfig.jobs.build
+      const uploadIndex = buildJob.steps.findIndex(
+        (step: WorkflowStep) =>
+          step.uses?.includes('upload-artifact') && step.with?.name === 'build-output'
+      )
+      const analyzeIndex = buildJob.steps.findIndex((step: WorkflowStep) =>
+        step.run?.includes('analyze:bundle')
+      )
+      expect(uploadIndex).toBeGreaterThan(-1)
+      expect(analyzeIndex).toBeGreaterThan(-1)
+      expect(uploadIndex).toBeLessThan(analyzeIndex)
     })
   })
 
