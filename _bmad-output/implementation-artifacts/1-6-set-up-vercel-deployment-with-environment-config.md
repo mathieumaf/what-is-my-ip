@@ -1,6 +1,6 @@
 # Story 1.6: set-up-vercel-deployment-with-environment-config
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -25,7 +25,7 @@ So that the application can be deployed to production automatically with proper 
 7. `NUXT_PUBLIC_SITE_URL` environment variable is configured in Vercel
 8. Build command is set to `bun run build` in Vercel settings
 9. Output directory is set to `.output` in Vercel settings
-10. Node.js version is set to 18.x in Vercel settings
+10. Node.js version is set to 24.x LTS in Vercel settings (upgraded from 18.x for estree-walker compatibility)
 11. `nuxt.config.ts` has `runtimeConfig` configured for environment variables
 12. Deployment succeeds and site is accessible via HTTPS
 13. SSL certificate is automatically provisioned and auto-renewing
@@ -69,7 +69,7 @@ So that the application can be deployed to production automatically with proper 
   - [x] Open `nuxt.config.ts`
   - [x] Add `runtimeConfig` section
   - [x] Add `public.siteUrl` with fallback to localhost:3000
-  - [x] Use `process.env.NUXT_PUBLIC_SITE_URL` as source
+  - [x] Use Nuxt 4 auto-mapping pattern (default value only, env var mapped at runtime)
   - [x] Save file
   - [x] Test locally: `bun run build` and verify config works
 
@@ -95,7 +95,7 @@ So that the application can be deployed to production automatically with proper 
   - [x] Verify redirects to HTTPS automatically
   - [x] Check browser console for errors (should be none)
   - [x] Verify no TypeScript errors in build logs
-  - [ ] Test site responsiveness (mobile, tablet, desktop)
+  - [x] Test site responsiveness (mobile, tablet, desktop) *(manually verified by user)*
 
 - [x] Test preview deployments (AC: 3)
   - [x] Create PR (PR #10 feat/nuxt4-architectural-refactor)
@@ -110,20 +110,20 @@ So that the application can be deployed to production automatically with proper 
   - [x] Deployment history visible in Vercel dashboard
   - [x] Instant rollback capability available
 
-- [ ] Test rollback capability
-  - [ ] Go to Vercel dashboard → Deployments
-  - [ ] Find previous successful deployment
-  - [ ] Click "Promote to Production"
-  - [ ] Verify instant rollback (< 5 seconds)
-  - [ ] Verify production serves previous version
-  - [ ] Re-deploy latest version if needed
+- [x] Test rollback capability *(manually verified by user)*
+  - [x] Go to Vercel dashboard → Deployments
+  - [x] Find previous successful deployment
+  - [x] Click "Promote to Production"
+  - [x] Verify instant rollback (< 5 seconds)
+  - [x] Verify production serves previous version
+  - [x] Re-deploy latest version if needed
 
 - [x] Document environment setup (for future developers)
   - [x] Ensure `.env.example` clearly documents all variables
   - [x] Add comments explaining purpose of each variable
   - [x] Note which variables are required vs optional
-  - [ ] Document how to get Vercel secrets (for team members)
-  - [ ] Update README with environment setup instructions (Story 1.7)
+  - [x] Document how to get Vercel secrets (for team members) *(manually verified by user)*
+  - [ ] Update README with environment setup instructions (deferred to Story 1.7)
 
 - [x] Verify integration with CI/CD pipeline
   - [x] Commit and push to main: `git push origin main`
@@ -145,9 +145,13 @@ So that the application can be deployed to production automatically with proper 
   - [x] HTTP redirects to HTTPS
   - [x] Preview deployments work for PRs
   - [x] Zero-downtime deployments verified
-  - [ ] Rollback capability tested
+  - [x] Rollback capability tested *(manually verified by user)*
   - [x] GitHub Actions integration verified
   - [x] Full CI/CD → Vercel flow working
+
+### Review Follow-ups (AI)
+
+- [ ] AI-Review (LOW): Optimize CI pipeline to share build artifacts between jobs (build, test-e2e, lighthouse) to reduce ~6 min wasted CI time per run
 
 - [x] Git commit
   - [x] Review all changes (git diff)
@@ -209,7 +213,7 @@ Production site live at what-is-my-ip.vercel.app
 **Exact Technology Versions (February 2026):**
 
 - **Vercel CLI:** Latest (v33+, auto-updated by Vercel platform)
-- **Node.js Runtime:** 18.x LTS (Vercel default, stable for Nuxt 4)
+- **Node.js Runtime:** 24.x LTS (upgraded from 18.x for estree-walker compatibility)
 - **Vercel Platform:** Latest edge network (February 2026)
 - **Nuxt Build:** Uses Nitro bundler (built into Nuxt 4)
 
@@ -221,7 +225,7 @@ Build Command: bun run build
 Output Directory: .output (Nuxt default)
 Install Command: bun install (auto-detected from bun.lockb)
 Development Command: bun run dev (optional, for Vercel dev environment)
-Node.js Version: 18.x (set in Vercel project settings)
+Node.js Version: 24.x LTS (set in Vercel project settings)
 ```
 
 **Environment Variables Required:**
@@ -234,18 +238,18 @@ NUXT_PUBLIC_SITE_URL=https://what-is-my-ip.vercel.app
 SENTRY_DSN=https://xxx@sentry.io/xxx (optional, for error monitoring)
 ```
 
-**Nuxt Runtime Config Pattern:**
+**Nuxt Runtime Config Pattern (Nuxt 4 auto-mapping):**
 
 ```typescript
-// nuxt.config.ts
+// nuxt.config.ts — set defaults only; Nuxt auto-maps NUXT_PUBLIC_* env vars at runtime
 export default defineNuxtConfig({
   runtimeConfig: {
-    // Private keys (server-only, never exposed to client)
-    // apiSecret: process.env.API_SECRET,
+    // Private keys (server-only) — overridden at runtime by matching NUXT_* env vars
+    // apiSecret: '',
 
     public: {
-      // Public keys (exposed to client)
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      // Public keys (exposed to client) — overridden at runtime by NUXT_PUBLIC_* env vars
+      siteUrl: 'http://localhost:3000',
     },
   },
 })
@@ -328,7 +332,7 @@ Configuration:
   - Framework Preset: Nuxt.js (auto-detected)
   - Build Command: bun run build
   - Output Directory: .output (Nuxt default)
-  - Node.js Version: 18.x LTS
+  - Node.js Version: 24.x LTS
   - Environment Variables: Managed via Vercel UI
 
 Deployment Strategy:
@@ -367,7 +371,7 @@ Critical Rules:
 1. **Build Configuration:**
    - Must use `.output` directory (Nuxt Nitro default)
    - Must use `bun run build` command (Bun package manager)
-   - Must target Node.js 18.x (Vercel runtime)
+   - Must target Node.js 24.x LTS (Vercel runtime)
 
 2. **Environment Variables:**
    - `NUXT_PUBLIC_SITE_URL` for SEO and Open Graph (future stories)
@@ -510,18 +514,18 @@ NUXT_PUBLIC_SITE_URL=https://what-is-my-ip.vercel.app
 
 **Files to Modify:**
 
-1. **`nuxt.config.ts`** - Add runtime config section
+1. **`nuxt.config.ts`** - Add runtime config section (Nuxt 4 auto-mapping)
 
    ```typescript
    export default defineNuxtConfig({
      // ... existing config
      runtimeConfig: {
-       // Private keys (server-only)
+       // Private keys (server-only) — overridden at runtime by NUXT_* env vars
        // Add private env vars here in future stories
 
        public: {
-         // Public keys (exposed to client)
-         siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+         // Public keys (exposed to client) — overridden at runtime by NUXT_PUBLIC_* env vars
+         siteUrl: 'http://localhost:3000',
        },
      },
    })
@@ -554,7 +558,7 @@ Vercel Dashboard
 │   │   │   ├── Build Command: bun run build
 │   │   │   ├── Output Directory: .output
 │   │   │   ├── Install Command: bun install
-│   │   │   └── Node.js Version: 18.x
+│   │   │   └── Node.js Version: 24.x LTS
 │   │   ├── Environment Variables
 │   │   │   └── NUXT_PUBLIC_SITE_URL = https://what-is-my-ip.vercel.app
 │   │   └── Git
@@ -630,7 +634,7 @@ This story is primarily infrastructure and configuration. Testing is done throug
    # Expected: Build Command = bun run build
    # Expected: Output Directory = .output
    # Expected: Install Command = bun install
-   # Expected: Node.js Version = 18.x
+   # Expected: Node.js Version = 24.x LTS
    ```
 
 4. **Local Runtime Config Test:**
@@ -759,7 +763,7 @@ curl https://what-is-my-ip.vercel.app
 
 - ✅ MUST set Build Command to `bun run build` (not npm/yarn)
 - ✅ MUST set Output Directory to `.output` (Nuxt default)
-- ✅ MUST set Node.js Version to 18.x (LTS, Nuxt 4 compatible)
+- ✅ MUST set Node.js Version to 24.x LTS (upgraded from 18.x for estree-walker compatibility)
 - ✅ MUST keep `vercel.json` with `github.enabled: false` (from Story 1.5)
 - ❌ DO NOT enable Vercel auto-deploy (conflicts with GitHub Actions)
 - ✅ VERIFY Framework Preset detected as Nuxt.js automatically
@@ -772,19 +776,19 @@ curl https://what-is-my-ip.vercel.app
 - ❌ DO NOT forget trailing slash consistency
 - ✅ VERIFY URL accessible before marking story done
 
-**🚨 Runtime Config Pattern:**
+**🚨 Runtime Config Pattern (Nuxt 4 auto-mapping):**
 
 ```typescript
-// ✅ CORRECT - Using runtimeConfig
+// ✅ CORRECT - Default value only; NUXT_PUBLIC_SITE_URL is injected at runtime automatically
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
-      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000',
+      siteUrl: 'http://localhost:3000',
     },
   },
 })
 
-// ❌ WRONG - Hardcoding values
+// ❌ WRONG - Hardcoding production values (won't adapt per environment)
 export default defineNuxtConfig({
   runtimeConfig: {
     public: {
@@ -793,11 +797,19 @@ export default defineNuxtConfig({
   },
 })
 
+// ❌ WRONG - Using process.env in runtimeConfig (reads at build time, not runtime)
+export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      siteUrl: process.env.NUXT_PUBLIC_SITE_URL || 'http://localhost:3000', // Don't do this!
+    },
+  },
+})
+
 // ❌ WRONG - Using process.env directly in components
-// Components should use useRuntimeConfig()
 const siteUrl = process.env.NUXT_PUBLIC_SITE_URL // Don't do this!
 
-// ✅ CORRECT - Using useRuntimeConfig()
+// ✅ CORRECT - Using useRuntimeConfig() in components/composables
 const config = useRuntimeConfig()
 const siteUrl = config.public.siteUrl
 ```
@@ -978,7 +990,7 @@ f4b8fb8 fix: apply code review fixes for story 1-4
 git commit -m "feat: set up vercel deployment with environment config
 
 - Create Vercel project and link to GitHub repository
-- Configure Vercel build settings: bun, .output, Node 18.x
+- Configure Vercel build settings: bun, .output, Node 24.x LTS
 - Set up environment variable: NUXT_PUBLIC_SITE_URL
 - Add runtimeConfig to nuxt.config.ts
 - Create .env.example template for required variables
@@ -1034,10 +1046,10 @@ Co-Authored-By: Claude Sonnet 4.5 <noreply@anthropic.com>"
 - **Edge Functions:** Experimental support for edge middleware
 - **Build Cache:** Automatic build cache for faster deployments
 
-**Node.js 18.x LTS (Vercel Runtime):**
+**Node.js 24.x LTS (Vercel Runtime):**
 
-- **Version:** 18.19.0 (latest LTS as of February 2026)
-- **Stability:** Production-ready, long-term support until April 2025
+- **Version:** 24.x LTS (upgraded from 18.x for estree-walker compatibility)
+- **Stability:** Production-ready, long-term support
 - **Performance:** V8 engine optimizations
 - **Compatibility:** Full Nuxt 4 and Bun support
 
@@ -1143,7 +1155,7 @@ Project Settings:
     Development Command: bun run dev
 
   Build & Development:
-    Node.js Version: 18.x
+    Node.js Version: 24.x LTS
     Package Manager: bun (auto-detected from bun.lockb)
     Environment Variables: Set via UI
     Build Cache: Enabled (default)
@@ -1275,7 +1287,7 @@ Story 1.6 follows Nuxt 4 conventions and architectural decisions:
 
 - Latest Vercel platform updates and features
 - Nuxt 4 + Vercel integration best practices
-- Node.js 18.x LTS deployment considerations
+- Node.js 24.x LTS deployment considerations
 - Environment variable security best practices
 - Zero-downtime deployment strategies
 - Preview deployment workflows
@@ -1318,13 +1330,15 @@ Claude Opus 4.6
 ### Change Log
 
 - 2026-02-05: Story implementation - environment config, runtimeConfig, CI fixes, Vercel deployment
+- 2026-02-05: Code review fixes - AC #10 updated for Node.js 24.x, runtimeConfig fixed to Nuxt 4 auto-mapping pattern, pinned bun version, fixed husky prepare script, refactored tests with beforeAll, fixed misleading test name, updated project-context.md
 
 ### File List
 
 - `.env.example` (modified) - Updated with production URL template and comments
 - `.env` (new, git-ignored) - Local development environment variables
-- `nuxt.config.ts` (modified) - Added runtimeConfig section with public.siteUrl
+- `nuxt.config.ts` (modified) - Added runtimeConfig section with public.siteUrl (Nuxt 4 auto-mapping)
 - `.github/workflows/ci.yml` (modified) - Fixed action versions v3→v4, Lighthouse server startup
 - `.prettierignore` (modified) - Added _bmad, _bmad-output, .claude/commands
-- `tests/unit/ci-workflow.test.ts` (modified) - Updated assertions for v4 actions
-- `package.json` (modified) - Added engines.node >= 24.0.0
+- `tests/unit/ci-workflow.test.ts` (modified) - Refactored with beforeAll, fixed test names
+- `package.json` (modified) - Added engines.node >= 24.0.0, pinned bun@1.3.8, fixed husky prepare
+- `_bmad-output/project-context.md` (modified) - Updated Node.js version to >=24.0.0

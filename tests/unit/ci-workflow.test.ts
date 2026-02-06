@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeAll } from 'vitest'
 import { readFileSync, existsSync } from 'fs'
 import { join } from 'path'
 import yaml from 'yaml'
@@ -32,6 +32,24 @@ describe('CI/CD Workflow Configuration', () => {
   const workflowPath = join(process.cwd(), '.github', 'workflows', 'ci.yml')
   const lighthousePath = join(process.cwd(), 'lighthouserc.json')
 
+  let workflowConfig: WorkflowConfig
+  let lighthouseConfig: Record<string, unknown>
+
+  beforeAll(() => {
+    if (!existsSync(workflowPath)) {
+      throw new Error(`workflow file missing: ${workflowPath}`)
+    }
+    if (!existsSync(lighthousePath)) {
+      throw new Error(`lighthouse config file missing: ${lighthousePath}`)
+    }
+
+    const workflowContent = readFileSync(workflowPath, 'utf-8')
+    workflowConfig = yaml.parse(workflowContent) as WorkflowConfig
+
+    const lighthouseContent = readFileSync(lighthousePath, 'utf-8')
+    lighthouseConfig = JSON.parse(lighthouseContent)
+  })
+
   describe('GitHub Actions Workflow File', () => {
     it('should exist at .github/workflows/ci.yml', () => {
       expect(existsSync(workflowPath)).toBe(true)
@@ -43,26 +61,18 @@ describe('CI/CD Workflow Configuration', () => {
     })
 
     it('should have correct workflow name', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content)
-      expect(config.name).toBe('CI/CD Pipeline')
+      expect(workflowConfig.name).toBe('CI/CD Pipeline')
     })
 
     it('should trigger on push to main branch', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content)
-      expect(config.on.push.branches).toContain('main')
+      expect(workflowConfig.on.push.branches).toContain('main')
     })
 
     it('should trigger on pull requests to main branch', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content)
-      expect(config.on.pull_request.branches).toContain('main')
+      expect(workflowConfig.on.pull_request.branches).toContain('main')
     })
 
     it('should have all required jobs', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content)
       const expectedJobs = [
         'lint',
         'typecheck',
@@ -73,22 +83,18 @@ describe('CI/CD Workflow Configuration', () => {
         'deploy',
       ]
       expectedJobs.forEach(job => {
-        expect(config.jobs).toHaveProperty(job)
+        expect(workflowConfig.jobs).toHaveProperty(job)
       })
     })
 
     it('should use ubuntu-latest runner for all jobs', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      Object.values(config.jobs).forEach((job: WorkflowJob) => {
+      Object.values(workflowConfig.jobs).forEach((job: WorkflowJob) => {
         expect(job['runs-on']).toBe('ubuntu-latest')
       })
     })
 
     it('should use actions/checkout@v4 in all jobs', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      Object.values(config.jobs).forEach((job: WorkflowJob) => {
+      Object.values(workflowConfig.jobs).forEach((job: WorkflowJob) => {
         const checkoutStep = job.steps.find((step: WorkflowStep) =>
           step.uses?.includes('actions/checkout')
         )
@@ -96,32 +102,27 @@ describe('CI/CD Workflow Configuration', () => {
       })
     })
 
-    it('should use oven-sh/setup-bun@v1 in all jobs except deploy', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      Object.entries(config.jobs).forEach(([jobName, job]: [string, WorkflowJob]) => {
+    it('should use oven-sh/setup-bun@v1 with pinned version in all jobs except deploy', () => {
+      Object.entries(workflowConfig.jobs).forEach(([jobName, job]: [string, WorkflowJob]) => {
         if (jobName === 'deploy') return // Deploy job uses Vercel action directly
         const bunSetupStep = job.steps.find((step: WorkflowStep) =>
           step.uses?.includes('setup-bun')
         )
         expect(bunSetupStep?.uses).toBe('oven-sh/setup-bun@v1')
+        expect(bunSetupStep?.with?.['bun-version']).toBe('1.3.8')
       })
     })
   })
 
   describe('Lint Job', () => {
     it('should run ESLint', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const lintJob = config.jobs.lint
+      const lintJob = workflowConfig.jobs.lint
       const eslintStep = lintJob.steps.find((step: WorkflowStep) => step.run?.includes('lint'))
       expect(eslintStep?.run).toBe('bun run lint')
     })
 
     it('should run Prettier check', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const lintJob = config.jobs.lint
+      const lintJob = workflowConfig.jobs.lint
       const prettierStep = lintJob.steps.find((step: WorkflowStep) =>
         step.run?.includes('format:check')
       )
@@ -131,9 +132,7 @@ describe('CI/CD Workflow Configuration', () => {
 
   describe('TypeCheck Job', () => {
     it('should run TypeScript compiler', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const typecheckJob = config.jobs.typecheck
+      const typecheckJob = workflowConfig.jobs.typecheck
       const typecheckStep = typecheckJob.steps.find((step: WorkflowStep) =>
         step.run?.includes('typecheck')
       )
@@ -143,9 +142,7 @@ describe('CI/CD Workflow Configuration', () => {
 
   describe('Unit Test Job', () => {
     it('should run Vitest with coverage', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const testJob = config.jobs['test-unit']
+      const testJob = workflowConfig.jobs['test-unit']
       const testStep = testJob.steps.find((step: WorkflowStep) =>
         step.run?.includes('test:unit:coverage')
       )
@@ -153,9 +150,7 @@ describe('CI/CD Workflow Configuration', () => {
     })
 
     it('should upload coverage to Codecov', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const testJob = config.jobs['test-unit']
+      const testJob = workflowConfig.jobs['test-unit']
       const codecovStep = testJob.steps.find((step: WorkflowStep) => step.uses?.includes('codecov'))
       expect(codecovStep?.uses).toBe('codecov/codecov-action@v4')
       expect(codecovStep?.with?.files).toBe('./coverage/coverage-final.json')
@@ -164,9 +159,7 @@ describe('CI/CD Workflow Configuration', () => {
 
   describe('E2E Test Job', () => {
     it('should install Playwright browsers with deps', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const e2eJob = config.jobs['test-e2e']
+      const e2eJob = workflowConfig.jobs['test-e2e']
       const playwrightInstallStep = e2eJob.steps.find((step: WorkflowStep) =>
         step.run?.includes('playwright install')
       )
@@ -174,25 +167,19 @@ describe('CI/CD Workflow Configuration', () => {
     })
 
     it('should build before running tests', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const e2eJob = config.jobs['test-e2e']
+      const e2eJob = workflowConfig.jobs['test-e2e']
       const buildStep = e2eJob.steps.find((step: WorkflowStep) => step.run === 'bun run build')
       expect(buildStep).toBeDefined()
     })
 
     it('should run E2E tests', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const e2eJob = config.jobs['test-e2e']
+      const e2eJob = workflowConfig.jobs['test-e2e']
       const testStep = e2eJob.steps.find((step: WorkflowStep) => step.run?.includes('test:e2e'))
       expect(testStep?.run).toBe('bun run test:e2e')
     })
 
     it('should upload Playwright report with if: always()', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const e2eJob = config.jobs['test-e2e']
+      const e2eJob = workflowConfig.jobs['test-e2e']
       const uploadStep = e2eJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('upload-artifact')
       )
@@ -204,17 +191,13 @@ describe('CI/CD Workflow Configuration', () => {
 
   describe('Build Job', () => {
     it('should run production build', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const buildJob = config.jobs.build
+      const buildJob = workflowConfig.jobs.build
       const buildStep = buildJob.steps.find((step: WorkflowStep) => step.run === 'bun run build')
       expect(buildStep).toBeDefined()
     })
 
     it('should analyze bundle sizes', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const buildJob = config.jobs.build
+      const buildJob = workflowConfig.jobs.build
       const analyzeStep = buildJob.steps.find((step: WorkflowStep) =>
         step.run?.includes('analyze:bundle')
       )
@@ -224,16 +207,12 @@ describe('CI/CD Workflow Configuration', () => {
 
   describe('Lighthouse Job', () => {
     it('should depend on build job', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content)
-      const lighthouseJob = config.jobs.lighthouse
+      const lighthouseJob = workflowConfig.jobs.lighthouse
       expect(lighthouseJob.needs).toContain('build')
     })
 
     it('should use Lighthouse CI action', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const lighthouseJob = config.jobs.lighthouse
+      const lighthouseJob = workflowConfig.jobs.lighthouse
       const lighthouseStep = lighthouseJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('lighthouse-ci')
       )
@@ -241,19 +220,15 @@ describe('CI/CD Workflow Configuration', () => {
     })
 
     it('should reference lighthouserc.json config', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const lighthouseJob = config.jobs.lighthouse
+      const lighthouseJob = workflowConfig.jobs.lighthouse
       const lighthouseStep = lighthouseJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('lighthouse-ci')
       )
       expect(lighthouseStep?.with?.configPath).toBe('./lighthouserc.json')
     })
 
-    it('should upload artifacts', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const lighthouseJob = config.jobs.lighthouse
+    it('should have artifact upload disabled for CI action', () => {
+      const lighthouseJob = workflowConfig.jobs.lighthouse
       const lighthouseStep = lighthouseJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('lighthouse-ci')
       )
@@ -263,25 +238,19 @@ describe('CI/CD Workflow Configuration', () => {
 
   describe('Deploy Job', () => {
     it('should depend on all other jobs', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content)
-      const deployJob = config.jobs.deploy
+      const deployJob = workflowConfig.jobs.deploy
       const expectedDeps = ['lint', 'typecheck', 'test-unit', 'test-e2e', 'build', 'lighthouse']
       expect(deployJob.needs).toEqual(expect.arrayContaining(expectedDeps))
     })
 
     it('should only run on main branch push', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content)
-      const deployJob = config.jobs.deploy
+      const deployJob = workflowConfig.jobs.deploy
       expect(deployJob.if).toContain("github.ref == 'refs/heads/main'")
       expect(deployJob.if).toContain("github.event_name == 'push'")
     })
 
     it('should use Vercel action', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const deployJob = config.jobs.deploy
+      const deployJob = workflowConfig.jobs.deploy
       const vercelStep = deployJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('vercel-action')
       )
@@ -289,9 +258,7 @@ describe('CI/CD Workflow Configuration', () => {
     })
 
     it('should use GitHub Secrets for Vercel', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const deployJob = config.jobs.deploy
+      const deployJob = workflowConfig.jobs.deploy
       const vercelStep = deployJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('vercel-action')
       )
@@ -301,9 +268,7 @@ describe('CI/CD Workflow Configuration', () => {
     })
 
     it('should deploy to production', () => {
-      const content = readFileSync(workflowPath, 'utf-8')
-      const config = yaml.parse(content) as WorkflowConfig
-      const deployJob = config.jobs.deploy
+      const deployJob = workflowConfig.jobs.deploy
       const vercelStep = deployJob.steps.find((step: WorkflowStep) =>
         step.uses?.includes('vercel-action')
       )
@@ -322,48 +287,51 @@ describe('CI/CD Workflow Configuration', () => {
     })
 
     it('should configure 3 runs', () => {
-      const content = readFileSync(lighthousePath, 'utf-8')
-      const config = JSON.parse(content)
+      const config = lighthouseConfig as { ci: { collect: { numberOfRuns: number } } }
       expect(config.ci.collect.numberOfRuns).toBe(3)
     })
 
     it('should use desktop preset', () => {
-      const content = readFileSync(lighthousePath, 'utf-8')
-      const config = JSON.parse(content)
+      const config = lighthouseConfig as {
+        ci: { collect: { settings: { preset: string } } }
+      }
       expect(config.ci.collect.settings.preset).toBe('desktop')
     })
 
     it('should have performance assertion with minScore 0.9', () => {
-      const content = readFileSync(lighthousePath, 'utf-8')
-      const config = JSON.parse(content)
+      const config = lighthouseConfig as {
+        ci: { assert: { assertions: Record<string, unknown> } }
+      }
       const perfAssertion = config.ci.assert.assertions['categories:performance']
       expect(perfAssertion).toEqual(['error', { minScore: 0.9 }])
     })
 
     it('should have accessibility assertion with minScore 1.0', () => {
-      const content = readFileSync(lighthousePath, 'utf-8')
-      const config = JSON.parse(content)
+      const config = lighthouseConfig as {
+        ci: { assert: { assertions: Record<string, unknown> } }
+      }
       const a11yAssertion = config.ci.assert.assertions['categories:accessibility']
       expect(a11yAssertion).toEqual(['error', { minScore: 1.0 }])
     })
 
     it('should have best-practices assertion with minScore 0.9', () => {
-      const content = readFileSync(lighthousePath, 'utf-8')
-      const config = JSON.parse(content)
+      const config = lighthouseConfig as {
+        ci: { assert: { assertions: Record<string, unknown> } }
+      }
       const bpAssertion = config.ci.assert.assertions['categories:best-practices']
       expect(bpAssertion).toEqual(['error', { minScore: 0.9 }])
     })
 
     it('should have SEO assertion with minScore 0.9', () => {
-      const content = readFileSync(lighthousePath, 'utf-8')
-      const config = JSON.parse(content)
+      const config = lighthouseConfig as {
+        ci: { assert: { assertions: Record<string, unknown> } }
+      }
       const seoAssertion = config.ci.assert.assertions['categories:seo']
       expect(seoAssertion).toEqual(['error', { minScore: 0.9 }])
     })
 
     it('should upload to temporary-public-storage', () => {
-      const content = readFileSync(lighthousePath, 'utf-8')
-      const config = JSON.parse(content)
+      const config = lighthouseConfig as { ci: { upload: { target: string } } }
       expect(config.ci.upload.target).toBe('temporary-public-storage')
     })
   })

@@ -31,8 +31,8 @@ _This file contains critical rules and patterns that AI agents must follow when 
 - Nuxt: 4.3 (target version, currently 4.2.2)
 - Vue: 3.5.27
 - Vue Router: 4.6.4
-- Node.js: >=18.0.0
-- Package Manager: Bun (latest stable)
+- Node.js: >=24.0.0
+- Package Manager: Bun 1.3.8
 
 **UI & Styling:**
 
