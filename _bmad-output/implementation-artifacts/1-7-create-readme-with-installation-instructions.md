@@ -1,6 +1,6 @@
 # Story 1.7: Create README with Installation Instructions
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -303,8 +303,8 @@ Claude Opus 4.6
 ### Completion Notes List
 
 - Created MIT LICENSE file at project root with copyright holder "Mathieu" and year 2026
-- Completely replaced the default Nuxt starter README (78 lines) with a comprehensive professional README (117 lines)
-- README includes: project title with 159-char description, 3 badges (CI/CD, Codecov, MIT License), Live Demo link, screenshot placeholder, Features section with emojis, Tech Stack table with exact versions from package.json, Getting Started with prerequisites/installation/env setup, Available Scripts table listing all 13 scripts from package.json, Contributing section (placeholder for future CONTRIBUTING.md), License section linking to LICENSE file, Contact section with GitHub profile link
+- Completely replaced the default Nuxt starter README (78 lines) with a comprehensive professional README (123 lines)
+- README includes: project title with 156-char description, 4 badges (CI/CD, Codecov, MIT License, Lighthouse), Live Demo link, visible screenshot placeholder, Features section with emojis, Tech Stack table with exact versions from package.json, Getting Started with prerequisites/installation/env setup, Available Scripts table listing all 19 user-facing scripts from package.json, Contributing section with link to CONTRIBUTING.md (planned), License section linking to LICENSE file, Contact section with GitHub profile link
 - All badge URLs use correct `mathieumaf/what-is-my-ip` repository path
 - Node.js requirement correctly states >= 24.0.0 (not 18.x)
 - All commands use `bun` exclusively (no npm/yarn/pnpm references)
@@ -315,6 +315,7 @@ Claude Opus 4.6
 
 - 2026-02-09: Story created by create-story workflow - comprehensive developer guide with full context
 - 2026-02-09: Story implemented - Created LICENSE file and rewrote README.md with comprehensive project documentation
+- 2026-02-09: Code review (adversarial) - Fixed 6 issues: added missing Lighthouse badge (H1), corrected Live Demo URL from -sand suffix (H2), shortened description to 156 chars for AC compliance (H3), added visible CONTRIBUTING.md link (M1), made screenshot placeholder visible (M2), added 6 missing scripts to Available Scripts table (M3). Status → done.
 
 ### File List
 
