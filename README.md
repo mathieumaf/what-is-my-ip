@@ -1,14 +1,15 @@
 # What Is My IP
 
-A modern, privacy-friendly web application that instantly displays your public IP address with geolocation details, built with Nuxt 4 and server-side rendering.
+A modern, privacy-friendly application that instantly displays your public IP address with geolocation details, built with Nuxt 4 and server-side rendering.
 
 [![CI/CD Pipeline](https://github.com/mathieumaf/what-is-my-ip/actions/workflows/ci.yml/badge.svg)](https://github.com/mathieumaf/what-is-my-ip/actions/workflows/ci.yml)
 [![codecov](https://codecov.io/gh/mathieumaf/what-is-my-ip/branch/main/graph/badge.svg)](https://codecov.io/gh/mathieumaf/what-is-my-ip)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Lighthouse](https://img.shields.io/badge/Lighthouse-%E2%89%A590%20Performance-brightgreen)](https://github.com/mathieumaf/what-is-my-ip/actions/workflows/ci.yml)
 
-**[Live Demo](https://what-is-my-ip-sand.vercel.app)**
+**[Live Demo](https://what-is-my-ip.vercel.app)**
 
-<!-- TODO: Add screenshot after Epic 2 -->
+_Screenshot coming after Epic 2_
 
 ## Features
 
@@ -98,15 +99,19 @@ The application will be available at [http://localhost:3000](http://localhost:30
 | `bun run test:unit`          | Run unit tests                                    |
 | `bun run test:unit:watch`    | Run unit tests in watch mode                      |
 | `bun run test:unit:coverage` | Run unit tests with coverage report               |
+| `bun run test:unit:ui`       | Run unit tests with Vitest UI                     |
 | `bun run test:e2e`           | Run E2E tests (Playwright)                        |
+| `bun run test:e2e:headed`    | Run E2E tests in headed browser mode              |
+| `bun run test:e2e:debug`     | Run E2E tests in debug mode                       |
+| `bun run test:e2e:ui`        | Run E2E tests with Playwright UI                  |
+| `bun run test:e2e:report`    | Show Playwright test report                       |
 | `bun run typecheck`          | TypeScript type checking                          |
+| `bun run generate`           | Generate static site                              |
 | `bun run analyze:bundle`     | Analyze bundle sizes                              |
 
 ## Contributing
 
-Contributions are welcome! A detailed contributing guide is coming soon.
-
-<!-- TODO: Link to CONTRIBUTING.md once created -->
+Contributions are welcome! A detailed contributing guide is coming soon — see [CONTRIBUTING.md](CONTRIBUTING.md) (planned).
 
 ## License
 

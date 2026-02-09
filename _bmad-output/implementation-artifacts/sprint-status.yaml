@@ -41,14 +41,14 @@ story_location: _bmad-output/implementation-artifacts
 
 development_status:
   # Epic 1: Project Initialization & Quality Foundation
-  epic-1: in-progress
+  epic-1: done
   1-1-initialize-nuxt-4-project-with-nuxtui: done
   1-2-configure-typescript-strict-mode-and-code-quality-tools: done
   1-3-set-up-unit-testing-with-vitest: done
   1-4-set-up-e2e-testing-with-playwright: done
   1-5-configure-github-actions-ci-cd-pipeline: done
   1-6-set-up-vercel-deployment-with-environment-config: done
-  1-7-create-readme-with-installation-instructions: review
+  1-7-create-readme-with-installation-instructions: done
   epic-1-retrospective: optional
 
   # Epic 2: Core IP Detection & Responsive UI
