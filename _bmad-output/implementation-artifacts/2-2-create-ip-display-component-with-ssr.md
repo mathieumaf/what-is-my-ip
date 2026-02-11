@@ -1,6 +1,6 @@
 # Story 2.2: Create IP Display Component with SSR
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -28,48 +28,48 @@ so that I get instant value without waiting for client-side JavaScript.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `app/composables/useIpDetection.ts` composable (AC: 2, 3, 4, 5)
-  - [ ] Create composable following `useFeatureName` pattern
-  - [ ] Use `useFetch('/api/ip', { server: false })` to fetch visitor IP (NOT server IP)
-  - [ ] Expose `ipAddress` (readonly ref), `loading` (readonly ref), `error` (readonly ref)
-  - [ ] Expose `refresh()` method for manual re-fetch
-  - [ ] Implement three-layer error handling: catch errors → set error ref → let component display
-  - [ ] Use `try/finally` pattern for loading state cleanup
-  - [ ] TypeScript strict: explicit types, no `any`, explicit return type
+- [x] Task 1: Create `app/composables/useIpDetection.ts` composable (AC: 2, 3, 4, 5)
+  - [x] Create composable following `useFeatureName` pattern
+  - [x] Use `useFetch('/api/ip', { server: false })` to fetch visitor IP (NOT server IP)
+  - [x] Expose `ipAddress` (readonly ref), `loading` (readonly ref), `error` (readonly ref)
+  - [x] Expose `refresh()` method for manual re-fetch
+  - [x] Implement three-layer error handling: catch errors → set error ref → let component display
+  - [x] Use `try/finally` pattern for loading state cleanup
+  - [x] TypeScript strict: explicit types, no `any`, explicit return type
 
-- [ ] Task 2: Create `app/components/IpDisplay.vue` component (AC: 1, 7, 8, 9, 10)
-  - [ ] Use `<script setup lang="ts">` (Composition API only)
-  - [ ] Consume `useIpDetection()` composable
-  - [ ] Wrap in NuxtUI `UCard` component (no raw Tailwind card markup)
-  - [ ] Display IP with prominent typography: `text-4xl` mobile → `text-6xl` desktop (via responsive Tailwind classes)
-  - [ ] Use monospace font for IP address (`font-mono`)
-  - [ ] Show `USkeleton` when loading (matches final IP dimensions)
-  - [ ] Show `UAlert` with color="red", variant="soft", "Try Again" button when error
-  - [ ] Semantic HTML: wrap in `<section>` with appropriate ARIA attributes
-  - [ ] NuxtUI handles dark mode automatically (no manual `dark:` classes)
+- [x] Task 2: Create `app/components/IpDisplay.vue` component (AC: 1, 7, 8, 9, 10)
+  - [x] Use `<script setup lang="ts">` (Composition API only)
+  - [x] Consume `useIpDetection()` composable
+  - [x] Wrap in NuxtUI `UCard` component (no raw Tailwind card markup)
+  - [x] Display IP with prominent typography: `text-4xl` mobile → `text-6xl` desktop (via responsive Tailwind classes)
+  - [x] Use monospace font for IP address (`font-mono`)
+  - [x] Show `USkeleton` when loading (matches final IP dimensions)
+  - [x] Show `UAlert` with color="error", variant="soft", "Try Again" button when error
+  - [x] Semantic HTML: wrap in `<section>` with appropriate ARIA attributes
+  - [x] NuxtUI handles dark mode automatically (no manual `dark:` classes)
 
-- [ ] Task 3: Update `app/pages/index.vue` (AC: 6, 10)
-  - [ ] Replace placeholder content with IpDisplay component
-  - [ ] Use `<main>` semantic wrapper
-  - [ ] Maintain clean page structure (component does the heavy lifting)
+- [x] Task 3: Update `app/pages/index.vue` (AC: 6, 10)
+  - [x] Replace placeholder content with IpDisplay component
+  - [x] Use `<main>` semantic wrapper
+  - [x] Maintain clean page structure (component does the heavy lifting)
 
-- [ ] Task 4: Write unit tests for `useIpDetection` composable (AC: 11)
-  - [ ] Create `tests/unit/composables/useIpDetection.test.ts`
-  - [ ] Test: initial state (empty ipAddress, loading true, error null)
-  - [ ] Test: successful IP fetch → ipAddress populated, loading false, error null
-  - [ ] Test: failed fetch → error set, loading false, ipAddress empty
-  - [ ] Test: refresh triggers new fetch
-  - [ ] Test: loading state properly managed with try/finally
-  - [ ] Mock `useFetch` using Nuxt test utilities
-  - [ ] Follow test naming: "should [action] [expected result] [context]"
+- [x] Task 4: Write unit tests for `useIpDetection` composable (AC: 11)
+  - [x] Create `tests/unit/composables/useIpDetection.test.ts`
+  - [x] Test: initial state (empty ipAddress, loading true, error null)
+  - [x] Test: successful IP fetch → ipAddress populated, loading false, error null
+  - [x] Test: failed fetch → error set, loading false, ipAddress empty
+  - [x] Test: refresh triggers new fetch
+  - [x] Test: loading state properly managed with try/finally
+  - [x] Mock `useFetch` using Nuxt test utilities
+  - [x] Follow test naming: "should [action] [expected result] [context]"
 
-- [ ] Task 5: Write E2E tests for IP display (AC: 12)
-  - [ ] Create `tests/e2e/ip-display.spec.ts`
-  - [ ] Test: page loads and displays IP address (wait for client-side fetch)
-  - [ ] Test: IP format matches IPv4 or IPv6 pattern
-  - [ ] Test: loading skeleton is shown initially (before JS hydration)
-  - [ ] Test: error state shows retry button when API fails
-  - [ ] Use `data-testid` attributes for stable selectors
+- [x] Task 5: Write E2E tests for IP display (AC: 12)
+  - [x] Create `tests/e2e/ip-display.spec.ts`
+  - [x] Test: page loads and displays IP address (wait for client-side fetch)
+  - [x] Test: IP format matches IPv4 or IPv6 pattern
+  - [x] Test: loading skeleton is shown initially (before JS hydration)
+  - [x] Test: error state shows retry button when API fails
+  - [x] Use `data-testid` attributes for stable selectors
 
 ## Dev Notes
 
@@ -380,10 +380,38 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.6
 
 ### Debug Log References
 
+- TypeScript error: NuxtUI v4 `UAlert` actions use `onClick` not `click` — fixed
+- TypeScript error: `useFetch` error type is `FetchError<any> | undefined` not `Error | null` — adjusted interface
+- ESLint `no-undef` error on auto-imported composable in Vue files — disabled `no-undef` for `.vue` files (TypeScript handles this)
+- E2E initial cold start: dev server needs warm-up before first browser tests run reliably
+
 ### Completion Notes List
 
+- Created `useIpDetection` composable with `useFetch('/api/ip', { server: false })` for client-side IP fetching
+- Composable exposes readonly `ipAddress`, `loading`, `error` refs and `refresh()` method
+- Created `IpDisplay.vue` component using NuxtUI `UCard`, `USkeleton`, `UAlert` — no manual dark: classes
+- Updated `index.vue` with `<main>` semantic wrapper and `IpDisplay` component
+- 12 unit tests covering all composable states (pending, success, error, idle, refresh, config)
+- 5 E2E tests across 3 browsers (Chromium, Firefox, WebKit) — 15 total test runs pass
+- All 96 unit tests pass (no regressions), all E2E tests pass
+- TypeScript typecheck, ESLint, and Prettier all pass
+
 ### File List
+
+**Created:**
+- `app/composables/useIpDetection.ts` — IP detection composable with useFetch client-side
+- `app/components/IpDisplay.vue` — IP display component with loading/error/success states
+- `tests/unit/composables/useIpDetection.test.ts` — 12 unit tests for composable
+- `tests/e2e/ip-display.spec.ts` — 5 E2E tests for IP display
+
+**Modified:**
+- `app/pages/index.vue` — Replaced placeholder with IpDisplay component in `<main>` wrapper
+- `eslint.config.js` — Disabled `no-undef` for Vue files (Nuxt auto-imports + TypeScript)
+
+## Change Log
+
+- 2026-02-11: Implemented IP Display Component with SSR (Story 2.2) — composable, component, unit tests (12), E2E tests (5×3 browsers)

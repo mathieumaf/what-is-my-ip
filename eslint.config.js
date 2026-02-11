@@ -30,6 +30,9 @@ export default tseslint.config(
       },
     },
     rules: {
+      // Disable no-undef for Vue files: TypeScript handles this,
+      // and Nuxt auto-imports (composables, components) are not visible to ESLint
+      'no-undef': 'off',
       // CRITICAL: No explicit any types allowed
       '@typescript-eslint/no-explicit-any': 'error',
       // Prevent unused variables
