@@ -87,14 +87,11 @@ describe('IpDisplay', () => {
 
       // Find and click the Try Again button rendered by UAlert
       const tryAgainButton = wrapper.find('[data-testid="ip-error"] button')
-      if (tryAgainButton.exists()) {
-        await tryAgainButton.trigger('click')
-        expect(mockRefresh).toHaveBeenCalled()
-      } else {
-        // UAlert may render actions differently — verify the actions prop is wired
-        const alert = wrapper.find('[data-testid="ip-error"]')
-        expect(alert.exists()).toBe(true)
-      }
+      expect(tryAgainButton.exists(), 'Try Again button should exist inside ip-error alert').toBe(
+        true
+      )
+      await tryAgainButton.trigger('click')
+      expect(mockRefresh).toHaveBeenCalled()
     })
   })
 
