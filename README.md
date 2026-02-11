@@ -7,7 +7,7 @@ A modern, privacy-friendly application that instantly displays your public IP ad
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Lighthouse](https://img.shields.io/badge/Lighthouse-%E2%89%A590%20Performance-brightgreen)](https://github.com/mathieumaf/what-is-my-ip/actions/workflows/ci.yml)
 
-**[Live Demo](https://what-is-my-ip-sand.vercel.app)**
+**[Live Demo](https://what-is-my-ip.net/)**
 
 _Screenshot coming after Epic 2_
 
