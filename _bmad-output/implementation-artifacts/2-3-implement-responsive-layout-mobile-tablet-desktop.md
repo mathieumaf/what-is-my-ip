@@ -1,6 +1,6 @@
 # Story 2.3: Implement Responsive Layout (Mobile, Tablet, Desktop)
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -29,35 +29,35 @@ so that I have a great experience whether on mobile, tablet, or desktop.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Update `app/layouts/default.vue` with `UContainer` (AC: 2, 3, 4, 5)
-  - [ ] Wrap `<slot />` in `UContainer` for consistent padding and max-width
-  - [ ] Configure responsive padding: `px-4` mobile → `sm:px-6` tablet → `lg:px-8` desktop
-  - [ ] UContainer provides max-width and `mx-auto` centering automatically
-  - [ ] Ensure `min-h-screen` for full viewport height
+- [x] Task 1: Update `app/layouts/default.vue` with `UContainer` (AC: 2, 3, 4, 5)
+  - [x] Wrap `<slot />` in `UContainer` for consistent padding and max-width
+  - [x] Configure responsive padding: `px-4` mobile → `sm:px-6` tablet → `lg:px-8` desktop
+  - [x] UContainer provides max-width and `mx-auto` centering automatically
+  - [x] Ensure `min-h-screen` for full viewport height
 
-- [ ] Task 2: Update `app/pages/index.vue` with responsive layout structure (AC: 1, 7, 8, 11)
-  - [ ] Maintain `<main>` semantic wrapper with flexbox centering
-  - [ ] Add responsive spacing: `space-y-4 sm:space-y-6 lg:space-y-8`
-  - [ ] Add responsive vertical padding: `py-8 sm:py-12 lg:py-16`
-  - [ ] Ensure no horizontal overflow with `overflow-x-hidden` if needed
-  - [ ] Ensure smooth layout transitions (no jarring shifts between breakpoints)
+- [x] Task 2: Update `app/pages/index.vue` with responsive layout structure (AC: 1, 7, 8, 11)
+  - [x] Maintain `<main>` semantic wrapper with flexbox centering
+  - [x] Add responsive spacing: `space-y-4 sm:space-y-6 lg:space-y-8`
+  - [x] Add responsive vertical padding: `py-8 sm:py-12 lg:py-16`
+  - [x] Ensure no horizontal overflow with `overflow-x-hidden` if needed
+  - [x] Ensure smooth layout transitions (no jarring shifts between breakpoints)
 
-- [ ] Task 3: Update `app/components/IpDisplay.vue` responsive typography (AC: 6, 9, 10, 11)
-  - [ ] Change IP typography to: `text-3xl sm:text-5xl lg:text-6xl` (was `text-4xl md:text-5xl lg:text-6xl`)
-  - [ ] Ensure skeleton dimensions scale with typography at each breakpoint
-  - [ ] Ensure UCard is full-width on mobile, properly sized on tablet/desktop
-  - [ ] Verify "Try Again" button meets touch target requirements (48px mobile, 44px desktop)
-  - [ ] Maintain `font-mono font-bold text-center` across all breakpoints
+- [x] Task 3: Update `app/components/IpDisplay.vue` responsive typography (AC: 6, 9, 10, 11)
+  - [x] Change IP typography to: `text-3xl sm:text-5xl lg:text-6xl` (was `text-4xl md:text-5xl lg:text-6xl`)
+  - [x] Ensure skeleton dimensions scale with typography at each breakpoint
+  - [x] Ensure UCard is full-width on mobile, properly sized on tablet/desktop
+  - [x] Verify "Try Again" button meets touch target requirements (48px mobile, 44px desktop)
+  - [x] Maintain `font-mono font-bold text-center` across all breakpoints
 
-- [ ] Task 4: Write E2E tests for responsive layout (AC: 12, 13, 14)
-  - [ ] Create `tests/e2e/responsive-layout.spec.ts`
-  - [ ] Test at 375px viewport: single-column layout, full-width card, readable text
-  - [ ] Test at 768px viewport: centered layout, proper padding, scaled typography
-  - [ ] Test at 1280px viewport: centered layout, max-width respected, large typography
-  - [ ] Test no horizontal scrollbar at each viewport size
-  - [ ] Test content readability (IP address visible at each breakpoint)
-  - [ ] Test CLS < 0.1 (no layout shift on load)
-  - [ ] Use `data-testid` attributes for stable selectors
+- [x] Task 4: Write E2E tests for responsive layout (AC: 12, 13, 14)
+  - [x] Create `tests/e2e/responsive-layout.spec.ts`
+  - [x] Test at 375px viewport: single-column layout, full-width card, readable text
+  - [x] Test at 768px viewport: centered layout, proper padding, scaled typography
+  - [x] Test at 1280px viewport: centered layout, max-width respected, large typography
+  - [x] Test no horizontal scrollbar at each viewport size
+  - [x] Test content readability (IP address visible at each breakpoint)
+  - [x] Test CLS < 0.1 (no layout shift on load)
+  - [x] Use `data-testid` attributes for stable selectors
 
 ## Dev Notes
 
@@ -338,10 +338,31 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.6
 
 ### Debug Log References
 
+- Discovered that NuxtUI v4 requires explicit CSS import (`@import "tailwindcss"; @import "@nuxt/ui";`) in a CSS file referenced by `nuxt.config.ts`. Without this, Tailwind CSS utility classes are never generated (entry CSS = 0 bytes). This was a pre-existing project setup issue since Story 1.1.
+- NuxtUI v4 UCard renders with `data-slot="root"` attribute (not `data-slot="card"`).
+- Skeleton dimensions updated from `md:` breakpoint to `sm:` to align with AC breakpoints.
+
 ### Completion Notes List
 
+- **Task 1**: Wrapped layout slot in `UContainer` with `min-h-screen`. UContainer provides responsive padding (`px-4 sm:px-6 lg:px-8`), max-width (`--ui-container`), and `mx-auto` centering automatically.
+- **Task 2**: Added responsive spacing wrapper `div` with `space-y-4 sm:space-y-6 lg:space-y-8` and vertical padding `py-8 sm:py-12 lg:py-16`. Maintained semantic `<main>` with flexbox centering. No horizontal overflow at any breakpoint.
+- **Task 3**: Updated IP typography from `text-4xl md:text-5xl lg:text-6xl` to `text-3xl sm:text-5xl lg:text-6xl` per AC. Updated skeleton dimensions to match new scale (`h-10 w-48 sm:h-14 sm:w-72 lg:h-20 lg:w-96`). Added `size: 'xl'` to "Try Again" button for 48px touch target. Preserved `font-mono font-bold text-center`.
+- **Task 4**: Created 11 E2E tests across mobile (375px), tablet (768px), and desktop (1280px) viewports. Tests validate: no horizontal scroll, full-width card on mobile, centered layout, typography scale, CLS < 0.1, and content readability.
+- **Critical Fix**: Added missing Tailwind CSS entry point (`app/assets/css/main.css` with `@import "tailwindcss"; @import "@nuxt/ui";`) and `css: ['~/assets/css/main.css']` in `nuxt.config.ts`. This was required by NuxtUI v4 installation docs but missing from the project since initial setup. Without this, no Tailwind utility CSS was ever generated (entry CSS was 0 bytes in production build).
+
+### Change Log
+
+- 2026-02-11: Implemented responsive layout (Story 2.3) - all 4 tasks complete, 11 new E2E tests, critical Tailwind CSS fix applied
+
 ### File List
+
+- `app/assets/css/main.css` (NEW) - Tailwind CSS entry point with NuxtUI import
+- `app/layouts/default.vue` (MODIFIED) - Added UContainer wrapper with min-h-screen
+- `app/pages/index.vue` (MODIFIED) - Added responsive spacing and vertical padding
+- `app/components/IpDisplay.vue` (MODIFIED) - Updated typography scale, skeleton dimensions, button touch target
+- `nuxt.config.ts` (MODIFIED) - Added `css: ['~/assets/css/main.css']` for Tailwind CSS loading
+- `tests/e2e/responsive-layout.spec.ts` (NEW) - 11 E2E tests for responsive layout validation

@@ -55,7 +55,7 @@ development_status:
   epic-2: in-progress
   2-1-create-server-api-endpoint-for-ip-detection: done
   2-2-create-ip-display-component-with-ssr: done
-  2-3-implement-responsive-layout-mobile-tablet-desktop: ready-for-dev
+  2-3-implement-responsive-layout-mobile-tablet-desktop: review
   2-4-implement-dark-mode-with-auto-os-detection: backlog
   2-5-add-manual-dark-light-mode-toggle: backlog
   2-6-implement-basic-accessibility-semantic-html-aria-keyboard: backlog

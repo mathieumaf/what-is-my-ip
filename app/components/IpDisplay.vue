@@ -7,7 +7,7 @@ const { ipAddress, loading, error, refresh } = useIpDetection()
     <UCard>
       <USkeleton
         v-if="loading"
-        class="h-12 w-48 mx-auto md:h-16 md:w-72 lg:h-20 lg:w-96"
+        class="h-10 w-48 mx-auto sm:h-14 sm:w-72 lg:h-20 lg:w-96"
         data-testid="ip-skeleton"
       />
       <UAlert
@@ -17,12 +17,12 @@ const { ipAddress, loading, error, refresh } = useIpDetection()
         icon="i-heroicons-exclamation-triangle"
         title="Unable to detect IP"
         description="We couldn't determine your IP address."
-        :actions="[{ label: 'Try Again', onClick: () => refresh() }]"
+        :actions="[{ label: 'Try Again', onClick: () => refresh(), size: 'xl' }]"
         data-testid="ip-error"
       />
       <p
         v-else
-        class="text-4xl md:text-5xl lg:text-6xl font-mono font-bold text-center"
+        class="text-3xl sm:text-5xl lg:text-6xl font-mono font-bold text-center"
         data-testid="ip-address"
       >
         {{ ipAddress }}
