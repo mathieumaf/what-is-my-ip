@@ -1,7 +1,5 @@
 <template>
-  <div>
-    <h1>What Is My IP</h1>
-    <p>Project initialized successfully!</p>
-    <UButton>Click Me</UButton>
-  </div>
+  <main class="flex min-h-screen items-center justify-center">
+    <IpDisplay />
+  </main>
 </template>
