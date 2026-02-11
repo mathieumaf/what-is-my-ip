@@ -52,8 +52,8 @@ development_status:
   epic-1-retrospective: optional
 
   # Epic 2: Core IP Detection & Responsive UI
-  epic-2: backlog
-  2-1-create-server-api-endpoint-for-ip-detection: backlog
+  epic-2: in-progress
+  2-1-create-server-api-endpoint-for-ip-detection: ready-for-dev
   2-2-create-ip-display-component-with-ssr: backlog
   2-3-implement-responsive-layout-mobile-tablet-desktop: backlog
   2-4-implement-dark-mode-with-auto-os-detection: backlog
