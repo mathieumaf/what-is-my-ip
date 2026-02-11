@@ -3,7 +3,7 @@ const { ipAddress, loading, error, refresh } = useIpDetection()
 </script>
 
 <template>
-  <section aria-label="IP address display" data-testid="ip-display">
+  <section aria-label="IP address display" :aria-busy="loading" data-testid="ip-display">
     <UCard>
       <USkeleton
         v-if="loading"

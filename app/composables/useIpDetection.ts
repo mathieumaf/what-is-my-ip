@@ -20,7 +20,9 @@ export const useIpDetection = (): UseIpDetectionReturn => {
   })
 
   const ipAddress = computed(() => data.value?.ip ?? '')
-  const loading = computed(() => status.value === 'pending')
+  const loading = computed(
+    () => status.value === 'pending' || (status.value === 'idle' && !data.value)
+  )
   const error = computed(() => fetchError.value)
 
   return {

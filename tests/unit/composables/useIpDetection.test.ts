@@ -103,7 +103,7 @@ describe('useIpDetection', () => {
     it('should return null error after successful fetch', async () => {
       useFetchMock.mockReturnValue({
         data: ref({ ip: '203.0.113.42' }),
-        status: ref(null),
+        status: ref('success'),
         error: ref(null),
         refresh: mockRefresh,
       })
@@ -196,9 +196,23 @@ describe('useIpDetection', () => {
   })
 
   describe('idle state (SSR)', () => {
-    it('should return loading false when status is idle', async () => {
+    it('should return loading true when status is idle and no data (SSR skeleton)', async () => {
       useFetchMock.mockReturnValue({
         data: ref(null),
+        status: ref('idle'),
+        error: ref(null),
+        refresh: mockRefresh,
+      })
+
+      const { useIpDetection } = await import('~/composables/useIpDetection')
+      const { loading } = useIpDetection()
+
+      expect(loading.value).toBe(true)
+    })
+
+    it('should return loading false when status is idle but data exists', async () => {
+      useFetchMock.mockReturnValue({
+        data: ref({ ip: '203.0.113.42' }),
         status: ref('idle'),
         error: ref(null),
         refresh: mockRefresh,

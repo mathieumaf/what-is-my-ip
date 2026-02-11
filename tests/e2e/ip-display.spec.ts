@@ -53,6 +53,14 @@ test.describe('IP Display Component', () => {
     // Verify "Try Again" button is present
     const retryButton = page.getByRole('button', { name: 'Try Again' })
     await expect(retryButton).toBeVisible()
+
+    // Remove the error route to allow recovery
+    await page.unroute('**/api/ip')
+
+    // Click "Try Again" and verify recovery
+    await retryButton.click()
+    const ipElement = page.getByTestId('ip-address')
+    await expect(ipElement).toBeVisible({ timeout: 10000 })
   })
 
   test('should use data-testid attributes for stable selectors', async ({ page }) => {
