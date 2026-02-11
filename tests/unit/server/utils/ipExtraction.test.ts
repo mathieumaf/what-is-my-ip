@@ -134,15 +134,7 @@ describe('extractClientIp', () => {
   })
 
   describe('missing IP handling', () => {
-    it('should return null when no IP can be detected', () => {
-      mockGetHeader.mockReturnValue(undefined)
-      mockGetRequestIP.mockReturnValue(undefined)
-
-      const result = extractClientIp(createMockEvent())
-      expect(result).toBeNull()
-    })
-
-    it('should return null when getRequestIP returns null', () => {
+    it('should return null when no IP can be detected from any source', () => {
       mockGetHeader.mockReturnValue(undefined)
       mockGetRequestIP.mockReturnValue(undefined)
 

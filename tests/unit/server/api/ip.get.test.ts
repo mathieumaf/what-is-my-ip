@@ -39,35 +39,14 @@ describe('GET /api/ip', () => {
   })
 
   describe('successful IP extraction', () => {
-    it('should return extracted IP from x-forwarded-for header', () => {
+    it('should return IP from extractClientIp as response body', () => {
       mockExtractClientIp.mockReturnValue('203.0.113.42')
 
       const result = handler(createMockEvent())
       expect(result).toEqual({ ip: '203.0.113.42' })
     })
 
-    it('should return extracted IP from x-real-ip header', () => {
-      mockExtractClientIp.mockReturnValue('198.51.100.1')
-
-      const result = handler(createMockEvent())
-      expect(result).toEqual({ ip: '198.51.100.1' })
-    })
-
-    it('should return extracted IP from cf-connecting-ip header', () => {
-      mockExtractClientIp.mockReturnValue('192.0.2.1')
-
-      const result = handler(createMockEvent())
-      expect(result).toEqual({ ip: '192.0.2.1' })
-    })
-
-    it('should return normalized IP (strips ::ffff: prefix)', () => {
-      mockExtractClientIp.mockReturnValue('203.0.113.42')
-
-      const result = handler(createMockEvent())
-      expect(result).toEqual({ ip: '203.0.113.42' })
-    })
-
-    it('should return { ip: string } format', () => {
+    it('should return response in { ip: string } format', () => {
       mockExtractClientIp.mockReturnValue('8.8.8.8')
 
       const result = handler(createMockEvent())
@@ -75,7 +54,7 @@ describe('GET /api/ip', () => {
       expect(typeof result.ip).toBe('string')
     })
 
-    it('should pass event to extractClientIp', () => {
+    it('should delegate IP extraction to extractClientIp with event', () => {
       mockExtractClientIp.mockReturnValue('8.8.8.8')
       const event = createMockEvent()
 

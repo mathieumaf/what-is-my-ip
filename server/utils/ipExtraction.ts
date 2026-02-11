@@ -1,5 +1,5 @@
 import type { H3Event } from 'h3'
-import { normalizeIP, isPrivateIP } from '~/utils/ipValidation'
+import { normalizeIP } from '~/utils/ipValidation'
 
 /**
  * Extracts the client IP address from the request event using a header priority chain.
@@ -35,5 +35,3 @@ export function extractClientIp(event: H3Event): string | null {
 
   return normalizeIP(ip)
 }
-
-export { isPrivateIP }

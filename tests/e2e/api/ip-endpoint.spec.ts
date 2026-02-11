@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test'
+import { isIP } from 'node:net'
 
 test.describe('GET /api/ip', () => {
   test('should return 200 with valid JSON', async ({ request }) => {
@@ -19,23 +20,21 @@ test.describe('GET /api/ip', () => {
     expect(body.ip.length).toBeGreaterThan(0)
   })
 
-  test('should return IP matching IPv4 or IPv6 pattern', async ({ request }) => {
+  test('should return IP matching IPv4 or IPv6 format', async ({ request }) => {
     const response = await request.get('/api/ip')
     const body = await response.json()
 
-    const ipv4Regex = /^(\d{1,3}\.){3}\d{1,3}$/
-    const ipv6Regex = /^([0-9a-fA-F]{0,4}:){2,7}[0-9a-fA-F]{0,4}$/
-
-    const isValidFormat = ipv4Regex.test(body.ip) || ipv6Regex.test(body.ip)
-    expect(isValidFormat).toBe(true)
+    // net.isIP() returns 4 for IPv4, 6 for IPv6, 0 for invalid
+    expect(isIP(body.ip)).toBeGreaterThan(0)
   })
 
-  test('should respond within 100ms', async ({ request }) => {
+  test('should respond within 500ms', async ({ request }) => {
     const start = Date.now()
     await request.get('/api/ip')
     const duration = Date.now() - start
 
-    expect(duration).toBeLessThan(100)
+    // NFR-P13: IP detection API endpoint must respond within 500ms
+    expect(duration).toBeLessThan(500)
   })
 
   test('should return Content-Type application/json', async ({ request }) => {

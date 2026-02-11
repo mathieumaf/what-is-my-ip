@@ -1,6 +1,6 @@
 import { extractClientIp } from '../utils/ipExtraction'
 
-export default defineEventHandler(event => {
+export default defineEventHandler((event): { ip: string } => {
   try {
     const ip = extractClientIp(event)
 

@@ -1,6 +1,6 @@
 # Story 2.1: Create Server API Endpoint for IP Detection
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -337,12 +337,12 @@ Claude Opus 4.6
 
 - ✅ Created `server/api/ip.get.ts` - IP detection endpoint using `defineEventHandler()` with try/catch error handling
 - ✅ Created `server/utils/ipExtraction.ts` - `extractClientIp(event)` utility with header priority chain (x-forwarded-for > x-real-ip > cf-connecting-ip > getRequestIP)
-- ✅ Reused `normalizeIP()` and `isPrivateIP()` from `app/utils/ipValidation.ts` (no duplication)
+- ✅ Reused `normalizeIP()` from `app/utils/ipValidation.ts` (no duplication)
 - ✅ Error handling: 400 for missing IP, 500 for internal errors, server-side logging with console.error
-- ✅ 23 new unit tests (9 endpoint + 14 extraction utility), all passing
+- ✅ 19 new unit tests (6 endpoint + 13 extraction utility), all passing
 - ✅ 100% code coverage on all new server files (statements, branches, functions, lines)
-- ✅ 5 new E2E tests validating endpoint response format, status, content-type, IP format, and response time
-- ✅ All 88 unit tests pass, all 9 E2E tests pass (no regressions)
+- ✅ 5 new E2E tests validating endpoint response format, status, content-type, IP format (via node:net isIP), and response time (500ms NFR-P13)
+- ✅ All 84 unit tests pass, all 9 E2E tests pass (no regressions)
 - ✅ Lint and typecheck pass cleanly
 
 ### Implementation Plan
@@ -358,8 +358,8 @@ Claude Opus 4.6
 **New files:**
 - `server/api/ip.get.ts` - IP detection API endpoint
 - `server/utils/ipExtraction.ts` - Server-side IP extraction utility
-- `tests/unit/server/api/ip.get.test.ts` - Endpoint unit tests (9 tests)
-- `tests/unit/server/utils/ipExtraction.test.ts` - IP extraction unit tests (14 tests)
+- `tests/unit/server/api/ip.get.test.ts` - Endpoint unit tests (6 tests)
+- `tests/unit/server/utils/ipExtraction.test.ts` - IP extraction unit tests (13 tests)
 - `tests/e2e/api/ip-endpoint.spec.ts` - E2E endpoint tests (5 tests)
 
 **Modified files:**
@@ -369,3 +369,4 @@ Claude Opus 4.6
 ## Change Log
 
 - 2026-02-11: Implemented Story 2.1 - Server API endpoint for IP detection with full test coverage
+- 2026-02-11: Code review fixes - Removed misleading/duplicate tests, removed dead isPrivateIP re-export, added explicit return type, replaced fragile IP regex with node:net isIP(), aligned response time threshold to NFR-P13 (500ms)
