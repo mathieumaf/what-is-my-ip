@@ -1,6 +1,6 @@
 # Story 2.1: Create Server API Endpoint for IP Detection
 
-Status: ready-for-dev
+Status: review
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -27,47 +27,47 @@ so that I can see my public IP instantly upon page load.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `server/api/ip.get.ts` endpoint (AC: 1, 2, 3, 4, 7, 8, 12)
-  - [ ] Create `server/api/ip.get.ts` using `defineEventHandler()`
-  - [ ] Extract visitor IP using `getRequestIP(event, { xForwardedFor: true })`
-  - [ ] Implement fallback header chain: `x-forwarded-for` (first IP) > `x-real-ip` > `cf-connecting-ip` > `getRequestIP(event)`
-  - [ ] Normalize IP using existing `normalizeIP()` from `app/utils/ipValidation.ts` (REUSE - DO NOT RECREATE)
-  - [ ] Return direct JSON response `{ ip: normalizedIp }` (no wrapper object)
-  - [ ] Ensure endpoint is accessible at `GET /api/ip`
+- [x] Task 1: Create `server/api/ip.get.ts` endpoint (AC: 1, 2, 3, 4, 7, 8, 12)
+  - [x] Create `server/api/ip.get.ts` using `defineEventHandler()`
+  - [x] Extract visitor IP using `getRequestIP(event, { xForwardedFor: true })`
+  - [x] Implement fallback header chain: `x-forwarded-for` (first IP) > `x-real-ip` > `cf-connecting-ip` > `getRequestIP(event)`
+  - [x] Normalize IP using existing `normalizeIP()` from `app/utils/ipValidation.ts` (REUSE - DO NOT RECREATE)
+  - [x] Return direct JSON response `{ ip: normalizedIp }` (no wrapper object)
+  - [x] Ensure endpoint is accessible at `GET /api/ip`
 
-- [ ] Task 2: Create server-side IP extraction utility (AC: 2, 5, 6)
-  - [ ] Create `server/utils/ipExtraction.ts` for server-specific IP logic
-  - [ ] Implement `extractClientIp(event)` function with header priority chain
-  - [ ] Handle `x-forwarded-for` with multiple IPs (take first, trim whitespace)
-  - [ ] Handle missing IP: return `null` (let endpoint decide error behavior)
-  - [ ] Import and use `normalizeIP()` and `isPrivateIP()` from shared utils
+- [x] Task 2: Create server-side IP extraction utility (AC: 2, 5, 6)
+  - [x] Create `server/utils/ipExtraction.ts` for server-specific IP logic
+  - [x] Implement `extractClientIp(event)` function with header priority chain
+  - [x] Handle `x-forwarded-for` with multiple IPs (take first, trim whitespace)
+  - [x] Handle missing IP: return `null` (let endpoint decide error behavior)
+  - [x] Import and use `normalizeIP()` and `isPrivateIP()` from shared utils
 
-- [ ] Task 3: Implement error handling (AC: 5, 6)
-  - [ ] If no IP detected, throw `createError({ statusCode: 400, message: 'Unable to detect IP address' })`
-  - [ ] If IP extraction throws, throw `createError({ statusCode: 500, message: 'Internal server error' })`
-  - [ ] Log errors server-side for debugging (console.error)
+- [x] Task 3: Implement error handling (AC: 5, 6)
+  - [x] If no IP detected, throw `createError({ statusCode: 400, message: 'Unable to detect IP address' })`
+  - [x] If IP extraction throws, throw `createError({ statusCode: 500, message: 'Internal server error' })`
+  - [x] Log errors server-side for debugging (console.error)
 
-- [ ] Task 4: Write unit tests (AC: 9, 10)
-  - [ ] Create `tests/unit/server/api/ip.get.test.ts`
-  - [ ] Test: extracts IP from `x-forwarded-for` header (first IP)
-  - [ ] Test: extracts IP from `x-real-ip` header
-  - [ ] Test: extracts IP from `cf-connecting-ip` header
-  - [ ] Test: handles multiple IPs in `x-forwarded-for` (takes first)
-  - [ ] Test: normalizes `::ffff:` prefixed IPs
-  - [ ] Test: returns `{ ip: "x.x.x.x" }` format
-  - [ ] Test: returns 400 error when no IP detected
-  - [ ] Test: returns 500 error on internal failure
-  - [ ] Create `tests/unit/server/utils/ipExtraction.test.ts`
-  - [ ] Test: header priority chain works correctly
-  - [ ] Test: private IP detection works with server context
+- [x] Task 4: Write unit tests (AC: 9, 10)
+  - [x] Create `tests/unit/server/api/ip.get.test.ts`
+  - [x] Test: extracts IP from `x-forwarded-for` header (first IP)
+  - [x] Test: extracts IP from `x-real-ip` header
+  - [x] Test: extracts IP from `cf-connecting-ip` header
+  - [x] Test: handles multiple IPs in `x-forwarded-for` (takes first)
+  - [x] Test: normalizes `::ffff:` prefixed IPs
+  - [x] Test: returns `{ ip: "x.x.x.x" }` format
+  - [x] Test: returns 400 error when no IP detected
+  - [x] Test: returns 500 error on internal failure
+  - [x] Create `tests/unit/server/utils/ipExtraction.test.ts`
+  - [x] Test: header priority chain works correctly
+  - [x] Test: private IP detection works with server context
 
-- [ ] Task 5: Write E2E tests (AC: 11, 12)
-  - [ ] Create `tests/e2e/api/ip-endpoint.spec.ts`
-  - [ ] Test: `GET /api/ip` returns 200 with valid JSON
-  - [ ] Test: response contains `ip` field with string value
-  - [ ] Test: IP format matches IPv4 or IPv6 pattern
-  - [ ] Test: response time is under 100ms
-  - [ ] Test: response Content-Type is application/json
+- [x] Task 5: Write E2E tests (AC: 11, 12)
+  - [x] Create `tests/e2e/api/ip-endpoint.spec.ts`
+  - [x] Test: `GET /api/ip` returns 200 with valid JSON
+  - [x] Test: response contains `ip` field with string value
+  - [x] Test: IP format matches IPv4 or IPv6 pattern
+  - [x] Test: response time is under 100ms
+  - [x] Test: response Content-Type is application/json
 
 ## Dev Notes
 
@@ -325,10 +325,47 @@ f8e257f docs: create comprehensive README with installation instructions
 
 ### Agent Model Used
 
-{{agent_model_name_version}}
+Claude Opus 4.6
 
 ### Debug Log References
 
+- Fixed test import paths: `~` alias resolves to `app/` directory, not project root. Server code imports in tests require relative paths (`../../../../server/...`).
+- Fixed `defineEventHandler` not defined in test environment: H3 auto-imports are not available in Vitest Nuxt environment. Used `vi.hoisted()` to define `defineEventHandler` and `createError` as globals before module load.
+- `createError` auto-import in server code is resolved by Nuxt transform, not accessible as a stubbed global in tests. Solution: mock `extractClientIp` dependency instead of H3 globals for endpoint tests.
+
 ### Completion Notes List
 
+- ✅ Created `server/api/ip.get.ts` - IP detection endpoint using `defineEventHandler()` with try/catch error handling
+- ✅ Created `server/utils/ipExtraction.ts` - `extractClientIp(event)` utility with header priority chain (x-forwarded-for > x-real-ip > cf-connecting-ip > getRequestIP)
+- ✅ Reused `normalizeIP()` and `isPrivateIP()` from `app/utils/ipValidation.ts` (no duplication)
+- ✅ Error handling: 400 for missing IP, 500 for internal errors, server-side logging with console.error
+- ✅ 23 new unit tests (9 endpoint + 14 extraction utility), all passing
+- ✅ 100% code coverage on all new server files (statements, branches, functions, lines)
+- ✅ 5 new E2E tests validating endpoint response format, status, content-type, IP format, and response time
+- ✅ All 88 unit tests pass, all 9 E2E tests pass (no regressions)
+- ✅ Lint and typecheck pass cleanly
+
+### Implementation Plan
+
+1. Created `server/api/ip.get.ts` with `defineEventHandler()`, delegating IP extraction to utility
+2. Created `server/utils/ipExtraction.ts` with `extractClientIp()` implementing header priority chain
+3. Added try/catch error handling in endpoint: re-throws H3 errors, catches unexpected errors as 500
+4. Unit tests mock H3 auto-imports via `vi.stubGlobal` and `vi.hoisted()` for module-load-time globals
+5. E2E tests validate real endpoint behavior via Playwright `request` API
+
 ### File List
+
+**New files:**
+- `server/api/ip.get.ts` - IP detection API endpoint
+- `server/utils/ipExtraction.ts` - Server-side IP extraction utility
+- `tests/unit/server/api/ip.get.test.ts` - Endpoint unit tests (9 tests)
+- `tests/unit/server/utils/ipExtraction.test.ts` - IP extraction unit tests (14 tests)
+- `tests/e2e/api/ip-endpoint.spec.ts` - E2E endpoint tests (5 tests)
+
+**Modified files:**
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` - Story status updated
+- `_bmad-output/implementation-artifacts/2-1-create-server-api-endpoint-for-ip-detection.md` - Story file updated
+
+## Change Log
+
+- 2026-02-11: Implemented Story 2.1 - Server API endpoint for IP detection with full test coverage
