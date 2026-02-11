@@ -184,7 +184,7 @@ throw createError({
 
 **Files to CREATE:**
 
-```
+```text
 server/
 ├── api/
 │   └── ip.get.ts              # NEW - IP detection endpoint
@@ -265,7 +265,7 @@ Co-Authored-By: Claude Opus 4.6 <noreply@anthropic.com>"
 ### Git Intelligence Summary
 
 **Recent Commits (last 5):**
-```
+```text
 cecdeec fix: update Live Demo URL to production domain
 a3821db fix: correct Live Demo URL to actual Vercel deployment
 dd4c23c fix: address code review findings for story 1-7 README
