@@ -50,6 +50,23 @@ test.describe('Responsive Layout', () => {
       expect(fontSize).toBeGreaterThanOrEqual(28)
       expect(fontSize).toBeLessThanOrEqual(34)
     })
+
+    test('should render Try Again button with minimum touch target size on mobile viewport', async ({
+      page,
+    }) => {
+      await page.route('**/api/ip', route => route.abort())
+      await page.goto('/')
+      const errorAlert = page.getByTestId('ip-error')
+      await expect(errorAlert).toBeVisible({ timeout: 10000 })
+
+      const button = errorAlert.getByRole('button', { name: 'Try Again' })
+      await expect(button).toBeVisible()
+
+      const box = await button.boundingBox()
+      expect(box).toBeTruthy()
+      // AC 10: Touch targets minimum 48px on mobile
+      expect(box!.height).toBeGreaterThanOrEqual(48)
+    })
   })
 
   test.describe('Tablet viewport (768px)', () => {
@@ -141,34 +158,39 @@ test.describe('Responsive Layout', () => {
   })
 
   test.describe('Cross-viewport validation', () => {
-    test('should have no layout shift on page load (CLS < 0.1)', async ({ page }) => {
-      await page.goto('/')
+    test('should have no layout shift on page load at any viewport (CLS < 0.1)', async ({
+      page,
+    }) => {
+      for (const [name, size] of Object.entries(viewports)) {
+        await page.setViewportSize(size)
+        await page.goto('/')
 
-      // Wait for IP to load (layout should be stable after)
-      await expect(page.getByTestId('ip-address')).toBeVisible({ timeout: 10000 })
+        // Wait for IP to load (layout should be stable after)
+        await expect(page.getByTestId('ip-address')).toBeVisible({ timeout: 10000 })
 
-      // Measure CLS using PerformanceObserver
-      const cls = await page.evaluate(() => {
-        return new Promise<number>(resolve => {
-          let clsValue = 0
-          const observer = new PerformanceObserver(list => {
-            for (const entry of list.getEntries()) {
-              if (!(entry as PerformanceEntry & { hadRecentInput: boolean }).hadRecentInput) {
-                clsValue += (entry as PerformanceEntry & { value: number }).value
+        // Measure CLS using PerformanceObserver
+        const cls = await page.evaluate(() => {
+          return new Promise<number>(resolve => {
+            let clsValue = 0
+            const observer = new PerformanceObserver(list => {
+              for (const entry of list.getEntries()) {
+                if (!(entry as PerformanceEntry & { hadRecentInput: boolean }).hadRecentInput) {
+                  clsValue += (entry as PerformanceEntry & { value: number }).value
+                }
               }
-            }
+            })
+            observer.observe({ type: 'layout-shift', buffered: true })
+
+            // Give time for any shifts to be recorded, then resolve
+            setTimeout(() => {
+              observer.disconnect()
+              resolve(clsValue)
+            }, 1000)
           })
-          observer.observe({ type: 'layout-shift', buffered: true })
-
-          // Give time for any shifts to be recorded, then resolve
-          setTimeout(() => {
-            observer.disconnect()
-            resolve(clsValue)
-          }, 1000)
         })
-      })
 
-      expect(cls).toBeLessThan(0.1)
+        expect(cls, `CLS should be < 0.1 at ${name} viewport`).toBeLessThan(0.1)
+      }
     })
 
     test('should display readable IP address at each viewport size', async ({ page }) => {

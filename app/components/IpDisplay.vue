@@ -17,7 +17,7 @@ const { ipAddress, loading, error, refresh } = useIpDetection()
         icon="i-heroicons-exclamation-triangle"
         title="Unable to detect IP"
         description="We couldn't determine your IP address."
-        :actions="[{ label: 'Try Again', onClick: () => refresh(), size: 'xl' }]"
+        :actions="[{ label: 'Try Again', onClick: () => refresh(), size: 'xl', class: 'min-h-12' }]"
         data-testid="ip-error"
       />
       <p

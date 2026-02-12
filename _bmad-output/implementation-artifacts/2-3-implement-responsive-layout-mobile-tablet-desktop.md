@@ -1,6 +1,6 @@
 # Story 2.3: Implement Responsive Layout (Mobile, Tablet, Desktop)
 
-Status: review
+Status: done
 
 <!-- Note: Validation is optional. Run validate-create-story for quality check before dev-story. -->
 
@@ -348,15 +348,16 @@ Claude Opus 4.6
 
 ### Completion Notes List
 
-- **Task 1**: Wrapped layout slot in `UContainer` with `min-h-screen`. UContainer provides responsive padding (`px-4 sm:px-6 lg:px-8`), max-width (`--ui-container`), and `mx-auto` centering automatically.
-- **Task 2**: Added responsive spacing wrapper `div` with `space-y-4 sm:space-y-6 lg:space-y-8` and vertical padding `py-8 sm:py-12 lg:py-16`. Maintained semantic `<main>` with flexbox centering. No horizontal overflow at any breakpoint.
+- **Task 1**: Wrapped layout slot in `UContainer` with `min-h-screen`. UContainer provides responsive padding (`px-4 sm:px-6 lg:px-8`), max-width, and `mx-auto` centering. Added responsive max-width constraints per AC: `sm:max-w-[640px] lg:max-w-[1280px]` (review fix H1).
+- **Task 2**: Added responsive spacing wrapper `div` with vertical padding `py-8 sm:py-12 lg:py-16`. Maintained semantic `<main>` with flexbox centering. No horizontal overflow at any breakpoint. Removed dead `space-y-*` classes (no effect with single child element — review fix M1).
 - **Task 3**: Updated IP typography from `text-4xl md:text-5xl lg:text-6xl` to `text-3xl sm:text-5xl lg:text-6xl` per AC. Updated skeleton dimensions to match new scale (`h-10 w-48 sm:h-14 sm:w-72 lg:h-20 lg:w-96`). Added `size: 'xl'` to "Try Again" button for 48px touch target. Preserved `font-mono font-bold text-center`.
-- **Task 4**: Created 11 E2E tests across mobile (375px), tablet (768px), and desktop (1280px) viewports. Tests validate: no horizontal scroll, full-width card on mobile, centered layout, typography scale, CLS < 0.1, and content readability.
+- **Task 4**: Created 13 E2E tests across mobile (375px), tablet (768px), and desktop (1280px) viewports. Tests validate: no horizontal scroll, full-width card on mobile, centered layout, typography scale, CLS < 0.1 at all viewports, touch target sizes, and content readability. Added CLS test at all viewports (review fix H2) and touch target verification test (review fix M2).
 - **Critical Fix**: Added missing Tailwind CSS entry point (`app/assets/css/main.css` with `@import "tailwindcss"; @import "@nuxt/ui";`) and `css: ['~/assets/css/main.css']` in `nuxt.config.ts`. This was required by NuxtUI v4 installation docs but missing from the project since initial setup. Without this, no Tailwind utility CSS was ever generated (entry CSS was 0 bytes in production build).
 
 ### Change Log
 
 - 2026-02-11: Implemented responsive layout (Story 2.3) - all 4 tasks complete, 11 new E2E tests, critical Tailwind CSS fix applied
+- 2026-02-12: Code review (adversarial) - 5 fixes applied: H1 (UContainer responsive max-width), H2 (CLS test at all viewports), M1 (removed dead space-y classes), M2 (added touch target test), M3 (story documentation updated). Note: `nuxt.config.ts` modification was justified critical fix but deviated from story spec "Files to NOT MODIFY".
 
 ### File List
 
@@ -365,4 +366,4 @@ Claude Opus 4.6
 - `app/pages/index.vue` (MODIFIED) - Added responsive spacing and vertical padding
 - `app/components/IpDisplay.vue` (MODIFIED) - Updated typography scale, skeleton dimensions, button touch target
 - `nuxt.config.ts` (MODIFIED) - Added `css: ['~/assets/css/main.css']` for Tailwind CSS loading
-- `tests/e2e/responsive-layout.spec.ts` (NEW) - 11 E2E tests for responsive layout validation
+- `tests/e2e/responsive-layout.spec.ts` (NEW) - 13 E2E tests for responsive layout validation (11 original + 2 review additions)
